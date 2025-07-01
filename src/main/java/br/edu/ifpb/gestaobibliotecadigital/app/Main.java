@@ -1,4 +1,4 @@
-package br.edu.ifpb.gestaobibliotecadigital;
+package br.edu.ifpb.gestaobibliotecadigital.app;
 
 public class Main {
 
