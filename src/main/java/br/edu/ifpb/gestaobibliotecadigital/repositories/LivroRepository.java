@@ -14,12 +14,16 @@ public class LivroRepository {
     private static final Serializador serializador = new Serializador();
     private static final String ARQUIVO = "livros.dat";
 
+    public LivroRepository() {
+        deserializarLivros();
+    }
+
     /**
      * Desserializa a lista de livros de um arquivo.
      *
      * @return A lista de livros desserializada.
      */
-    public ArrayList<Livro> deserializarLivros() {
+    public final ArrayList<Livro> deserializarLivros() {
         try {
             livros = (ArrayList<Livro>) serializador.ler(ARQUIVO);
 
