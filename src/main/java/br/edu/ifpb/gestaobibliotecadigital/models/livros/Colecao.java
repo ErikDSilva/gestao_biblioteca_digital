@@ -1,5 +1,7 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.livros;
 
-public class Colecao {
+import java.io.Serializable;
+
+public class Colecao extends Livro implements Serializable {
     
 }
