@@ -1,8 +1,9 @@
 package br.edu.ifpb.gestaobibliotecadigital.app;
 
-import br.edu.ifpb.gestaobibliotecadigital.emprestimos.Emprestimo;
-import br.edu.ifpb.gestaobibliotecadigital.emprestimos.estrategias.EmprestimoPadrao;
-import br.edu.ifpb.gestaobibliotecadigital.emprestimos.estrategias.EmprestimoPremium;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.EmprestimoPadrao;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.EmprestimoPremium;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
@@ -15,12 +16,16 @@ import java.util.logging.Logger;
 // ATENÇÃO: Este arquivo Main pertence a Equipe 3 (Jefferson e Marcos),
 // e não deve ser alterado por outras equipes
 // Este arquivo é temporário, só serve para realizar testes
-
 public class MainEquipe3 {
 
     public static void main(String[] args) {
         setup();
 
+        // testarEmprestimos();
+        testarReservas();
+    }
+
+    private static void testarEmprestimos() {
         Usuario usuario = new Usuario("José", "00000000000000000000000000");
         Livro livro = new Livro("O pequeno príncipe", "", 0, "", "", "", "");
 
@@ -63,7 +68,6 @@ public class MainEquipe3 {
         // DataProvider.setDateTime("2025-01-29T10:15:30");
         // emprestimo2.renovar();
         // System.out.println(emprestimo2);
-        
         // Renovou dia 28 (agora aparece "Devolver" ao invés de "Renovar"
         DataProvider.setDateTime("2025-01-28T10:15:30");
         emprestimo2.renovar();
@@ -71,9 +75,24 @@ public class MainEquipe3 {
 
         // Só pode renovar 5 vezes
         // emprestimo2.renovar();
-        
         DataProvider.resetClock();
         System.out.println(emprestimo2);
+    }
+
+    private static void testarReservas() {
+        Usuario usuario = new Usuario("José", "00000000000000000000000000");
+        Livro livro = new Livro("O pequeno príncipe", "", 0, "", "", "", "");
+
+        DataProvider.setDateTime("2025-01-01T10:15:30");
+        Reserva reserva = new Reserva(usuario, livro);
+        System.out.println(reserva);
+        DataProvider.setDateTime("2025-01-30T10:15:30");
+        System.out.println(reserva);
+        DataProvider.setDateTime("2025-01-31T10:15:30");
+        System.out.println(reserva);
+        reserva.cancelar();
+        DataProvider.resetClock();
+        System.out.println(reserva);
     }
 
     private static void setup() {

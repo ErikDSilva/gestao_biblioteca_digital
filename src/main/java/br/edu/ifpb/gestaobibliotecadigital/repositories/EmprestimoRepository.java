@@ -1,6 +1,6 @@
 package br.edu.ifpb.gestaobibliotecadigital.repositories;
 
-import br.edu.ifpb.gestaobibliotecadigital.emprestimos.Emprestimo;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Serializador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
