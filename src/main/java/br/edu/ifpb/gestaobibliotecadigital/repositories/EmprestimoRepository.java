@@ -27,6 +27,19 @@ public class EmprestimoRepository {
         salvar();
     }
 
+    public void atualizar(Emprestimo emprestimo) {
+        ArrayList<Emprestimo> emprestimos = listar();
+        
+        for (int i = 0; i < emprestimos.size(); i++) {
+            if (emprestimos.get(i).getId().equals(emprestimo.getId())) {
+                emprestimos.set(i, emprestimo);
+                break;
+            }
+        }
+        
+        salvar();
+    }
+
     public void excluir(Emprestimo emprestimo) {
         ArrayList<Emprestimo> emprestimos = listar();
         emprestimos.remove(emprestimo);
