@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Livro implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     private String titulo;
     private String autor;
     private int ano;
@@ -66,7 +65,6 @@ public class Livro implements Serializable {
 //    public String getResumoEstendido() {
 //        return resumoEstendido;
 //    }
-
     @Override
     public String toString() {
         return "Título: " + titulo
