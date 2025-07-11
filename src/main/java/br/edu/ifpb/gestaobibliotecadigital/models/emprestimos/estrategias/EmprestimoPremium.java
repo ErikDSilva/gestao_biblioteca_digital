@@ -1,25 +1,25 @@
-package br.edu.ifpb.gestaobibliotecadigital.emprestimos.estrategias;
+package br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias;
 
-public class EmprestimoPadrao implements EstrategiaEmprestimo {
+public class EmprestimoPremium implements EstrategiaEmprestimo {
 
     @Override
     public String getNome() {
-        return "Empréstimo Padrão";
+        return "Empréstimo Premium";
     }
 
     @Override
     public int calcularMaximoDias() {
-        return 7;
+        return 14;
     }
 
     @Override
     public double calcularMulta(int diasAtraso) {
-        return diasAtraso * 1.00;
+        return diasAtraso * 0.50;
     }
 
     @Override
     public int calcularMaximoRenovacoes() {
-        return 2;
+        return 5;
     }
 
 }

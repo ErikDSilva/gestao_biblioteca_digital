@@ -1,4 +1,4 @@
-package br.edu.ifpb.gestaobibliotecadigital.emprestimos.estrategias;
+package br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias;
 
 import java.io.Serializable;
 

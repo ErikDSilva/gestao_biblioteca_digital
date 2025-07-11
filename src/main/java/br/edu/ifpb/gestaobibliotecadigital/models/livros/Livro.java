@@ -1,8 +1,13 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.livros;
 
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estados.EstadoLivro;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estados.LivroDisponivel;
 import java.io.Serializable;
 
 public class Livro implements Serializable {
+
+    private EstadoLivro estado = new LivroDisponivel(this);
+
 
     private String titulo;
     private String autor;
@@ -56,6 +61,26 @@ public class Livro implements Serializable {
 
     public String getCategoria() {
         return categoria;
+    }
+
+    public void setEstado(EstadoLivro estado) {
+        this.estado = estado;
+    }
+
+    public void definirDisponivel() {
+        this.estado.devolver();
+    }
+
+    public void definirEmprestado() {
+        this.estado.emprestar();
+    }
+
+    public void definirReservado() {
+        this.estado.reservar();
+    }
+
+    public void definirAtrasado() {
+        this.estado.atrasar();
     }
 
 //    public String getCapaAlternativa() {
