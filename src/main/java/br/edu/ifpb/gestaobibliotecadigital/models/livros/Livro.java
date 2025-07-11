@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Livro implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private String titulo;
     private String autor;
     private int ano;
@@ -11,14 +12,14 @@ public class Livro implements Serializable {
     private String isbn;
     private String sinopse;
     private String categoria;
-    private String capaAlternativa;
-    private String resumoEstendido;
+//    private String capaAlternativa;
+//    private String resumoEstendido;
 
     public Livro() {
     }
 
     public Livro(String titulo, String autor, int ano, String editora, String isbn,
-            String sinopse, String categoria, String capaAlternativa, String resumoEstendido) {
+            String sinopse, String categoria) {
         this.titulo = titulo;
         this.autor = autor;
         this.ano = ano;
@@ -26,8 +27,8 @@ public class Livro implements Serializable {
         this.isbn = isbn;
         this.sinopse = sinopse;
         this.categoria = categoria;
-        this.capaAlternativa = capaAlternativa;
-        this.resumoEstendido = resumoEstendido;
+//        this.capaAlternativa = capaAlternativa;
+//        this.resumoEstendido = resumoEstendido;
     }
 
     public String getTitulo() {
@@ -58,12 +59,22 @@ public class Livro implements Serializable {
         return categoria;
     }
 
-    public String getCapaAlternativa() {
-        return capaAlternativa;
-    }
+//    public String getCapaAlternativa() {
+//        return capaAlternativa;
+//    }
+//
+//    public String getResumoEstendido() {
+//        return resumoEstendido;
+//    }
 
-    public String getResumoEstendido() {
-        return resumoEstendido;
+    @Override
+    public String toString() {
+        return "Título: " + titulo
+                + "\nAutor: " + autor
+                + "\nAno: " + ano
+                + "\nEditora: " + editora
+                + "\nISBN: " + isbn
+                + "\nCategoria: " + categoria;
     }
 
 }

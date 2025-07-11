@@ -7,31 +7,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class LivroRepository {
+/**
+ * Repository: Abstração da persistência de dados dos livros.
+ */
+public class LivroRepository implements ILivroRepository {
 
-    public static ArrayList<Livro> livros = new ArrayList<>();
+    public ArrayList<Livro> livros = new ArrayList<>();
 
-    private static final Serializador serializador = new Serializador();
     private static final String ARQUIVO = "livros.dat";
-
-    public LivroRepository() {
-        deserializarLivros();
-    }
 
     /**
      * Desserializa a lista de livros de um arquivo.
      *
      * @return A lista de livros desserializada.
      */
+    @Override
     public final ArrayList<Livro> deserializarLivros() {
         try {
-            livros = (ArrayList<Livro>) serializador.ler(ARQUIVO);
-
+            livros = (ArrayList<Livro>) Serializador.ler(ARQUIVO);
             return livros;
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo.");
+            JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo: " + e.getMessage());
         } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Erro, classe não encontrada.");
+            JOptionPane.showMessageDialog(null, "Erro, classe não encontrada: " + e.getMessage());
         }
         return null;
     }
@@ -39,14 +37,14 @@ public class LivroRepository {
     /**
      * Serializa a lista de livros para um arquivo.
      */
+    @Override
     public void serializarLivros() {
         try {
-            serializador.escrever(ARQUIVO, livros);
+            Serializador.escrever(ARQUIVO, livros);
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Arquivo não encontrado.");
+            JOptionPane.showMessageDialog(null, "Arquivo não encontrado: " + e.getMessage());
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Falha ao abrir/fechar o arquivo.");
+            JOptionPane.showMessageDialog(null, "Falha ao abrir/fechar o arquivo: " + e.getMessage());
         }
     }
-
 }

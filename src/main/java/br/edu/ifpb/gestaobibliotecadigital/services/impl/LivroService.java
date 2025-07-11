@@ -9,26 +9,37 @@ public class LivroService implements ILivroService {
 
     private final LivroRepository livroRepository = new LivroRepository();
 
-    @Override
-    public Livro adicionarLivro(String titulo, String autor, int ano, String editora, String isbn, String sinopse, String categoria) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public LivroService() {
+        livroRepository.deserializarLivros();
+    }
 
+    @Override
+    public Livro adicionarLivro(Livro livro) {
+        livroRepository.livros.add(livro);
+        livroRepository.serializarLivros();
+        return livro;
     }
 
     @Override
     public Livro buscarLivroPorIsbn(String isbn) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (Livro livro : livroRepository.livros) {
+            if (livro.getIsbn().equals(isbn)) {
+                return livro;
+            }
+        }
+        return null;
     }
 
     @Override
     public List<Livro> listarTodosLivros() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return livroRepository.livros;
     }
 
     @Override
     public void removerLivro(String isbn) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Livro livro = buscarLivroPorIsbn(isbn);
+        livroRepository.livros.remove(livro);
+        livroRepository.serializarLivros();
     }
-  
-    
+
 }
