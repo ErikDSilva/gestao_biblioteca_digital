@@ -22,7 +22,7 @@ public class MainEquipe3 {
         setup();
 
         Usuario usuario = new Usuario("José", "00000000000000000000000000");
-        Livro livro = new Livro("O pequeno príncipe", "", 0, "", "", "", "", "", "");
+        Livro livro = new Livro("O pequeno príncipe", "", 0, "", "", "", "");
 
         // Pegou emprestado em 01/07/2025 11:53:00
         // Devolver até: 08/07/2025
