@@ -1,6 +1,6 @@
-package br.edu.ifpb.gestaobibliotecadigital.emprestimos;
+package br.edu.ifpb.gestaobibliotecadigital.models.emprestimos;
 
-import br.edu.ifpb.gestaobibliotecadigital.emprestimos.estrategias.EstrategiaEmprestimo;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.EstrategiaEmprestimo;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
