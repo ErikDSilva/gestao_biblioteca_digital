@@ -11,6 +11,7 @@ import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.LeitorPremium;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.EmprestimoRepository;
+import br.edu.ifpb.gestaobibliotecadigital.repositories.HistoricoRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
@@ -20,6 +21,7 @@ public class EmprestimoService {
     private final EmprestimoRepository emprestimoRepository = EmprestimoRepository.getInstance();
     private final ReservaRepository reservaRepository = ReservaRepository.getInstance();
     private final LivroRepository livroRepository = new LivroRepository();
+    private final HistoricoRepository historicoRepository = HistoricoRepository.getInstance();
 
     public Emprestimo solicitarEmprestimo(Usuario usuario, Livro livro) {
         if (livroEstaEmprestado(livro)) {
@@ -47,6 +49,7 @@ public class EmprestimoService {
             reservaRepository.atualizar(reserva);
         }
 
+        historicoRepository.adicionar(new HistoricoAcao(usuario, livro, emprestimo, reserva, TipoAcao.EMPRESTIMO));
 
         return emprestimo;
     }
@@ -59,6 +62,7 @@ public class EmprestimoService {
         emprestimo.renovar();
         emprestimoRepository.atualizar(emprestimo);
 
+        historicoRepository.adicionar(new HistoricoAcao(emprestimo.getUsuario(), emprestimo.getLivro(), emprestimo, null, TipoAcao.RENOVACAO));
     }
 
     public void devolverLivro(Emprestimo emprestimo) {
@@ -71,6 +75,7 @@ public class EmprestimoService {
         emprestimoRepository.atualizar(emprestimo);
         livroRepository.atualizar(emprestimo.getLivro());
 
+        historicoRepository.adicionar(new HistoricoAcao(emprestimo.getUsuario(), emprestimo.getLivro(), emprestimo, null, TipoAcao.DEVOLUCAO));
     }
 
     public void reservarLivro(Usuario usuario, Livro livro) {
@@ -89,6 +94,7 @@ public class EmprestimoService {
         reservaRepository.adicionar(reserva);
         livroRepository.atualizar(livro);
 
+        historicoRepository.adicionar(new HistoricoAcao(usuario, livro, null, reserva, TipoAcao.RESERVA));
     }
 
     public void cancelarReserva(Reserva reserva) {
@@ -99,6 +105,7 @@ public class EmprestimoService {
         reserva.cancelar();
         reservaRepository.atualizar(reserva);
 
+        historicoRepository.adicionar(new HistoricoAcao(reserva.getUsuario(), reserva.getLivro(), null, reserva, TipoAcao.CANCELAMENTO_RESERVA));
     }
 
     public boolean livroEstaEmprestado(Livro livro) {
