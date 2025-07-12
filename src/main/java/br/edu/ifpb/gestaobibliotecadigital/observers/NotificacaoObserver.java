@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class NotificacaoObserver {
 
-    private final ArrayList<notificacao> notifications = new ArrayList<>();
+    private final ArrayList<Notificacao> notifications = new ArrayList<>();
     private final ArrayList<NotificacaoListener> listeners = new ArrayList<>();
 
     public void inscrever(NotificacaoListener listener) {
@@ -15,7 +15,7 @@ public class NotificacaoObserver {
         listeners.remove(listener);
     }
 
-    public void notificar(notificacao notificacao) {
+    public void notificar(Notificacao notificacao) {
         notifications.add(notificacao);
 
         for (NotificacaoListener listener : listeners) {
