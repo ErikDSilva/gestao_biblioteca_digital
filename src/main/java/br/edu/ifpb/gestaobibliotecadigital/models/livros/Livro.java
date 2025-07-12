@@ -1,15 +1,14 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.livros;
 
-import br.edu.ifpb.gestaobibliotecadigital.services.interfaces.ComponenteCatalogo ;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estados.EstadoLivro;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estados.LivroDisponivel;
-import java.io.Serializable;
+import java.util.UUID;
 
-public class Livro implements ComponenteCatalogo,Serializable {
+public class Livro implements ItemBiblioteca {
 
     private EstadoLivro estado = new LivroDisponivel(this);
 
-
+    private UUID id;
     private String titulo;
     private String autor;
     private int ano;
@@ -25,6 +24,7 @@ public class Livro implements ComponenteCatalogo,Serializable {
 
     public Livro(String titulo, String autor, int ano, String editora, String isbn,
             String sinopse, String categoria) {
+        this.id = UUID.randomUUID();
         this.titulo = titulo;
         this.autor = autor;
         this.ano = ano;
@@ -36,6 +36,11 @@ public class Livro implements ComponenteCatalogo,Serializable {
 //        this.resumoEstendido = resumoEstendido;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    @Override
     public String getTitulo() {
         return titulo;
     }
@@ -91,15 +96,10 @@ public class Livro implements ComponenteCatalogo,Serializable {
 //    public String getResumoEstendido() {
 //        return resumoEstendido;
 //    }
-
-
- 
-
-
-
     @Override
     public String toString() {
-        return "Título: " + titulo
+        return "Id: " + id
+                + "\nTítulo: " + titulo
                 + "\nAutor: " + autor
                 + "\nAno: " + ano
                 + "\nEditora: " + editora

@@ -47,7 +47,7 @@ public class LivroBuilder {
         return this;
     }
 
-    public Livro construir() {
+    public Livro builder() {
         return new Livro(titulo, autor, ano, editora, isbn, sinopse, categoria);
     }
 }
