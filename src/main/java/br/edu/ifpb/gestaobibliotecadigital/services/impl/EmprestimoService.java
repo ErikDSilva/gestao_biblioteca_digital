@@ -10,11 +10,14 @@ import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.historico.TipoAcao
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.LeitorPremium;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
+import br.edu.ifpb.gestaobibliotecadigital.observers.Notificacao;
+import br.edu.ifpb.gestaobibliotecadigital.observers.NotificacaoObserver;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.EmprestimoRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.HistoricoRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
+import java.time.format.DateTimeFormatter;
 
 public class EmprestimoService {
 
@@ -22,6 +25,7 @@ public class EmprestimoService {
     private final ReservaRepository reservaRepository = ReservaRepository.getInstance();
     private final LivroRepository livroRepository = new LivroRepository();
     private final HistoricoRepository historicoRepository = HistoricoRepository.getInstance();
+    private final NotificacaoObserver notificacao = NotificacaoObserver.getInstance();
 
     public Emprestimo solicitarEmprestimo(Usuario usuario, Livro livro) {
         if (livroEstaEmprestado(livro)) {
@@ -76,6 +80,16 @@ public class EmprestimoService {
         livroRepository.atualizar(emprestimo.getLivro());
 
         historicoRepository.adicionar(new HistoricoAcao(emprestimo.getUsuario(), emprestimo.getLivro(), emprestimo, null, TipoAcao.DEVOLUCAO));
+
+        Reserva reserva = reservaRepository.reservaLivro(emprestimo.getLivro());
+
+        if (reserva != null) {
+            Usuario usuario = reserva.getUsuario();
+            Livro livro = reserva.getLivro();
+            String dataExpiracao = reserva.getDataExpiracao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String mensagem = "Olá " + usuario.getNome() + "! O livro \"" + livro.getTitulo() + "\" que você reservou está disponível na biblioteca e reservado para você até " + dataExpiracao;
+            notificacao.notificar(new Notificacao(mensagem, usuario));
+        }
     }
 
     public void reservarLivro(Usuario usuario, Livro livro) {
