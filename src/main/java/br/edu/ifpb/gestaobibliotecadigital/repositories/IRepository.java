@@ -1,9 +1,11 @@
 package br.edu.ifpb.gestaobibliotecadigital.repositories;
 
+import java.util.ArrayList;
+
 /**
  * Interface genérica para operações básicas do repositório.
  *
- * @param <T> o tipo de objeto a ser manipulado pelo banco de dados
+ * @param <T> o tipo de objeto a ser manipulado pelo repositório
  */
 public interface IRepository<T> {
 
@@ -37,6 +39,13 @@ public interface IRepository<T> {
      * @param entidade o objeto atualizado
      */
     void atualizar(T entidade);
+
+    /**
+     * Listar todos os objeto salvo
+     *
+     * @return retorna uma lista da entidade salva T
+     */
+    ArrayList<T> listar();
 
     /**
      * Exclui um objeto do banco de dados.
