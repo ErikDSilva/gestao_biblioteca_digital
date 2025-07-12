@@ -1,6 +1,6 @@
 package br.edu.ifpb.gestaobibliotecadigital.app;
 
-import br.edu.ifpb.gestaobibliotecadigital.filters.EmprestimoFilter;
+import br.edu.ifpb.gestaobibliotecadigital.filters.EmprestimoFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.EmprestimoPadrao;
@@ -8,6 +8,8 @@ import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.Empres
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.EmprestimoRepository;
+import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
+import br.edu.ifpb.gestaobibliotecadigital.services.impl.EmprestimoService;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -26,7 +28,8 @@ public class MainEquipe3 {
 //        testarEmprestimos();
 //        testarReservas();
 //        testarRepositorio();
-        testarFiltros();
+//        testarFiltros();
+        testarService();
     }
 
     private static void testarEmprestimos() {
@@ -127,12 +130,36 @@ public class MainEquipe3 {
 
         emprestimo2.setDataDevolvido(DataProvider.agora());
 
-        System.out.println(
-                new EmprestimoFilter(repo.listar())
-                        .porLivro(diario)
-                        .devolvido()
-                        .filtrar()
+        System.out.println(new EmprestimoFiltro(repo.listar())
+                .porLivro(diario)
+                .devolvido()
+                .filtrar()
         );
+    }
+
+    private static void testarService() {
+        Usuario usuario = new Usuario("José", "00000000000000000000000000");
+        Livro pequeno = new Livro("O pequeno príncipe", "", 0, "", "", "", "");
+        Livro diario = new Livro("Diário de um banana", "", 0, "", "", "", "");
+        EmprestimoRepository erepo = EmprestimoRepository.getInstance();
+        ReservaRepository rrepo = ReservaRepository.getInstance();
+
+        System.out.println(new EmprestimoService().livroDisponivelParaEmprestimo(pequeno)); // true
+
+        Emprestimo emprestimo1 = new Emprestimo(usuario, pequeno, new EmprestimoPadrao());
+        erepo.adicionar(emprestimo1);
+
+        System.out.println(new EmprestimoService().livroDisponivelParaEmprestimo(pequeno)); // false
+
+        emprestimo1.setDataDevolvido(LocalDateTime.now());
+
+        System.out.println(new EmprestimoService().livroDisponivelParaEmprestimo(pequeno)); // true
+
+        Reserva reserva = new Reserva(usuario, pequeno);
+        rrepo.adicionar(reserva);
+
+        System.out.println(new EmprestimoService().livroDisponivelParaEmprestimo(pequeno)); // false
+
     }
 
     private static void setup() {

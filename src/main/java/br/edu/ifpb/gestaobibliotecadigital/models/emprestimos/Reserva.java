@@ -3,15 +3,14 @@ package br.edu.ifpb.gestaobibliotecadigital.models.emprestimos;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
-import java.text.NumberFormat;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Locale;
 import java.util.UUID;
 
-public class Reserva {
+public class Reserva implements Serializable {
 
     private final UUID id;
     private final Usuario usuario;
@@ -70,12 +69,12 @@ public class Reserva {
     // Métodos
     /**
      * Retorna um booleano indicando se a reserva foi encerrada (se encerrado
-     * pelo usuário, se expirou ou se obteve o livro)
+     * pelo usuário, se expirada ou se obteve o livro)
      *
      * @return true se a reserva foi encerrada
      */
-    public boolean estaEncerrada() {
-        if (expirou()) {
+    public boolean encerrada() {
+        if (expirada()) {
             return true;
         }
 
@@ -83,11 +82,11 @@ public class Reserva {
     }
 
     /**
-     * Retorna um booleano indicando se a reserva expirou
+     * Retorna um booleano indicando se a reserva expirada
      *
-     * @return true se a reserva expirou
+     * @return true se a reserva expirada
      */
-    public boolean expirou() {
+    public boolean expirada() {
         if (dataEncerrada != null) {
             return false;
         }
@@ -102,11 +101,11 @@ public class Reserva {
      * cancelada
      */
     public void encerrar(Emprestimo emprestimo) {
-        if (expirou()) {
+        if (expirada()) {
             throw new IllegalStateException("Não é possível encerrar esta reserva, pois já expirou.");
         }
 
-        if (estaEncerrada()) {
+        if (encerrada()) {
             throw new IllegalStateException("Esta reserva já foi encerrada");
         }
 
@@ -125,7 +124,7 @@ public class Reserva {
     }
 
     public int diasParaExpirar() {
-        if (expirou()) {
+        if (expirada()) {
             return -1;
         }
 
