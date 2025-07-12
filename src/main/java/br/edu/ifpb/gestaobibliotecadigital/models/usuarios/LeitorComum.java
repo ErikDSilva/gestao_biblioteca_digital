@@ -6,8 +6,13 @@ public class LeitorComum extends Usuario{
         super(nome, id);
     }
 
+    @Override
+    public String getTipo() {
+        return "LeitorComum";
 
+    }   
 
-}
+}    
+
 
     

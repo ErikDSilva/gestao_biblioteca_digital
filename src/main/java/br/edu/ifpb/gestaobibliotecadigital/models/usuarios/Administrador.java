@@ -6,4 +6,9 @@ public class Administrador extends Usuario{
         super(nome, id);
     }
     
+    @Override
+    public String getTipo() {
+        return "Administrador";
+    }
+
 }
