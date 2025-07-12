@@ -1,33 +1,43 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.livros;
 
-import java.io.Serializable;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-import br.edu.ifpb.gestaobibliotecadigital.services.interfaces.ComponenteCatalogo ;
+public class Colecao implements ItemBiblioteca {
+    private final String nome;
+    private final List<ItemBiblioteca> colecaoLivro = new ArrayList<>();
 
-public class Colecao implements ComponenteCatalogo ,Serializable {
-    private String nome;
-    private List<ComponenteCatalogo> componentes = new ArrayList<>();
-
-   public Colecao(String nome) {
+    public Colecao(String nome) {
         this.nome = nome;
     }
 
-    public void adicionar(LivroComponente componente ){
-        componentes.add(componente);
+    public void adicionar(ItemBiblioteca componente) {
+        colecaoLivro.add(componente);
     }
 
-    public void remove(LivroComponente componente){
-        componentes.remove(componente);
+    public void remover(ItemBiblioteca componente) {
+        colecaoLivro.remove(componente);
     }
 
-     public List<ComponenteCatalogo> getComponentes() {
-        return componentes;
+    public List<ItemBiblioteca> getComponentes() {
+        return colecaoLivro;
     }
 
     public String getNome() {
-      return nome;
+        return nome;
     }
-    
+
+    @Override
+    public String getTitulo() {
+        return nome;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(getTitulo() + "\n");
+        for (ItemBiblioteca c : colecaoLivro) {
+            sb.append("- ").append(c.getTitulo()).append("\n");
+        }
+        return sb.toString();
+    }
 }

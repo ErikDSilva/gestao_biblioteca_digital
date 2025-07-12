@@ -5,6 +5,6 @@ import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import br.edu.ifpb.gestaobibliotecadigital.services.interfaces.ILivroService;
 import java.util.List;
 
-public class LivroService implements ILivroService {
+public class LivroService  {
 
 }

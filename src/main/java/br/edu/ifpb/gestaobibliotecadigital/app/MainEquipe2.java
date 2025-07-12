@@ -1,5 +1,6 @@
 package br.edu.ifpb.gestaobibliotecadigital.app;
 
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Colecao;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBuilder;
 
@@ -66,5 +67,21 @@ public class MainEquipe2 {
                 .setSinopse("Nas fronteiras de Mordor, Sam resgata Frodo, e os dois hobbits partem para o último estágio de sua jornada rumo ao Monte da Perdição, uma jornada que testará os limites do corpo e da mente dos pequenos heróis.")
                 .setCategoria("Fantasia")
                 .builder();
+        // Composite
+        Colecao EngenhariaSoftware = new Colecao("Fundamentos do Software Moderno");
+        EngenhariaSoftware.adicionar(padroeDeProjeto);
+        EngenhariaSoftware.adicionar(useCabecaJava);
+        EngenhariaSoftware.adicionar(EntendendoAlgoritmos);
+        System.out.println(EngenhariaSoftware);
+
+        System.out.println("===".repeat(10));
+        // Trilogia: Coleção do senhor dos aneis
+        Colecao livroDeTolkien = new Colecao("Trilogia Senhor dos Aneis");
+        livroDeTolkien.adicionar(senhorDosAneisParte1);
+        livroDeTolkien.adicionar(senhorDosAneisParte2);
+        livroDeTolkien.adicionar(senhorDosAneisParte3);
+        System.out.println(livroDeTolkien);
+
+        // Decoration
     }
 }

@@ -7,4 +7,9 @@ public class LivroDestacado extends LivroDecorator {
     public LivroDestacado(Livro livro) {
         super(livro);
     }
+
+    @Override
+    public String getTitulo() {
+        return "**: " + super.getTitulo();
+    }
 }
