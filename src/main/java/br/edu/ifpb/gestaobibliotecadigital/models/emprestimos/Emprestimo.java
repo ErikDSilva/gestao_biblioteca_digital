@@ -301,7 +301,7 @@ public class Emprestimo implements Serializable {
 
         return ""
                 + "\n[Empréstimo \"" + id + "\"]"
-                + "\n* USUÁRIO: " + usuario/*.getNome()*/
+                + "\n* USUÁRIO: " + usuario.getNome()
                 + "\n* LIVRO: " + livro.getTitulo()
                 + "\n* ESTRATÉGIA: " + estrategiaEmprestimo.getNome()
                 + "\n* DATA DE EMPRÉSTIMO: " + dataEmprestimoStr
