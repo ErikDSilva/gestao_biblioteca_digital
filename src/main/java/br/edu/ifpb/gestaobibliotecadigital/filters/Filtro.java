@@ -24,4 +24,14 @@ public abstract class Filtro<T> {
 
         return itensFiltrados.collect(Collectors.toList());
     }
+
+    public T primeiro() {
+        List<T> resultado = filtrar();
+
+        if (resultado.isEmpty()) {
+            return null;
+        }
+
+        return resultado.get(0);
+    }
 }
