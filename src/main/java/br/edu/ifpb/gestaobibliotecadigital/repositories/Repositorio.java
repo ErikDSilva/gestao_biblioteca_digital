@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public abstract class Repositorio<T> implements Serializable {
 
     protected final String dbPath;
-    private ArrayList<T> itens;
+    protected ArrayList<T> itens;
 
     /**
      * Construtor que define o caminho do arquivo e carrega os dados.
