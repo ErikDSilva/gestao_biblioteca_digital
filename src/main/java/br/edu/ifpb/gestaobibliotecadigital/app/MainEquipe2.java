@@ -1,12 +1,32 @@
 package br.edu.ifpb.gestaobibliotecadigital.app;
 
+import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Colecao;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainEquipe2 {
 
+    private static final List<Livro> bancoDeLivros = new ArrayList<>();
+
     public static void main(String[] args) {
+        // Builder
+        criarLivros();
+        // Composite
+        mostrarColecaoEngenharia();
+        // Composite
+        mostrarTrilogiaTolkien();
+        // FIltros: 
+        // por autor:  'Kathy'
+        // por categoria: 'Engenharia de Software'
+        // por ano: 2024
+        aplicarFiltrosNosLivros();
+    }
+
+    private static void criarLivros() {
         // Builder: Criação de objetos Livro com muitos atributos.
         Livro padroeDeProjeto = new LivroBuilder()
                 .setTitulo("Padrões de Projetos: Soluções Reutilizáveis de Software Orientados a Objetos")
@@ -14,7 +34,7 @@ public class MainEquipe2 {
                 .setAno(2000)
                 .setEditora("Bookman")
                 .setIsbn("978-8573076103")
-                .setSinopse("Catálogo de soluções simples e sucintas para os problemas mais freqüentes na área de projeto, assinado por quatro profissionais com grande experiência em software orientado a objetos. Um best-seller mundial.")
+                .setSinopse("Catálogo de soluções simples e sucintas para os problemas mais frequentes na área de projeto.")
                 .setCategoria("Engenharia de Software")
                 .builder();
 
@@ -24,17 +44,17 @@ public class MainEquipe2 {
                 .setAno(2024)
                 .setEditora("Alta Books")
                 .setIsbn("978-8550819884")
-                .setSinopse("O 'Use a Cabeça Java' é uma experiência completa de aprendizado em Java e programação orientada a objetos. Com este livro, você aprenderá a linguagem Java de um jeito único, que ultrapassa os manuais de instruções, ajudando-o a se tornar um programador excelente.")
+                .setSinopse("Experiência completa de aprendizado em Java e programação orientada a objetos.")
                 .setCategoria("Engenharia de Software")
                 .builder();
 
-        Livro EntendendoAlgoritmos = new LivroBuilder()
+        Livro entendendoAlgoritmos = new LivroBuilder()
                 .setTitulo("Entendendo Algoritmos")
                 .setAutor("Kathy Sierra")
                 .setAno(2017)
                 .setEditora("Novatec")
                 .setIsbn("978-8575225639")
-                .setSinopse("Os algoritmos que você mais utilizará como um programador já foram descobertos, testados e provados. Se você quer entendê-los, mas se recusa a estudar páginas e mais páginas de provas, este é o livro certo.")
+                .setSinopse("Introdução prática aos algoritmos mais utilizados.")
                 .setCategoria("Engenharia de Software")
                 .builder();
 
@@ -44,7 +64,7 @@ public class MainEquipe2 {
                 .setAno(2019)
                 .setEditora("HarperCollins")
                 .setIsbn("978-8595084759")
-                .setSinopse("A Sociedade do Anel começa no Condado, a região rural do oeste da Terra-média onde vivem os diminutos e pacatos hobbits. Bilbo Bolseiro, um dos raros aventureiros desse povo, cujas peripécias foram contadas em O Hobbit, resolve ir embora do Condado e deixa sua considerável herança nas mãos de seu jovem parente Frodo.")
+                .setSinopse("Bilbo deixa o Condado para Frodo iniciar uma jornada pela Terra-média.")
                 .setCategoria("Fantasia")
                 .builder();
 
@@ -54,7 +74,7 @@ public class MainEquipe2 {
                 .setAno(2019)
                 .setEditora("HarperCollins")
                 .setIsbn("978-8595084766")
-                .setSinopse("De um lado, o trio formado pelo elfo Legolas, pelo anão Gimli e por Aragorn, herdeiro da realeza dos Homens, tenta resgatar os jovens hobbits Merry e Pippin, capturados por guerreiros-órquicos. A busca pelos companheiros perdidos levará os três a confrontar os cavaleiros do reino de Rohan e o mago renegado Saruman, que também deseja o Um Anel para si.")
+                .setSinopse("A jornada continua com Legolas, Gimli e Aragorn tentando resgatar os hobbits.")
                 .setCategoria("Fantasia")
                 .builder();
 
@@ -64,24 +84,61 @@ public class MainEquipe2 {
                 .setAno(2019)
                 .setEditora("HarperCollins")
                 .setIsbn("978-8595084773")
-                .setSinopse("Nas fronteiras de Mordor, Sam resgata Frodo, e os dois hobbits partem para o último estágio de sua jornada rumo ao Monte da Perdição, uma jornada que testará os limites do corpo e da mente dos pequenos heróis.")
+                .setSinopse("Sam e Frodo enfrentam o desafio final em Mordor.")
                 .setCategoria("Fantasia")
                 .builder();
-        // Composite
-        Colecao EngenhariaSoftware = new Colecao("Fundamentos do Software Moderno");
-        EngenhariaSoftware.adicionar(padroeDeProjeto);
-        EngenhariaSoftware.adicionar(useCabecaJava);
-        EngenhariaSoftware.adicionar(EntendendoAlgoritmos);
-        System.out.println(EngenhariaSoftware);
+        bancoDeLivros.add(padroeDeProjeto);
+        bancoDeLivros.add(useCabecaJava);
+        bancoDeLivros.add(entendendoAlgoritmos);
+        bancoDeLivros.add(senhorDosAneisParte1);
+        bancoDeLivros.add(senhorDosAneisParte2);
+        bancoDeLivros.add(senhorDosAneisParte3);
+    }
 
+    // Compose: Criação coleções
+    private static void mostrarColecaoEngenharia() {
+        Colecao engenhariaSoftware = new Colecao("Fundamentos do Software Moderno");
+
+        LivroFiltro filtro = new LivroFiltro(bancoDeLivros);
+        // busca do resultado
+        List<Livro> resultados = filtro
+                .porCategoria("Engenharia de Software")
+                .filtrar();
+        for (Livro livro : resultados) {
+            engenhariaSoftware.adicionar(livro);
+        }
+
+        System.out.println(engenhariaSoftware);
         System.out.println("===".repeat(10));
-        // Trilogia: Coleção do senhor dos aneis
-        Colecao livroDeTolkien = new Colecao("Trilogia Senhor dos Aneis");
-        livroDeTolkien.adicionar(senhorDosAneisParte1);
-        livroDeTolkien.adicionar(senhorDosAneisParte2);
-        livroDeTolkien.adicionar(senhorDosAneisParte3);
-        System.out.println(livroDeTolkien);
+    }
 
-        // Decoration
+    private static void mostrarTrilogiaTolkien() {
+        Colecao trilogiaTolkien = new Colecao("Trilogia Senhor dos Anéis");
+
+        LivroFiltro filtro = new LivroFiltro(bancoDeLivros);
+
+        List<Livro> resultados = filtro
+                .porPalavra("Senhor dos Anéis")
+                .filtrar();
+        for (Livro livro : resultados) {
+            trilogiaTolkien.adicionar(livro);
+        }
+
+        System.out.println(trilogiaTolkien);
+    }
+
+    //=====================================//
+    private static void aplicarFiltrosNosLivros() {
+        System.out.println("Livros filtrados");
+        LivroFiltro filtro = new LivroFiltro(bancoDeLivros);
+        // busca do resultado
+        List<Livro> resultados = filtro
+                .porAutor("Kathy")
+                .porCategoria("Engenharia de Software")
+                .porAno(2024)
+                .filtrar();
+        for (Livro livro : resultados) {
+            System.out.println(livro.getTitulo() + " - " + livro.getAutor());
+        }
     }
 }
