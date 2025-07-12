@@ -144,6 +144,8 @@ public class MainEquipe3 {
         Livro diario = new Livro("Diário de um banana", "", 0, "", "", "", "");
         EmprestimoRepository erepo = EmprestimoRepository.getInstance();
         ReservaRepository rrepo = ReservaRepository.getInstance();
+        erepo.resetar();
+        rrepo.resetar();
 
         System.out.println(new EmprestimoService().livroDisponivelParaEmprestimo(pequeno)); // true
 
