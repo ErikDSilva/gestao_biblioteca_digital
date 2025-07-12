@@ -5,15 +5,15 @@ import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class LivroController {
 
-    private final LivroService service = new LivroService();
-
-    public Livro cadastrarLivro(Livro livro) {
-        Livro livroCadastrado = service.adicionarLivro(livro);
-        return livroCadastrado;
-    }
-
-    public Livro buscarPorIsbn(String isbn) {
-        
-    }
+//    private final LivroService service = new LivroService();
+//
+//    public Livro cadastrarLivro(Livro livro) {
+//        Livro livroCadastrado = service.adicionarLivro(livro);
+//        return livroCadastrado;
+//    }
+//
+//    public Livro buscarPorIsbn(String isbn) {
+//        
+//    }
 
 }
