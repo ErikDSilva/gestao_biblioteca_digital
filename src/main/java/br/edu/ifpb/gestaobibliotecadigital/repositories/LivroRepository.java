@@ -14,9 +14,21 @@ import javax.swing.JOptionPane;
  */
 public class LivroRepository implements IRepository<Livro> {
 
-    public ArrayList<Livro> livros = new ArrayList<>();
-
     private static final String DB_LIVRO = "database/livros.dat";
+    public static LivroRepository instance;
+
+    private ArrayList<Livro> livros;
+
+    public LivroRepository() {
+        carregar();
+    }
+
+    public static LivroRepository getInstance() {
+        if (instance == null) {
+            instance = new LivroRepository();
+        }
+        return instance;
+    }
 
     /**
      * Desserializa a lista de livros de um arquivo.
@@ -29,9 +41,11 @@ public class LivroRepository implements IRepository<Livro> {
             this.livros = listaDeLivrosCarregados;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo: " + e.getMessage());
+            livros = new ArrayList<>();
             Logger.getLogger(LivroRepository.class.getName()).log(Level.SEVERE, null, e);
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Erro, classe não encontrada: " + e.getMessage());
+            livros = new ArrayList<>();
             Logger.getLogger(LivroRepository.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -53,10 +67,8 @@ public class LivroRepository implements IRepository<Livro> {
         }
     }
 
+    @Override
     public ArrayList<Livro> listar() {
-        if (livros == null) {
-            carregar();
-        }
         return livros;
     }
 
