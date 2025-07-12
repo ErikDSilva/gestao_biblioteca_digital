@@ -1,8 +1,6 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.usuarios;
 
-import java.io.Serializable;
-
-public class Usuario implements Serializable {
+public abstract class Usuario {
     private String nome;
     private String id;
 
@@ -11,6 +9,21 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    // public String getTipo();
+    public abstract String getTipo();
+
+    public String getNome() {
+        return nome;
+
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return nome + " (" + getTipo() + ")";
+    }
+
 
 }
