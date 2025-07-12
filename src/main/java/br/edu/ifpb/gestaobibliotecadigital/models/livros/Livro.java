@@ -1,10 +1,11 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.livros;
 
+import br.edu.ifpb.gestaobibliotecadigital.services.interfaces.ComponenteCatalogo ;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estados.EstadoLivro;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estados.LivroDisponivel;
 import java.io.Serializable;
 
-public class Livro implements Serializable {
+public class Livro implements ComponenteCatalogo,Serializable {
 
     private EstadoLivro estado = new LivroDisponivel(this);
 
@@ -90,6 +91,12 @@ public class Livro implements Serializable {
 //    public String getResumoEstendido() {
 //        return resumoEstendido;
 //    }
+
+
+ 
+
+
+
     @Override
     public String toString() {
         return "Título: " + titulo
