@@ -11,9 +11,9 @@ public class LivroFiltro extends Filtro<Livro> {
     }
 
     // Por Livro
-    public LivroFiltro porLivro(String isbn) {
+    public LivroFiltro porLivro(String ISBN) {
         filtros.add((Livro livro) -> {
-            return livro.getIsbn().equals(isbn);
+            return livro.getISBN().equals(ISBN);
         });
         return this;
     }

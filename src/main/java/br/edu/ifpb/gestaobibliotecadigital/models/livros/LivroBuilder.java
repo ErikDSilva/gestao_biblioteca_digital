@@ -6,7 +6,7 @@ public class LivroBuilder {
     private String autor;
     private int ano;
     private String editora;
-    private String isbn;
+    private String ISBN;
     private String sinopse;
     private String categoria;
 //    private String capaAlternativa;
@@ -32,8 +32,8 @@ public class LivroBuilder {
         return this;
     }
 
-    public LivroBuilder setIsbn(String isbn) {
-        this.isbn = isbn;
+    public LivroBuilder setISBN(String ISBN) {
+        this.ISBN = ISBN;
         return this;
     }
 
@@ -48,6 +48,6 @@ public class LivroBuilder {
     }
 
     public Livro builder() {
-        return new Livro(titulo, autor, ano, editora, isbn, sinopse, categoria);
+        return new Livro(titulo, autor, ano, editora, ISBN, sinopse, categoria);
     }
 }
