@@ -13,7 +13,7 @@ public class Livro implements ItemBiblioteca {
     private String autor;
     private int ano;
     private String editora;
-    private String isbn;
+    private String ISBN;
     private String sinopse;
     private String categoria;
 //    private String capaAlternativa;
@@ -22,14 +22,14 @@ public class Livro implements ItemBiblioteca {
     public Livro() {
     }
 
-    public Livro(String titulo, String autor, int ano, String editora, String isbn,
+    public Livro(String titulo, String autor, int ano, String editora, String ISBN,
             String sinopse, String categoria) {
         this.id = UUID.randomUUID();
         this.titulo = titulo;
         this.autor = autor;
         this.ano = ano;
         this.editora = editora;
-        this.isbn = isbn;
+        this.ISBN = ISBN;
         this.sinopse = sinopse;
         this.categoria = categoria;
 //        this.capaAlternativa = capaAlternativa;
@@ -57,8 +57,8 @@ public class Livro implements ItemBiblioteca {
         return editora;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public String getISBN() {
+        return ISBN;
     }
 
     public String getSinopse() {
@@ -103,7 +103,7 @@ public class Livro implements ItemBiblioteca {
                 + "\nAutor: " + autor
                 + "\nAno: " + ano
                 + "\nEditora: " + editora
-                + "\nISBN: " + isbn
+                + "\nISBN: " + ISBN
                 + "\nCategoria: " + categoria;
     }
 
