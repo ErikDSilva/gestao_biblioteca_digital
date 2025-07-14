@@ -16,7 +16,7 @@ public class Reserva implements Serializable {
     private final Usuario usuario;
     private final Livro livro;
     private final LocalDateTime dataReserva;
-    private LocalDate dataExpiracao;
+    private final LocalDate dataExpiracao;
     private LocalDateTime dataEncerrada;
     private Emprestimo emprestimo;
 
@@ -47,6 +47,10 @@ public class Reserva implements Serializable {
 
     public LocalDateTime getDataReserva() {
         return dataReserva;
+    }
+
+    public LocalDate getDataExpiracao() {
+        return dataExpiracao;
     }
 
     public LocalDateTime getDataEncerrada() {

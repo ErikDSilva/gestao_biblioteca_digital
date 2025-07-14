@@ -1,5 +1,6 @@
 package br.edu.ifpb.gestaobibliotecadigital.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -39,6 +40,19 @@ public class Serializador {
 
         try (FileInputStream fileInput = new FileInputStream(caminho); ObjectInputStream ObjectInput = new ObjectInputStream(fileInput)) {
             return ObjectInput.readObject();
+        }
+    }
+
+    /**
+     * Exclui um arquivo do sistema.
+     *
+     * @param caminho O caminho do arquivo a ser excluído.
+     */
+    public static void excluir(String caminho) {
+        File arquivo = new File(caminho);
+
+        if (arquivo.exists()) {
+            arquivo.delete();
         }
     }
 }

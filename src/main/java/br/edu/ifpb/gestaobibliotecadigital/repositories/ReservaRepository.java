@@ -1,22 +1,21 @@
 package br.edu.ifpb.gestaobibliotecadigital.repositories;
 
+import br.edu.ifpb.gestaobibliotecadigital.filters.ReservaFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
-import br.edu.ifpb.gestaobibliotecadigital.utils.Serializador;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import java.util.List;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+public class ReservaRepository extends Repositorio<Reserva> {
 
-public class ReservaRepository {
-
-    private static final String DB_PATH = "databases/reservas.dat";
     private static ReservaRepository instance;
-    private ArrayList<Reserva> reservas;
 
     private ReservaRepository() {
-        carregar();
+        super("databases/reservas.dat");
+    }
+
+    @Override
+    protected String getId(Reserva item) {
+        return item.getId().toString();
     }
 
     public static ReservaRepository getInstance() {
@@ -26,50 +25,17 @@ public class ReservaRepository {
         return instance;
     }
 
-    public ArrayList<Reserva> listar() {
-        return reservas;
-    }
+    public Reserva reservaLivro(Livro livro) {
+        // Procura se há reservas válidas com este livro
+        List<Reserva> reservas = new ReservaFiltro(itens)
+                .porLivro(livro).ativas().filtrar();
 
-    public void adicionar(Reserva reserva) {
-        reservas.add(reserva);
-        salvar();
-    }
-
-    public void atualizar(Reserva reserva) {
-        for (int i = 0; i < reservas.size(); i++) {
-            if (reservas.get(i).getId().equals(reserva.getId())) {
-                reservas.set(i, reserva);
-                break;
-            }
+        // Se não houver reservas, retorna null
+        if (reservas.isEmpty()) {
+            return null;
         }
-        salvar();
-    }
 
-    public void excluir(Reserva reserva) {
-        reservas.remove(reserva);
-        salvar();
-    }
-
-    private void carregar() {
-        try {
-            Serializador serializador = new Serializador();
-            reservas = (ArrayList<Reserva>) serializador.ler(DB_PATH);
-        } catch (FileNotFoundException ex) {
-            System.out.println("Aviso: Repositório de empréstimos não existe");
-            reservas = new ArrayList<>();
-        } catch (ClassNotFoundException | IOException ex) {
-            Logger.getLogger(ReservaRepository.class.getName()).log(Level.SEVERE, null, ex);
-            reservas = new ArrayList<>();
-        }
-    }
-
-    private void salvar() {
-        try {
-            Serializador serializador = new Serializador();
-            serializador.escrever(DB_PATH, reservas);
-        } catch (IOException e) {
-            System.err.println("Ocorreu um erro ao salvar os empréstimos: ");
-            e.printStackTrace();
-        }
+        // Retorna a primeira reserva, pois só pode haver uma
+        return reservas.get(0);
     }
 }
