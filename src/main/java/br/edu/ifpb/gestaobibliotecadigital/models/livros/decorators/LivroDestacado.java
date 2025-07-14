@@ -1,5 +1,15 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators;
 
-public class LivroDestacado {
-    
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+
+public class LivroDestacado extends LivroDecorator {
+
+    public LivroDestacado(Livro livro) {
+        super(livro);
+    }
+
+    @Override
+    public String getTitulo() {
+        return "**: " + super.getTitulo();
+    }
 }
