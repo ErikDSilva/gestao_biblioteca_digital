@@ -35,6 +35,7 @@ public class Helpers {
         "Poesia",
         "Drama",
         "Infantil",
+        "Clássicos de Ficção",
         "Tecnologia",
         "Ciência",};
 
