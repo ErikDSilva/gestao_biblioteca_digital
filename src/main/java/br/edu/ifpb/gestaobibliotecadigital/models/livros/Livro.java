@@ -18,6 +18,17 @@ public class Livro implements ItemBiblioteca {
     private String categoria;
 //    private String capaAlternativa;
 //    private String resumoEstendido;
+    
+    private int totalAvaliacoes = 0;
+    private int somaNotas = 0;
+
+    public double getTotalAvaliacoes() {
+        return totalAvaliacoes == 0 ? 0.0 : (double) somaNotas / totalAvaliacoes;
+    }
+    public void adicionarAvaliacao(int nota){
+        this.totalAvaliacoes++;
+        this.somaNotas += nota;
+    }
 
     public Livro() {
     }
