@@ -1,9 +1,14 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.livros;
 
-import java.io.Serializable;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estados.EstadoLivro;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estados.LivroDisponivel;
+import java.util.UUID;
 
-public class Livro implements Serializable {
+public class Livro implements ItemBiblioteca {
 
+    private EstadoLivro estado = new LivroDisponivel(this);
+
+    private UUID id;
     private String titulo;
     private String autor;
     private int ano;
@@ -11,14 +16,15 @@ public class Livro implements Serializable {
     private String isbn;
     private String sinopse;
     private String categoria;
-    private String capaAlternativa;
-    private String resumoEstendido;
+//    private String capaAlternativa;
+//    private String resumoEstendido;
 
     public Livro() {
     }
 
     public Livro(String titulo, String autor, int ano, String editora, String isbn,
-            String sinopse, String categoria, String capaAlternativa, String resumoEstendido) {
+            String sinopse, String categoria) {
+        this.id = UUID.randomUUID();
         this.titulo = titulo;
         this.autor = autor;
         this.ano = ano;
@@ -26,10 +32,15 @@ public class Livro implements Serializable {
         this.isbn = isbn;
         this.sinopse = sinopse;
         this.categoria = categoria;
-        this.capaAlternativa = capaAlternativa;
-        this.resumoEstendido = resumoEstendido;
+//        this.capaAlternativa = capaAlternativa;
+//        this.resumoEstendido = resumoEstendido;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    @Override
     public String getTitulo() {
         return titulo;
     }
@@ -58,12 +69,42 @@ public class Livro implements Serializable {
         return categoria;
     }
 
-    public String getCapaAlternativa() {
-        return capaAlternativa;
+    public void setEstado(EstadoLivro estado) {
+        this.estado = estado;
     }
 
-    public String getResumoEstendido() {
-        return resumoEstendido;
+    public void definirDisponivel() {
+        this.estado.devolver();
+    }
+
+    public void definirEmprestado() {
+        this.estado.emprestar();
+    }
+
+    public void definirReservado() {
+        this.estado.reservar();
+    }
+
+    public void definirAtrasado() {
+        this.estado.atrasar();
+    }
+
+//    public String getCapaAlternativa() {
+//        return capaAlternativa;
+//    }
+//
+//    public String getResumoEstendido() {
+//        return resumoEstendido;
+//    }
+    @Override
+    public String toString() {
+        return "Id: " + id
+                + "\nTítulo: " + titulo
+                + "\nAutor: " + autor
+                + "\nAno: " + ano
+                + "\nEditora: " + editora
+                + "\nISBN: " + isbn
+                + "\nCategoria: " + categoria;
     }
 
 }

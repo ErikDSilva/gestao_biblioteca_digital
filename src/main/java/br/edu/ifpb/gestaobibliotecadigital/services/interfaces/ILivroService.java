@@ -8,16 +8,10 @@ public interface ILivroService {
     /**
      * Adiciona um novo livro ao sistema.
      *
-     * @param titulo O título do livro.
-     * @param autor O autor do livro.
-     * @param ano O ano de publicação.
-     * @param editora A editora do livro.
-     * @param isbn O ISBN (identificador único).
-     * @param sinopse A sinopse do livro.
-     * @param categoria A categoria do livro.
+     * @param livro o livro..
      * @return O livro que foi criado.
      */
-    Livro adicionarLivro(String titulo, String autor, int ano, String editora, String isbn, String sinopse, String categoria);
+    Livro adicionarLivro(Livro livro);
 
     /**
      * Remove um livro do sistema usando seu ISBN.
