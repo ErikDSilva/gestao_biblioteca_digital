@@ -98,6 +98,11 @@ public class Emprestimo implements Serializable {
      * @return true se pode renovar o livro
      */
     public boolean podeRenovar() {
+        // Se o livro foi devolvido, não pode renovar
+        if (foiDevolvido()) {
+            return false;
+        }
+
         int renovacoesRestantes = getQuantidadeRenovacoesRestantes();
 
         // Se o número de renovações for 0, significa que não pode mais renovar
