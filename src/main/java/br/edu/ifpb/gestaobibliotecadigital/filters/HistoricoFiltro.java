@@ -12,7 +12,7 @@ public class HistoricoFiltro extends Filtro<HistoricoAcao> {
     }
 
     public HistoricoFiltro porLivro(Livro livro) {
-        filtros.add(historico -> historico.getLivro()/*.getId()*/ == livro/*.getId()*/);
+        filtros.add(historico -> historico.getLivro().getId() == livro.getId());
         return this;
     }
 
