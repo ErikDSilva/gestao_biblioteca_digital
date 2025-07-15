@@ -10,12 +10,12 @@ import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Administrador;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.LeitorComum;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.LeitorPremium;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
-import br.edu.ifpb.gestaobibliotecadigital.observers.Notificacao;
 import br.edu.ifpb.gestaobibliotecadigital.observers.NotificacaoObserver;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.EmprestimoRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.EmprestimoService;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
+import br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.ListaEmprestimos;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
@@ -29,13 +29,15 @@ public class MainEquipe3 {
 
     public static void main(String[] args) {
         setup();
+        Main.setupSwingLook();
 
+        new ListaEmprestimos().setVisible(true);
 //        testarEmprestimos();
 //        testarReservas();
 //        testarRepositorio();
 //        testarFiltros();
 //        testarService();
-        testarNotificacao();
+//        testarNotificacao();
     }
 
     private static void testarEmprestimos() {
@@ -175,7 +177,7 @@ public class MainEquipe3 {
         Usuario ana = new LeitorPremium("Ana", "00000000000000000000000001");
         Livro pequeno = new Livro("O pequeno príncipe", "", 0, "", "", "", "");
         Livro diario = new Livro("Diário de um banana", "", 0, "", "", "", "");
-        
+
         NotificacaoObserver notif = NotificacaoObserver.getInstance();
         notif.inscrever(jose, notificacao -> {
             System.out.println("[José] Notificação: " + notificacao.getMensagem());
@@ -183,20 +185,19 @@ public class MainEquipe3 {
         notif.inscrever(ana, notificacao -> {
             System.out.println("[Ana] Notificação: " + notificacao.getMensagem());
         });
-        
+
         DataProvider.setDateTime("2025-01-01T00:00:00");
         EmprestimoService servico = new EmprestimoService();
         Emprestimo emprestimo1 = servico.solicitarEmprestimo(jose, pequeno);
         System.out.println(emprestimo1);
-        
+
         DataProvider.setDateTime("2025-01-03T00:00:00");
         servico.reservarLivro(ana, pequeno);
-        
-//        servico.renovarEmprestimo(emprestimo1); // recusa
 
+//        servico.renovarEmprestimo(emprestimo1); // recusa
         servico.devolverLivro(emprestimo1); // notifica ana
     }
-    
+
     private static void setup() {
         // Configura o terminal para mostrar acentos corretamente na saída
         try {
