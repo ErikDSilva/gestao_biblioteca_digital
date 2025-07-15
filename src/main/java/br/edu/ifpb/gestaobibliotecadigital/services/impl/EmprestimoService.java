@@ -23,7 +23,7 @@ public class EmprestimoService {
 
     private final EmprestimoRepository emprestimoRepository = EmprestimoRepository.getInstance();
     private final ReservaRepository reservaRepository = ReservaRepository.getInstance();
-    private final LivroRepository livroRepository = new LivroRepository();
+    private final LivroRepository livroRepository = LivroRepository.getInstance();
     private final HistoricoRepository historicoRepository = HistoricoRepository.getInstance();
     private final NotificacaoObserver notificacao = NotificacaoObserver.getInstance();
 
