@@ -57,6 +57,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Adicionar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adicionarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="remover">
       <Properties>
@@ -72,18 +75,27 @@
         <Property name="text" type="java.lang.String" value="Devolver"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="devolverActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="renovar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Renovar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="renovarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="multaPaga">
       <Properties>
         <Property name="text" type="java.lang.String" value="Multa paga"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="multaPagaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
