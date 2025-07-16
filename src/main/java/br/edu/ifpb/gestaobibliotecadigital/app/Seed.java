@@ -12,6 +12,7 @@ import br.edu.ifpb.gestaobibliotecadigital.repositories.EmprestimoRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.HistoricoRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
+import br.edu.ifpb.gestaobibliotecadigital.repositories.UsuarioRepository;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ public class Seed {
     private static final ReservaRepository reservaRepository = ReservaRepository.getInstance();
     private static final LivroRepository livroRepository = LivroRepository.getInstance();
     private static final HistoricoRepository historicoRepository = HistoricoRepository.getInstance();
+    private static final UsuarioRepository usuarioRepository = UsuarioRepository.getInstance();
 
     public static void main(String[] args) {
         executarSeed();
@@ -28,7 +30,7 @@ public class Seed {
 
     public static void executarSeed() {
         System.out.println("[SEED] Limpando dados antigos...");
-        // usuarioRepository.resetar();
+        usuarioRepository.resetar();
         livroRepository.resetar();
         emprestimoRepository.resetar();
         historicoRepository.resetar();
@@ -372,18 +374,18 @@ public class Seed {
         LeitorPremium leitorRafael = new LeitorPremium("Rafael Mendes", UUID.randomUUID().toString());
         LeitorPremium leitorJuliana = new LeitorPremium("Juliana Rocha", UUID.randomUUID().toString());
 
-//        usuarioRepository.adicionar(adminCarlos);
-//        usuarioRepository.adicionar(adminFernanda);
-//
-//        usuarioRepository.adicionar(leitorJoao);
-//        usuarioRepository.adicionar(leitorMariana);
-//        usuarioRepository.adicionar(leitorLucas);
-//        usuarioRepository.adicionar(leitorBianca);
-//        usuarioRepository.adicionar(leitorFelipe);
-//
-//        usuarioRepository.adicionar(leitorAna);
-//        usuarioRepository.adicionar(leitorRafael);
-//        usuarioRepository.adicionar(leitorJuliana);
+        usuarioRepository.adicionar(adminCarlos);
+        usuarioRepository.adicionar(adminFernanda);
+
+        usuarioRepository.adicionar(leitorJoao);
+        usuarioRepository.adicionar(leitorMariana);
+        usuarioRepository.adicionar(leitorLucas);
+        usuarioRepository.adicionar(leitorBianca);
+        usuarioRepository.adicionar(leitorFelipe);
+
+        usuarioRepository.adicionar(leitorAna);
+        usuarioRepository.adicionar(leitorRafael);
+        usuarioRepository.adicionar(leitorJuliana);
         ////////////////////////////////////////////////////////////////////////
         System.out.println("[SEED] Criando empréstimos...");
 
