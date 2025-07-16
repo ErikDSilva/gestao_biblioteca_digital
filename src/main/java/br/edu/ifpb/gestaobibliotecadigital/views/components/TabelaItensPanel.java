@@ -116,6 +116,25 @@ public abstract class TabelaItensPanel<T> extends javax.swing.JPanel {
     }
 
     /**
+     * Destaca um item da tabela
+     *
+     * @param item Item a ser destacado
+     */
+    public void destacarItem(T item) {
+        if (item == null) {
+            tabela.clearSelection();
+            return;
+        }
+
+        int index = itens.indexOf(item);
+        if (index <= -1) {
+            return;
+        }
+
+        tabela.setRowSelectionInterval(index, index);
+    }
+
+    /**
      * Retorna o índice a coluna que será ordenada por padrão (-1 é nenhuma)
      *
      * @return Número representando o índice da coluna
@@ -135,12 +154,14 @@ public abstract class TabelaItensPanel<T> extends javax.swing.JPanel {
 
     /**
      * Retorna o nome das colunas da tabela
+     *
      * @return Array de strings
      */
     protected abstract String[] getColunas();
 
     /**
      * Retorna o valor da célula em uma determinada linha e coluna
+     *
      * @param item Item
      * @param coluna Índice da coluna
      * @return Valor (preferência em string)
@@ -149,6 +170,7 @@ public abstract class TabelaItensPanel<T> extends javax.swing.JPanel {
 
     /**
      * Função que será executada ao destacar um item
+     *
      * @param item Item destacado
      */
     protected void onItemDestacado(T item) {
@@ -156,6 +178,7 @@ public abstract class TabelaItensPanel<T> extends javax.swing.JPanel {
 
     /**
      * Função que será executada ao selecionar um item
+     *
      * @param item Item selecionado
      */
     protected void onItemSelecionado(T item) {
