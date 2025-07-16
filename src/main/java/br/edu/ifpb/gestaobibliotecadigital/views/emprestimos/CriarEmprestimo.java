@@ -129,7 +129,7 @@ public class CriarEmprestimo extends javax.swing.JDialog {
                 aoDestacarUsuario(item);
             }
         };
-        detalhesUsuario = new br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesUsuario();
+        detalhesUsuario = new br.edu.ifpb.gestaobibliotecadigital.views.usuarios.DetalhesUsuario();
         livroLabel = new javax.swing.JLabel();
         pesquisarLivros = new br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel();
         tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros() {
@@ -296,7 +296,7 @@ public class CriarEmprestimo extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
     private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesLivro detalhesLivro;
-    private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesUsuario detalhesUsuario;
+    private br.edu.ifpb.gestaobibliotecadigital.views.usuarios.DetalhesUsuario detalhesUsuario;
     private javax.swing.JLabel livroLabel;
     private javax.swing.JButton ok;
     private br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel pesquisarLivros;

@@ -88,7 +88,7 @@ public class ListaEmprestimos extends javax.swing.JFrame {
         acoesEmprestimo = new br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.AcoesEmprestimo();
         detalhesEmprestimo = new br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesEmprestimo();
         detalhesLivro = new br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesLivro();
-        detalhesUsuario = new br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesUsuario();
+        detalhesUsuario = new br.edu.ifpb.gestaobibliotecadigital.views.usuarios.DetalhesUsuario();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Empréstimos");
@@ -191,7 +191,7 @@ public class ListaEmprestimos extends javax.swing.JFrame {
     private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.AcoesEmprestimo acoesEmprestimo;
     private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesEmprestimo detalhesEmprestimo;
     private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesLivro detalhesLivro;
-    private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesUsuario detalhesUsuario;
+    private br.edu.ifpb.gestaobibliotecadigital.views.usuarios.DetalhesUsuario detalhesUsuario;
     private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.PesquisaAvancadaEmprestimos pesquisaAvancadaEmprestimos;
     private br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel pesquisar;
     private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.TabelaEmprestimos tabelaEmprestimos;
