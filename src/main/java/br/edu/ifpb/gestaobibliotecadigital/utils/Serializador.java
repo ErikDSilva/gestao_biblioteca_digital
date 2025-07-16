@@ -1,5 +1,6 @@
 package br.edu.ifpb.gestaobibliotecadigital.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,7 +18,7 @@ public class Serializador {
      * @throws FileNotFoundException Se o arquivo não for encontrado.
      * @throws IOException Se ocorrer um erro de entrada/saída.
      */
-    public void escrever(String caminho, Object objetoASalvar)
+    public static void escrever(String caminho, Object objetoASalvar)
             throws FileNotFoundException, IOException {
 
         try (FileOutputStream FileOutput = new FileOutputStream(caminho); ObjectOutputStream ObjectOutput = new ObjectOutputStream(FileOutput)) {
@@ -34,11 +35,24 @@ public class Serializador {
      * @throws ClassNotFoundException Se a classe do objeto não for encontrada.
      * @return O objeto lido do arquivo.
      */
-    public Object ler(String caminho)
+    public static Object ler(String caminho)
             throws FileNotFoundException, IOException, ClassNotFoundException {
 
         try (FileInputStream fileInput = new FileInputStream(caminho); ObjectInputStream ObjectInput = new ObjectInputStream(fileInput)) {
             return ObjectInput.readObject();
+        }
+    }
+
+    /**
+     * Exclui um arquivo do sistema.
+     *
+     * @param caminho O caminho do arquivo a ser excluído.
+     */
+    public static void excluir(String caminho) {
+        File arquivo = new File(caminho);
+
+        if (arquivo.exists()) {
+            arquivo.delete();
         }
     }
 }
