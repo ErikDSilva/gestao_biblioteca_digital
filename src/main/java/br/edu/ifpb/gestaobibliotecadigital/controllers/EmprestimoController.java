@@ -5,6 +5,7 @@ import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.EmprestimoService;
+import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
 
 public class EmprestimoController extends Controller {
 
@@ -59,5 +60,17 @@ public class EmprestimoController extends Controller {
         }
 
         emprestimoService.cancelarReserva(reserva);
+    }
+
+    public void multaPaga(Emprestimo emprestimo) {
+        verificaUsuarioLogado();
+        verificaAdministrador();
+        emprestimoService.multaPaga(emprestimo);
+    }
+
+    public void excluir(Emprestimo emprestimo) {
+        verificaUsuarioLogado();
+        verificaAdministrador();
+        emprestimoService.excluir(emprestimo);
     }
 }
