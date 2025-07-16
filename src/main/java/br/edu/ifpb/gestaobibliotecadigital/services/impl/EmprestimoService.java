@@ -18,12 +18,15 @@ import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EmprestimoService {
 
     private final EmprestimoRepository emprestimoRepository = EmprestimoRepository.getInstance();
     private final ReservaRepository reservaRepository = ReservaRepository.getInstance();
-    private final LivroRepository livroRepository = new LivroRepository();
+    private final LivroRepository livroRepository = LivroRepository.getInstance();
     private final HistoricoRepository historicoRepository = HistoricoRepository.getInstance();
     private final NotificacaoObserver notificacao = NotificacaoObserver.getInstance();
 
@@ -93,8 +96,10 @@ public class EmprestimoService {
     }
 
     public void reservarLivro(Usuario usuario, Livro livro) {
+        Emprestimo emprestimo = emprestimoRepository.emprestimoLivro(livro);
+
         // Usuário não pode reservar o livro enquanto estiver com ele
-        if (emprestimoRepository.emprestimoLivro(livro).getUsuario().getId().equals(usuario.getId())) {
+        if (emprestimo != null && emprestimo.getUsuario().getId().equals(usuario.getId())) {
             throw new IllegalStateException("Você não pode reservar o livro, pois você está com ele");
         }
 
@@ -122,6 +127,29 @@ public class EmprestimoService {
         historicoRepository.adicionar(new HistoricoAcao(reserva.getUsuario(), reserva.getLivro(), null, reserva, TipoAcao.CANCELAMENTO_RESERVA));
     }
 
+    public void multaPaga(Emprestimo emprestimo) {
+        if (!emprestimo.foiDevolvido()) {
+            throw new IllegalStateException("O livro ainda não foi devolvido");
+        }
+
+        if (!emprestimo.temMultaPendente()) {
+            throw new IllegalStateException("Não tem multa pendente neste empréstimo");
+        }
+
+        emprestimo.setDataPagamentoMulta(DataProvider.agora());
+        emprestimoRepository.atualizar(emprestimo);
+
+        historicoRepository.adicionar(new HistoricoAcao(emprestimo.getUsuario(), emprestimo.getLivro(), emprestimo, null, TipoAcao.PAGAMENTO_MULTA));
+    }
+
+    public void excluir(Emprestimo emprestimo) {
+        emprestimoRepository.excluir(emprestimo);
+    }
+
+    public void excluirReserva(Reserva reserva) {
+        reservaRepository.excluir(reserva);
+    }
+
     public boolean livroEstaEmprestado(Livro livro) {
         return emprestimoRepository.emprestimoLivro(livro) != null;
     }
@@ -136,5 +164,27 @@ public class EmprestimoService {
 
     public boolean livroDisponivelParaReserva(Livro livro) {
         return !livroEstaReservado(livro);
+    }
+
+    public int contagemEmprestimosLivro(Livro livro) {
+        return emprestimoRepository.emprestimosLivro(livro).size();
+    }
+
+    public List<Map.Entry<Livro, Long>> ranking() {
+        Map<Livro, Long> ranking = emprestimoRepository.listar().stream()
+                .collect(Collectors.groupingBy(
+                        Emprestimo::getLivro,
+                        Collectors.counting()
+                ));
+
+        List<Map.Entry<Livro, Long>> livrosMaisEmprestados = ranking.entrySet().stream()
+                .sorted(Map.Entry.<Livro, Long>comparingByValue().reversed())
+                .collect(Collectors.toList());
+
+//        livrosMaisEmprestados.forEach(entry -> {
+//            System.out.println("Livro: " + entry.getKey().getTitulo() + " - Empréstimos: " + entry.getValue());
+//        });
+
+        return livrosMaisEmprestados;
     }
 }
