@@ -8,7 +8,7 @@ import java.util.List;
 public class TabelaEmprestimos extends TabelaItensPanel<Emprestimo> {
 
     public TabelaEmprestimos() {
-        super(new ArrayList<Emprestimo>());
+        super(new ArrayList<>());
     }
 
     public TabelaEmprestimos(List<Emprestimo> emprestimos) {

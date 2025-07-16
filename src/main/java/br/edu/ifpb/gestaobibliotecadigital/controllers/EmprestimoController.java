@@ -35,6 +35,12 @@ public class EmprestimoController extends Controller {
 
     public void reservarLivro(Livro livro) {
         verificaUsuarioLogado();
+
+        // Caso o usuário seja um administrador, ele deveria utilizar o outro método
+        if (isAdmin()) {
+            throw new IllegalStateException("Método incorreto para administrador, utilize o método void reservarLivro(Usuario usuario, Livro livro)");
+        }
+
         emprestimoService.reservarLivro(usuarioLogado, livro);
     }
 
