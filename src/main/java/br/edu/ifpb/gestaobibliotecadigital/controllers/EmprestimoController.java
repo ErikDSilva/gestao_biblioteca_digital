@@ -4,17 +4,21 @@ import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
+import br.edu.ifpb.gestaobibliotecadigital.observers.Notificacao;
+import br.edu.ifpb.gestaobibliotecadigital.observers.NotificacaoObserver;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.EmprestimoService;
-import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
 
 public class EmprestimoController extends Controller {
 
     private final EmprestimoService emprestimoService = new EmprestimoService();
+    private final NotificacaoObserver notificacao = NotificacaoObserver.getInstance();
 
     public void realizarEmprestimo(Usuario usuario, Livro livro) {
         verificaUsuarioLogado();
         verificaAdministrador();
         emprestimoService.solicitarEmprestimo(usuario, livro);
+        notificacao.notificar(new Notificacao("Empréstimo realizado do livro " + livro.getTitulo(), usuario));
+        notificacao.notificar(new Notificacao("Empréstimo realizado para " + usuario.getNome(), usuarioLogado));
     }
 
     public void renovarEmprestimo(Emprestimo emprestimo) {
@@ -26,12 +30,14 @@ public class EmprestimoController extends Controller {
         }
 
         emprestimoService.renovarEmprestimo(emprestimo);
+        notificacao.notificar(new Notificacao("Empréstimo renovado de " + emprestimo.getUsuario().getNome(), usuarioLogado));
     }
 
     public void devolverLivro(Emprestimo emprestimo) {
         verificaUsuarioLogado();
         verificaAdministrador();
         emprestimoService.devolverLivro(emprestimo);
+        notificacao.notificar(new Notificacao("Livro devolvido: " + emprestimo.getLivro().getTitulo(), usuarioLogado));
     }
 
     public void reservarLivro(Livro livro) {
@@ -43,12 +49,14 @@ public class EmprestimoController extends Controller {
         }
 
         emprestimoService.reservarLivro(usuarioLogado, livro);
+        notificacao.notificar(new Notificacao("Livro reservado: " + livro.getTitulo(), usuarioLogado));
     }
 
     public void reservarLivro(Usuario usuario, Livro livro) {
         verificaUsuarioLogado();
         verificaAdministrador();
         emprestimoService.reservarLivro(usuario, livro);
+        notificacao.notificar(new Notificacao("Livro reservado para " + usuario.getNome() + ": " + livro.getTitulo(), usuarioLogado));
     }
 
     public void cancelarReserva(Reserva reserva) {
@@ -60,23 +68,27 @@ public class EmprestimoController extends Controller {
         }
 
         emprestimoService.cancelarReserva(reserva);
+        notificacao.notificar(new Notificacao("Reserva cancelada do livro: " + reserva.getLivro().getTitulo(), usuarioLogado));
     }
 
     public void multaPaga(Emprestimo emprestimo) {
         verificaUsuarioLogado();
         verificaAdministrador();
         emprestimoService.multaPaga(emprestimo);
+        notificacao.notificar(new Notificacao("Multa paga do livro: " + emprestimo.getLivro().getTitulo(), usuarioLogado));
     }
 
     public void excluir(Emprestimo emprestimo) {
         verificaUsuarioLogado();
         verificaAdministrador();
         emprestimoService.excluir(emprestimo);
+        notificacao.notificar(new Notificacao("Empréstimo excluído do livro: " + emprestimo.getLivro().getTitulo(), usuarioLogado));
     }
-    
+
     public void excluirReserva(Reserva reserva) {
         verificaUsuarioLogado();
         verificaAdministrador();
         emprestimoService.excluirReserva(reserva);
+        notificacao.notificar(new Notificacao("Reserva excluída do livro: " + reserva.getLivro().getTitulo(), usuarioLogado));
     }
 }
