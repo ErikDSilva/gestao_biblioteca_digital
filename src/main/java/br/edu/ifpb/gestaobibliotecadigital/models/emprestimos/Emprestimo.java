@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.UUID;
 
 public class Emprestimo extends Modelo {
 

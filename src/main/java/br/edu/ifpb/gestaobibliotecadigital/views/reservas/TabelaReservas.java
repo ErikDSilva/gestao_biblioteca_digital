@@ -17,7 +17,15 @@ public class TabelaReservas extends TabelaItensPanel<Reserva> {
 
     @Override
     protected String[] getColunas() {
-        String[] colunas = {"Data", "Usuário", "Livro", "Expira"};
+        String[] colunas = {
+            "Data",
+            "Usuário",
+            "Livro",
+            "Status",
+            "Expiração",
+            "Encerrada",
+            "Com empréstimo"
+        };
         return colunas;
     }
 
@@ -30,8 +38,21 @@ public class TabelaReservas extends TabelaItensPanel<Reserva> {
                 item.getUsuario().getNome();
             case 2 ->
                 item.getLivro().getTitulo();
-            case 3 ->
+            case 3 -> {
+                if (item.expirada()) {
+                    yield "Expirada";
+                } else if (item.encerrada()) {
+                    yield "Encerrada";
+                } else {
+                    yield "Aberta";
+                }
+            }
+            case 4 ->
                 item.getDataExpiracao();
+            case 5 ->
+                item.getDataEncerrada();
+            case 6 ->
+                item.encerrada() ? (item.getEmprestimo() == null ? "Não" : "Sim") : "";
             default ->
                 null;
         };

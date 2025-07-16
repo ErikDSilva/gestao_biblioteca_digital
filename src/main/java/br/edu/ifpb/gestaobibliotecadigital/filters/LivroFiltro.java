@@ -88,4 +88,13 @@ public class LivroFiltro extends Filtro<Livro> {
         filtros.add(livro -> livro.getAno() == livroAno);
         return this;
     }
+
+    public LivroFiltro pesquisar(String texto) {
+        filtros.add(livro -> {
+            String textoNormal = Helpers.normalizarTexto(texto);
+            String titulo = Helpers.normalizarTexto(livro.getTitulo());
+            return titulo.contains(textoNormal);
+        });
+        return this;
+    }
 }
