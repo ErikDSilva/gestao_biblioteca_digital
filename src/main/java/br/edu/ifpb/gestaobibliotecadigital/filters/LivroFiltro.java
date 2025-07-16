@@ -6,6 +6,10 @@ import java.util.List;
 
 public class LivroFiltro extends Filtro<Livro> {
 
+    public LivroFiltro() {
+        super();
+    }
+
     public LivroFiltro(List<Livro> livros) {
         super(livros);
     }
@@ -18,6 +22,22 @@ public class LivroFiltro extends Filtro<Livro> {
         return this;
     }
 
+    //Pesquisar em todos os campos
+    public LivroFiltro pesquisar(String texto) {
+        filtros.add(livro -> {
+            String textoNormal = Helpers.normalizarTexto(texto);
+            String nomeLivro = Helpers.normalizarTexto(livro.getTitulo());
+            String nomeAutor = Helpers.normalizarTexto(livro.getAutor());
+            String nomeCategoria = Helpers.normalizarTexto(livro.getCategoria());
+            String nomeEditora = Helpers.normalizarTexto(livro.getEditora());
+            return nomeLivro.contains(textoNormal)
+                    || nomeAutor.contains(textoNormal)
+                    || nomeCategoria.contains(textoNormal)
+                    || nomeEditora.contains(textoNormal);
+        });
+        return this;
+    }
+
     // Por autor
     public LivroFiltro porAutor(String nomeAutor) {
         String nomeAutorNormalizado = Helpers.normalizarTexto(nomeAutor);
@@ -25,6 +45,18 @@ public class LivroFiltro extends Filtro<Livro> {
         filtros.add((Livro livro) -> {
             String autorDoLivroNormalizado = Helpers.normalizarTexto(livro.getAutor());
             return autorDoLivroNormalizado.contains(nomeAutorNormalizado);
+        });
+
+        return this;
+    }
+
+    // Por autor
+    public LivroFiltro porEditora(String nomeEditora) {
+        String nomeEditoraNormalizado = Helpers.normalizarTexto(nomeEditora);
+
+        filtros.add((Livro livro) -> {
+            String editoraDoLivroNormalizado = Helpers.normalizarTexto(livro.getEditora());
+            return editoraDoLivroNormalizado.contains(nomeEditoraNormalizado);
         });
 
         return this;
@@ -54,15 +86,6 @@ public class LivroFiltro extends Filtro<Livro> {
     // Por Ano
     public LivroFiltro porAno(int livroAno) {
         filtros.add(livro -> livro.getAno() == livroAno);
-        return this;
-    }
-
-    public LivroFiltro pesquisar(String texto) {
-        filtros.add(livro -> {
-            String textoNormal = Helpers.normalizarTexto(texto);
-            String titulo = Helpers.normalizarTexto(livro.getTitulo());
-            return titulo.contains(textoNormal);
-        });
         return this;
     }
 }
