@@ -16,7 +16,7 @@ import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.EmprestimoService;
 import br.edu.ifpb.gestaobibliotecadigital.session.UserSessionManager;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
-import br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.ListaEmprestimos;
+import br.edu.ifpb.gestaobibliotecadigital.views.reservas.ListaReservas;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
@@ -33,7 +33,8 @@ public class MainEquipe3 {
         Main.setupSwingLook();
 
         UserSessionManager.getInstance().login(new Administrador("José", "00000000000000000000000000"));
-        new ListaEmprestimos().setVisible(true);
+//        new ListaEmprestimos().setVisible(true);
+        new ListaReservas().setVisible(true);
 //        var a = new CriarEmprestimo(null, true) {
 //            @Override
 //            public void aoConfirmar(Livro livro, Usuario usuario) {

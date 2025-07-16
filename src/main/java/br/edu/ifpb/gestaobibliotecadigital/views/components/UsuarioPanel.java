@@ -21,7 +21,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
             tipoUsuario.setText(usuarioLogado.getTipo());
         } else {
             nomeUsuario.setText("Anônimo");
-            tipoUsuario.setText("Administrador");
+            tipoUsuario.setText("Não está logado");
         }
     }
 

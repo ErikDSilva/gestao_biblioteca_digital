@@ -1,5 +1,6 @@
-package br.edu.ifpb.gestaobibliotecadigital.views.emprestimos;
+package br.edu.ifpb.gestaobibliotecadigital.views.reservas;
 
+import br.edu.ifpb.gestaobibliotecadigital.views.reservas.*;
 import br.edu.ifpb.gestaobibliotecadigital.controllers.EmprestimoController;
 import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.filters.UsuarioFiltro;
@@ -10,7 +11,7 @@ import br.edu.ifpb.gestaobibliotecadigital.repositories.UsuarioRepository;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class CriarEmprestimo extends javax.swing.JDialog {
+public class CriarReserva extends javax.swing.JDialog {
 
     private final LivroRepository livroRepository = LivroRepository.getInstance();
     private final UsuarioRepository usuarioRepository = UsuarioRepository.getInstance();
@@ -21,7 +22,7 @@ public class CriarEmprestimo extends javax.swing.JDialog {
     private Livro livro;
     private Usuario usuario;
 
-    public CriarEmprestimo(java.awt.Frame parent, boolean modal) {
+    public CriarReserva(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
@@ -144,12 +145,12 @@ public class CriarEmprestimo extends javax.swing.JDialog {
         usuarioPanel1 = new br.edu.ifpb.gestaobibliotecadigital.views.components.UsuarioPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Novo Empréstimo");
+        setTitle("Nova Reserva");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(795, 709));
 
         titulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        titulo.setText("Novo Empréstimo");
+        titulo.setText("Nova Reserva");
 
         usuarioLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         usuarioLabel.setText("Usuário");
@@ -244,13 +245,13 @@ public class CriarEmprestimo extends javax.swing.JDialog {
 
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
         try {
-            emprestimoController.realizarEmprestimo(usuario, livro);
+            emprestimoController.reservarLivro(usuario, livro);
             dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(
                     this,
                     ex.getMessage(),
-                    "Erro ao realizar empréstimo",
+                    "Erro ao realizar reserva",
                     JOptionPane.ERROR_MESSAGE
             );
         }
@@ -273,21 +274,23 @@ public class CriarEmprestimo extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CriarEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CriarEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CriarEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CriarEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CriarEmprestimo dialog = new CriarEmprestimo(new javax.swing.JFrame(), true);
+                CriarReserva dialog = new CriarReserva(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

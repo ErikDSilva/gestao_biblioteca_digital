@@ -73,4 +73,10 @@ public class EmprestimoController extends Controller {
         verificaAdministrador();
         emprestimoService.excluir(emprestimo);
     }
+    
+    public void excluirReserva(Reserva reserva) {
+        verificaUsuarioLogado();
+        verificaAdministrador();
+        emprestimoService.excluirReserva(reserva);
+    }
 }

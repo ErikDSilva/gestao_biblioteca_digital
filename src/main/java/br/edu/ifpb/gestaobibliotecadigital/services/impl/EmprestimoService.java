@@ -141,6 +141,10 @@ public class EmprestimoService {
         emprestimoRepository.excluir(emprestimo);
     }
 
+    public void excluirReserva(Reserva reserva) {
+        reservaRepository.excluir(reserva);
+    }
+
     public boolean livroEstaEmprestado(Livro livro) {
         return emprestimoRepository.emprestimoLivro(livro) != null;
     }
