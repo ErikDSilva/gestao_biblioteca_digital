@@ -178,6 +178,11 @@ public class Testes extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         DataProvider.resetClock();
         jLabel1.setText("Data fictícia");
+        LocalDateTime ldt = DataProvider.agora();
+        String formatted = ldt.truncatedTo(ChronoUnit.SECONDS)
+                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        System.out.println(formatted);
+        jTextField1.setText(formatted);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
