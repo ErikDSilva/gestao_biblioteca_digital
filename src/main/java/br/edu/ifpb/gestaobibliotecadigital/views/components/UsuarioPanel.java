@@ -5,10 +5,18 @@ import br.edu.ifpb.gestaobibliotecadigital.session.UserSessionManager;
 
 public class UsuarioPanel extends javax.swing.JPanel {
 
-    private final Usuario usuarioLogado = UserSessionManager.getInstance().getUsuarioLogado();
+    private Usuario usuarioLogado = UserSessionManager.getInstance().getUsuarioLogado();
 
     public UsuarioPanel() {
         initComponents();
+        initDadosUsuario();
+    }
+
+    /**
+     * Atualiza
+     */
+    public void refresh() {
+        this.usuarioLogado = UserSessionManager.getInstance().getUsuarioLogado();
         initDadosUsuario();
     }
 
@@ -21,7 +29,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
             tipoUsuario.setText(usuarioLogado.getTipo());
         } else {
             nomeUsuario.setText("Anônimo");
-            tipoUsuario.setText("Administrador");
+            tipoUsuario.setText("Não está logado");
         }
     }
 

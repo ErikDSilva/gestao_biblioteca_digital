@@ -1,18 +1,18 @@
-package br.edu.ifpb.gestaobibliotecadigital.views.emprestimos;
+package br.edu.ifpb.gestaobibliotecadigital.views.reservas;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
 import br.edu.ifpb.gestaobibliotecadigital.views.components.TabelaItensPanel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabelaEmprestimos extends TabelaItensPanel<Emprestimo> {
+public class TabelaReservas extends TabelaItensPanel<Reserva> {
 
-    public TabelaEmprestimos() {
+    public TabelaReservas() {
         super(new ArrayList<>());
     }
 
-    public TabelaEmprestimos(List<Emprestimo> emprestimos) {
-        super(emprestimos);
+    public TabelaReservas(List<Reserva> reservas) {
+        super(reservas);
     }
 
     @Override
@@ -22,16 +22,16 @@ public class TabelaEmprestimos extends TabelaItensPanel<Emprestimo> {
     }
 
     @Override
-    protected Object getValueAt(Emprestimo item, int coluna) {
+    protected Object getValueAt(Reserva item, int coluna) {
         return switch (coluna) {
             case 0 ->
-                item.getDataEmprestimo();
+                item.getDataReserva();
             case 1 ->
                 item.getUsuario().getNome();
             case 2 ->
                 item.getLivro().getTitulo();
             case 3 ->
-                item.getDataRenovacaoOuDevolucao();
+                item.getDataExpiracao();
             default ->
                 null;
         };

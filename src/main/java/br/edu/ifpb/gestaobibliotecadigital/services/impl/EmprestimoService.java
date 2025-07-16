@@ -93,8 +93,10 @@ public class EmprestimoService {
     }
 
     public void reservarLivro(Usuario usuario, Livro livro) {
+        Emprestimo emprestimo = emprestimoRepository.emprestimoLivro(livro);
+        
         // Usuário não pode reservar o livro enquanto estiver com ele
-        if (emprestimoRepository.emprestimoLivro(livro).getUsuario().getId().equals(usuario.getId())) {
+        if (emprestimo != null && emprestimo.getUsuario().getId().equals(usuario.getId())) {
             throw new IllegalStateException("Você não pode reservar o livro, pois você está com ele");
         }
 
@@ -122,6 +124,29 @@ public class EmprestimoService {
         historicoRepository.adicionar(new HistoricoAcao(reserva.getUsuario(), reserva.getLivro(), null, reserva, TipoAcao.CANCELAMENTO_RESERVA));
     }
 
+    public void multaPaga(Emprestimo emprestimo) {
+        if (!emprestimo.foiDevolvido()) {
+            throw new IllegalStateException("O livro ainda não foi devolvido");
+        }
+
+        if (!emprestimo.temMultaPendente()) {
+            throw new IllegalStateException("Não tem multa pendente neste empréstimo");
+        }
+
+        emprestimo.setDataPagamentoMulta(DataProvider.agora());
+        emprestimoRepository.atualizar(emprestimo);
+
+        historicoRepository.adicionar(new HistoricoAcao(emprestimo.getUsuario(), emprestimo.getLivro(), emprestimo, null, TipoAcao.PAGAMENTO_MULTA));
+    }
+
+    public void excluir(Emprestimo emprestimo) {
+        emprestimoRepository.excluir(emprestimo);
+    }
+
+    public void excluirReserva(Reserva reserva) {
+        reservaRepository.excluir(reserva);
+    }
+
     public boolean livroEstaEmprestado(Livro livro) {
         return emprestimoRepository.emprestimoLivro(livro) != null;
     }
@@ -137,4 +162,5 @@ public class EmprestimoService {
     public boolean livroDisponivelParaReserva(Livro livro) {
         return !livroEstaReservado(livro);
     }
+
 }

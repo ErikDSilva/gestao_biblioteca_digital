@@ -1,67 +1,68 @@
-package br.edu.ifpb.gestaobibliotecadigital.views.emprestimos;
+package br.edu.ifpb.gestaobibliotecadigital.views.reservas;
 
-import br.edu.ifpb.gestaobibliotecadigital.filters.EmprestimoFiltro;
-import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
-import br.edu.ifpb.gestaobibliotecadigital.repositories.EmprestimoRepository;
+import br.edu.ifpb.gestaobibliotecadigital.views.reservas.*;
+import br.edu.ifpb.gestaobibliotecadigital.filters.ReservaFiltro;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
+import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
 import java.util.List;
 
-public class ListaEmprestimos extends javax.swing.JFrame {
+public class ListaReservas extends javax.swing.JFrame {
 
-    private final EmprestimoRepository emprestimoRepository = EmprestimoRepository.getInstance();
-    private List<Emprestimo> listaEmprestimos = emprestimoRepository.listar();
+    private final ReservaRepository reservaRepository = ReservaRepository.getInstance();
+    private List<Reserva> listaReservas = reservaRepository.listar();
     private String pesquisa = "";
-    private EmprestimoFiltro filtro = new EmprestimoFiltro();
+    private ReservaFiltro filtro = new ReservaFiltro();
 
-    public ListaEmprestimos() {
+    public ListaReservas() {
         initComponents();
 
         // Define os dados na tabela
-        tabelaEmprestimos.setDados(listaEmprestimos);
+        tabelaReservas.setDados(listaReservas);
 
-        // Atualiza a lista de empréstimos quando houver alguma alteração
-        acoesEmprestimo.events.onUpdate(() -> {
-            listaEmprestimos = emprestimoRepository.listar();
+        // Atualiza a lista de reservas quando houver alguma alteração
+        acoesReserva.events.onUpdate(() -> {
+            listaReservas = reservaRepository.listar();
             filtrar();
         });
 
-        // Filtra a lista de empréstimos quando digitar na caixa de pesquisa
+        // Filtra a lista de reservas quando digitar na caixa de pesquisa
         pesquisar.events.onUpdate(() -> {
             pesquisa = pesquisar.getText();
             filtrar();
         });
 
-        // Filtra a lista de empréstimos quando pressionar "Pesquisar"
-        pesquisaAvancadaEmprestimos.events.onUpdate(() -> {
-            filtro = pesquisaAvancadaEmprestimos.getFiltro();
+        // Filtra a lista de reservas quando pressionar "Pesquisar"
+        pesquisaAvancadaReservas.events.onUpdate(() -> {
+            filtro = pesquisaAvancadaReservas.getFiltro();
             filtrar();
         });
     }
 
     /**
-     * Filtra a lista de empréstimos
+     * Filtra a lista de reservas
      */
     private void filtrar() {
-        EmprestimoFiltro filtroClone = (EmprestimoFiltro) filtro.clone();
+        ReservaFiltro filtroClone = (ReservaFiltro) filtro.clone();
         
-        // Define a lista completa de empréstimos no filtro
-        filtroClone.setItens(listaEmprestimos);
+        // Define a lista completa de reservas no filtro
+        filtroClone.setItens(listaReservas);
         
         // Se a caixa de pesquisa não estiver vazia, filtra
         if (!pesquisa.trim().equals("")) {
             filtroClone.pesquisar(pesquisa);
         }
         
-        // Atualiza a lista de empréstimos
-        tabelaEmprestimos.setDados(filtroClone.filtrar());
-        onItemDestacadoEmprestimos(null);
+        // Atualiza a lista de reservas
+        tabelaReservas.setDados(filtroClone.filtrar());
+        onItemDestacadoReservas(null);
     }
 
     /**
      * Ao destacar um item da tabela
      */
-    private void onItemDestacadoEmprestimos(Emprestimo item) {
-        acoesEmprestimo.setEmprestimo(item);
-        detalhesEmprestimo.setEmprestimo(item);
+    private void onItemDestacadoReservas(Reserva item) {
+        acoesReserva.setReserva(item);
+        detalhesReserva.setReserva(item);
         detalhesLivro.setLivro(item == null ? null : item.getLivro());
         detalhesUsuario.setUsuario(item == null ? null : item.getUsuario());
     }
@@ -78,25 +79,25 @@ public class ListaEmprestimos extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         usuarioPanel = new br.edu.ifpb.gestaobibliotecadigital.views.components.UsuarioPanel();
         pesquisar = new br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel();
-        pesquisaAvancadaEmprestimos = new br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.PesquisaAvancadaEmprestimos();
-        tabelaEmprestimos = new br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.TabelaEmprestimos(){
+        pesquisaAvancadaReservas = new br.edu.ifpb.gestaobibliotecadigital.views.reservas.PesquisaAvancadaReservas();
+        tabelaReservas = new br.edu.ifpb.gestaobibliotecadigital.views.reservas.TabelaReservas(){
             @Override
-            protected void onItemDestacado(Emprestimo item) {
-                onItemDestacadoEmprestimos(item);
+            protected void onItemDestacado(Reserva item) {
+                onItemDestacadoReservas(item);
             }
         };
-        acoesEmprestimo = new br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.AcoesEmprestimo();
-        detalhesEmprestimo = new br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesEmprestimo();
+        acoesReserva = new br.edu.ifpb.gestaobibliotecadigital.views.reservas.AcoesReserva();
+        detalhesReserva = new br.edu.ifpb.gestaobibliotecadigital.views.reservas.DetalhesReserva();
         detalhesLivro = new br.edu.ifpb.gestaobibliotecadigital.views.livros.DetalhesLivro();
         detalhesUsuario = new br.edu.ifpb.gestaobibliotecadigital.views.usuarios.DetalhesUsuario();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Empréstimos");
+        setTitle("Reservas");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(800, 560));
 
         titulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        titulo.setText("Listagem de Empréstimos");
+        titulo.setText("Listagem de Reservas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,16 +110,16 @@ public class ListaEmprestimos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(titulo)
-                            .addComponent(pesquisaAvancadaEmprestimos, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pesquisaAvancadaReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(acoesEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(detalhesEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(acoesReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(detalhesReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(detalhesLivro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(detalhesUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(tabelaEmprestimos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(tabelaReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(usuarioPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -136,16 +137,16 @@ public class ListaEmprestimos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tabelaEmprestimos, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                        .addComponent(tabelaReservas, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(acoesEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(acoesReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(detalhesLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(detalhesUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(detalhesEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pesquisaAvancadaEmprestimos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(detalhesReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pesquisaAvancadaReservas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -169,32 +170,33 @@ public class ListaEmprestimos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaEmprestimos().setVisible(true);
+                new ListaReservas().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.AcoesEmprestimo acoesEmprestimo;
-    private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesEmprestimo detalhesEmprestimo;
+    private br.edu.ifpb.gestaobibliotecadigital.views.reservas.AcoesReserva acoesReserva;
     private br.edu.ifpb.gestaobibliotecadigital.views.livros.DetalhesLivro detalhesLivro;
+    private br.edu.ifpb.gestaobibliotecadigital.views.reservas.DetalhesReserva detalhesReserva;
     private br.edu.ifpb.gestaobibliotecadigital.views.usuarios.DetalhesUsuario detalhesUsuario;
-    private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.PesquisaAvancadaEmprestimos pesquisaAvancadaEmprestimos;
+    private br.edu.ifpb.gestaobibliotecadigital.views.reservas.PesquisaAvancadaReservas pesquisaAvancadaReservas;
     private br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel pesquisar;
-    private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.TabelaEmprestimos tabelaEmprestimos;
+    private br.edu.ifpb.gestaobibliotecadigital.views.reservas.TabelaReservas tabelaReservas;
     private javax.swing.JLabel titulo;
     private br.edu.ifpb.gestaobibliotecadigital.views.components.UsuarioPanel usuarioPanel;
     // End of variables declaration//GEN-END:variables

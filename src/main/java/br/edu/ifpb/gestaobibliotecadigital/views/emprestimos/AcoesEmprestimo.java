@@ -1,7 +1,9 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.emprestimos;
 
+import br.edu.ifpb.gestaobibliotecadigital.controllers.EmprestimoController;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
-import br.edu.ifpb.gestaobibliotecadigital.repositories.EmprestimoRepository;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.views.components.UpdateObserver;
 import javax.swing.JOptionPane;
 
@@ -9,9 +11,7 @@ public class AcoesEmprestimo extends javax.swing.JPanel {
 
     private Emprestimo emprestimo;
     public final UpdateObserver events = new UpdateObserver();
-
-    // TODO: mudar para controller
-    private final EmprestimoRepository emprestimoRepository = EmprestimoRepository.getInstance();
+    private final EmprestimoController emprestimoController = new EmprestimoController();
 
     public AcoesEmprestimo() {
         initComponents();
@@ -53,6 +53,11 @@ public class AcoesEmprestimo extends javax.swing.JPanel {
         });
 
         adicionar.setText("Adicionar");
+        adicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionarActionPerformed(evt);
+            }
+        });
 
         remover.setText("Remover");
         remover.setEnabled(false);
@@ -64,12 +69,27 @@ public class AcoesEmprestimo extends javax.swing.JPanel {
 
         devolver.setText("Devolver");
         devolver.setEnabled(false);
+        devolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                devolverActionPerformed(evt);
+            }
+        });
 
         renovar.setText("Renovar");
         renovar.setEnabled(false);
+        renovar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                renovarActionPerformed(evt);
+            }
+        });
 
         multaPaga.setText("Multa paga");
         multaPaga.setEnabled(false);
+        multaPaga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                multaPagaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -107,17 +127,101 @@ public class AcoesEmprestimo extends javax.swing.JPanel {
     private void removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerActionPerformed
 
         int resposta = JOptionPane.showConfirmDialog(
-                null,
-                "Deseja remover?",
-                "Remove?",
+                this,
+                "Tem certeza que vai remover este empréstimo?",
+                "Remover empréstimo",
                 JOptionPane.YES_NO_OPTION
         );
 
         if (resposta == JOptionPane.YES_OPTION) {
-            emprestimoRepository.excluir(emprestimo);
-            events.emit();
+            try {
+                emprestimoController.excluir(emprestimo);
+                events.emit();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        ex.getMessage(),
+                        "Erro ao excluir empréstimo",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
         }
     }//GEN-LAST:event_removerActionPerformed
+
+    private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
+        CriarEmprestimo criarEmprestimoDialog = new CriarEmprestimo(null, true);
+        criarEmprestimoDialog.setVisible(true);
+        events.emit();
+    }//GEN-LAST:event_adicionarActionPerformed
+
+    private void devolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_devolverActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(
+                this,
+                "Tem certeza que deseja marcar como devolvido?",
+                "Marcar como devolvido",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            try {
+                emprestimoController.devolverLivro(emprestimo);
+                events.emit();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        ex.getMessage(),
+                        "Erro ao marcar como devolvido",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+    }//GEN-LAST:event_devolverActionPerformed
+
+    private void renovarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renovarActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(
+                this,
+                "Tem certeza que vai renovar este empréstimo?",
+                "Renovar empréstimo",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            try {
+                emprestimoController.renovarEmprestimo(emprestimo);
+                events.emit();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        ex.getMessage(),
+                        "Erro ao renovar empréstimo",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+    }//GEN-LAST:event_renovarActionPerformed
+
+    private void multaPagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multaPagaActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(
+                this,
+                "Tem certeza que vai marcar a multa como paga para este empréstimo?",
+                "Marcar multa como paga",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            try {
+                emprestimoController.multaPaga(emprestimo);
+                events.emit();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        ex.getMessage(),
+                        "Erro ao marcar multa como paga",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+    }//GEN-LAST:event_multaPagaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

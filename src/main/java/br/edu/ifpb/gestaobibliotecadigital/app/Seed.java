@@ -1,6 +1,7 @@
 package br.edu.ifpb.gestaobibliotecadigital.app;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.EmprestimoPadrao;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.EmprestimoPremium;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
@@ -12,6 +13,7 @@ import br.edu.ifpb.gestaobibliotecadigital.repositories.EmprestimoRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.HistoricoRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
+import br.edu.ifpb.gestaobibliotecadigital.repositories.UsuarioRepository;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
 import java.util.UUID;
 
@@ -21,6 +23,7 @@ public class Seed {
     private static final ReservaRepository reservaRepository = ReservaRepository.getInstance();
     private static final LivroRepository livroRepository = LivroRepository.getInstance();
     private static final HistoricoRepository historicoRepository = HistoricoRepository.getInstance();
+    private static final UsuarioRepository usuarioRepository = UsuarioRepository.getInstance();
 
     public static void main(String[] args) {
         executarSeed();
@@ -28,7 +31,7 @@ public class Seed {
 
     public static void executarSeed() {
         System.out.println("[SEED] Limpando dados antigos...");
-        // usuarioRepository.resetar();
+        usuarioRepository.resetar();
         livroRepository.resetar();
         emprestimoRepository.resetar();
         historicoRepository.resetar();
@@ -372,18 +375,18 @@ public class Seed {
         LeitorPremium leitorRafael = new LeitorPremium("Rafael Mendes", UUID.randomUUID().toString());
         LeitorPremium leitorJuliana = new LeitorPremium("Juliana Rocha", UUID.randomUUID().toString());
 
-//        usuarioRepository.adicionar(adminCarlos);
-//        usuarioRepository.adicionar(adminFernanda);
-//
-//        usuarioRepository.adicionar(leitorJoao);
-//        usuarioRepository.adicionar(leitorMariana);
-//        usuarioRepository.adicionar(leitorLucas);
-//        usuarioRepository.adicionar(leitorBianca);
-//        usuarioRepository.adicionar(leitorFelipe);
-//
-//        usuarioRepository.adicionar(leitorAna);
-//        usuarioRepository.adicionar(leitorRafael);
-//        usuarioRepository.adicionar(leitorJuliana);
+        usuarioRepository.adicionar(adminCarlos);
+        usuarioRepository.adicionar(adminFernanda);
+
+        usuarioRepository.adicionar(leitorJoao);
+        usuarioRepository.adicionar(leitorMariana);
+        usuarioRepository.adicionar(leitorLucas);
+        usuarioRepository.adicionar(leitorBianca);
+        usuarioRepository.adicionar(leitorFelipe);
+
+        usuarioRepository.adicionar(leitorAna);
+        usuarioRepository.adicionar(leitorRafael);
+        usuarioRepository.adicionar(leitorJuliana);
         ////////////////////////////////////////////////////////////////////////
         System.out.println("[SEED] Criando empréstimos...");
 
@@ -415,6 +418,22 @@ public class Seed {
         emprestimoRepository.adicionar(emp3);
         emprestimoRepository.adicionar(emp4);
         emprestimoRepository.adicionar(emp5);
+
+        ////////////////////////////////////////////////////////////////////////
+        System.out.println("[SEED] Criando reservas...");
+        DataProvider.setDateTime("2025-01-02T00:00:00");
+        var res1 = new Reserva(leitorJuliana, padroeDeProjeto);
+        DataProvider.setDateTime("2025-01-03T00:00:00");
+        var res2 = new Reserva(leitorBianca, entendendoAlgoritmos);
+        DataProvider.setDateTime("2025-01-04T00:00:00");
+        var res3 = new Reserva(leitorBianca, diarioBanana7);
+        DataProvider.setDateTime("2025-07-16T00:00:00");
+        var res4 = new Reserva(leitorMariana, useCabecaJava);
+
+        reservaRepository.adicionar(res1);
+        reservaRepository.adicionar(res2);
+        reservaRepository.adicionar(res3);
+        reservaRepository.adicionar(res4);
 
         ////////////////////////////////////////////////////////////////////////
         DataProvider.resetClock();

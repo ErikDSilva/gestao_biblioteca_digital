@@ -19,4 +19,8 @@ public class Notificacao {
     public Usuario getDestinatario() {
         return destinatario;
     }
+    
+    public String toString() {
+        return "[" + destinatario.getNome() + "] " + mensagem;
+    }
 }
