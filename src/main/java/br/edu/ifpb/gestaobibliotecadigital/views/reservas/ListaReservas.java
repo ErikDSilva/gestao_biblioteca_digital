@@ -20,7 +20,7 @@ public class ListaReservas extends javax.swing.JFrame {
         tabelaReservas.setDados(listaReservas);
 
         // Atualiza a lista de reservas quando houver alguma alteração
-        acoesReservas.events.onUpdate(() -> {
+        acoesReserva.events.onUpdate(() -> {
             listaReservas = reservaRepository.listar();
             filtrar();
         });
@@ -54,14 +54,14 @@ public class ListaReservas extends javax.swing.JFrame {
         
         // Atualiza a lista de reservas
         tabelaReservas.setDados(filtroClone.filtrar());
-        onItemDestacadoReserva(null);
+        onItemDestacadoReservas(null);
     }
 
     /**
      * Ao destacar um item da tabela
      */
-    private void onItemDestacadoReserva(Reserva item) {
-        acoesReservas.setReserva(item);
+    private void onItemDestacadoReservas(Reserva item) {
+        acoesReserva.setReserva(item);
         detalhesReserva.setReserva(item);
         detalhesLivro.setLivro(item == null ? null : item.getLivro());
         detalhesUsuario.setUsuario(item == null ? null : item.getUsuario());
@@ -83,15 +83,15 @@ public class ListaReservas extends javax.swing.JFrame {
         tabelaReservas = new br.edu.ifpb.gestaobibliotecadigital.views.reservas.TabelaReservas(){
             @Override
             protected void onItemDestacado(Reserva item) {
-                onItemDestacadoReserva(item);
+                onItemDestacadoReservas(item);
             }
         };
-        acoesReservas = new br.edu.ifpb.gestaobibliotecadigital.views.reservas.AcoesReserva();
+        acoesReserva = new br.edu.ifpb.gestaobibliotecadigital.views.reservas.AcoesReserva();
         detalhesReserva = new br.edu.ifpb.gestaobibliotecadigital.views.reservas.DetalhesReserva();
         detalhesLivro = new br.edu.ifpb.gestaobibliotecadigital.views.livros.DetalhesLivro();
         detalhesUsuario = new br.edu.ifpb.gestaobibliotecadigital.views.usuarios.DetalhesUsuario();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reservas");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(800, 560));
@@ -113,7 +113,7 @@ public class ListaReservas extends javax.swing.JFrame {
                             .addComponent(pesquisaAvancadaReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(acoesReservas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(acoesReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(detalhesReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(detalhesLivro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -139,7 +139,7 @@ public class ListaReservas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tabelaReservas, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(acoesReservas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(acoesReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(detalhesLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -190,9 +190,9 @@ public class ListaReservas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private br.edu.ifpb.gestaobibliotecadigital.views.reservas.AcoesReserva acoesReservas;
-    private br.edu.ifpb.gestaobibliotecadigital.views.reservas.DetalhesReserva detalhesReserva;
+    private br.edu.ifpb.gestaobibliotecadigital.views.reservas.AcoesReserva acoesReserva;
     private br.edu.ifpb.gestaobibliotecadigital.views.livros.DetalhesLivro detalhesLivro;
+    private br.edu.ifpb.gestaobibliotecadigital.views.reservas.DetalhesReserva detalhesReserva;
     private br.edu.ifpb.gestaobibliotecadigital.views.usuarios.DetalhesUsuario detalhesUsuario;
     private br.edu.ifpb.gestaobibliotecadigital.views.reservas.PesquisaAvancadaReservas pesquisaAvancadaReservas;
     private br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel pesquisar;
