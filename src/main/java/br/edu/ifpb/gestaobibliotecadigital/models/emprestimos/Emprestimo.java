@@ -1,10 +1,10 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.emprestimos;
 
+import br.edu.ifpb.gestaobibliotecadigital.models.Modelo;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.EstrategiaEmprestimo;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
-import java.io.Serializable;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,11 +12,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.UUID;
 
-public class Emprestimo implements Serializable {
+public class Emprestimo extends Modelo {
 
-    private final UUID id;
     private final Usuario usuario;
     private final Livro livro;
     private final LocalDateTime dataEmprestimo;
@@ -26,7 +24,7 @@ public class Emprestimo implements Serializable {
     private LocalDateTime dataPagamentoMulta;
 
     public Emprestimo(Usuario usuario, Livro livro, EstrategiaEmprestimo estrategiaEmprestimo) {
-        this.id = UUID.randomUUID();
+        super();
         this.usuario = usuario;
         this.livro = livro;
         this.dataEmprestimo = DataProvider.agora();
@@ -37,10 +35,6 @@ public class Emprestimo implements Serializable {
     }
 
     // Getters
-    public UUID getId() {
-        return id;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -98,6 +92,11 @@ public class Emprestimo implements Serializable {
      * @return true se pode renovar o livro
      */
     public boolean podeRenovar() {
+        // Se o livro foi devolvido, não pode renovar
+        if (foiDevolvido()) {
+            return false;
+        }
+
         int renovacoesRestantes = getQuantidadeRenovacoesRestantes();
 
         // Se o número de renovações for 0, significa que não pode mais renovar

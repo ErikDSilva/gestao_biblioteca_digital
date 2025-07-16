@@ -1,10 +1,14 @@
 package br.edu.ifpb.gestaobibliotecadigital.utils;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.text.Normalizer;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.swing.Icon;
 
 public class Helpers {
 
@@ -54,4 +58,11 @@ public class Helpers {
         return anos.toArray(String[]::new);
     }
 
+    public static Image iconToImage(Icon icon) {
+        BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics g = bi.createGraphics();
+        icon.paintIcon(null, g, 0, 0);
+        g.dispose();
+        return bi;
+    }
 }
