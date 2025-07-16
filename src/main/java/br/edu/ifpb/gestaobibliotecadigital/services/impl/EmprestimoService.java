@@ -93,8 +93,10 @@ public class EmprestimoService {
     }
 
     public void reservarLivro(Usuario usuario, Livro livro) {
+        Emprestimo emprestimo = emprestimoRepository.emprestimoLivro(livro);
+        
         // Usuário não pode reservar o livro enquanto estiver com ele
-        if (emprestimoRepository.emprestimoLivro(livro).getUsuario().getId().equals(usuario.getId())) {
+        if (emprestimo != null && emprestimo.getUsuario().getId().equals(usuario.getId())) {
             throw new IllegalStateException("Você não pode reservar o livro, pois você está com ele");
         }
 
