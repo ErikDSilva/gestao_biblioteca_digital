@@ -92,6 +92,7 @@ public class ListaEmprestimos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Empréstimos");
+        setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(800, 560));
 
         titulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

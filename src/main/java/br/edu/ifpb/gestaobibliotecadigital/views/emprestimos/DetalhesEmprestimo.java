@@ -32,6 +32,7 @@ public class DetalhesEmprestimo extends javax.swing.JPanel {
 
         LocalDateTime devolvido = emprestimo.getDataDevolvido();
         double multaValor = emprestimo.getMulta();
+        String multaPaga = emprestimo.getDataPagamentoMulta() == null ? "" : " (paga em " + Formatter.of(emprestimo.getDataPagamentoMulta()).toString() + ")";
 
         if (emprestimo.estaAtrasado()) {
             titulo.setText("Livro Atrasado");
@@ -45,7 +46,7 @@ public class DetalhesEmprestimo extends javax.swing.JPanel {
 
         dataDoEmprestimo.setText(Formatter.of(emprestimo.getDataEmprestimo()).toString());
         devolvidoEm.setText(devolvido == null ? "Não" : Formatter.of(devolvido).toString());
-        multa.setText(multaValor > 0 ? "R$ " + Formatter.of(multaValor).toString() : "Não");
+        multa.setText(multaValor > 0 ? "R$ " + Formatter.of(multaValor).toString() + multaPaga : "Não");
         renovacoesRealizadas.setText(Integer.toString(emprestimo.getQuantidadeRenovacoes()));
         renovacoesRestantes.setText(Integer.toString(emprestimo.getQuantidadeRenovacoesRestantes()));
         ultimaRenovacao.setText(Formatter.of(emprestimo.getDataUltimaRenovacao()).toString());
