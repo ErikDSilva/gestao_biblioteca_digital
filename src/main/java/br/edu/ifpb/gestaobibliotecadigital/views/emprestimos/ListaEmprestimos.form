@@ -113,7 +113,7 @@
     </Component>
     <Component class="br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesEmprestimo" name="detalhesEmprestimo">
     </Component>
-    <Component class="br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesLivro" name="detalhesLivro">
+    <Component class="br.edu.ifpb.gestaobibliotecadigital.views.livros.DetalhesLivro" name="detalhesLivro">
     </Component>
     <Component class="br.edu.ifpb.gestaobibliotecadigital.views.usuarios.DetalhesUsuario" name="detalhesUsuario">
     </Component>

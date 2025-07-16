@@ -138,7 +138,7 @@ public class CriarEmprestimo extends javax.swing.JDialog {
                 aoDestacarLivro(item);
             }
         };
-        detalhesLivro = new br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesLivro();
+        detalhesLivro = new br.edu.ifpb.gestaobibliotecadigital.views.livros.DetalhesLivro();
         cancelar = new javax.swing.JButton();
         ok = new javax.swing.JButton();
 
@@ -295,7 +295,7 @@ public class CriarEmprestimo extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
-    private br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.DetalhesLivro detalhesLivro;
+    private br.edu.ifpb.gestaobibliotecadigital.views.livros.DetalhesLivro detalhesLivro;
     private br.edu.ifpb.gestaobibliotecadigital.views.usuarios.DetalhesUsuario detalhesUsuario;
     private javax.swing.JLabel livroLabel;
     private javax.swing.JButton ok;
