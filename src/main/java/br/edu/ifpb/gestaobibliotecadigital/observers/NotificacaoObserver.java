@@ -1,9 +1,16 @@
 package br.edu.ifpb.gestaobibliotecadigital.observers;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
+import br.edu.ifpb.gestaobibliotecadigital.utils.Helpers;
+import java.awt.AWTException;
+import java.awt.Image;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.Icon;
+import javax.swing.UIManager;
 
 public class NotificacaoObserver {
 
@@ -39,6 +46,7 @@ public class NotificacaoObserver {
 
         for (NotificacaoListener listener : listenersDoUsuario) {
             listener.novaMensagem(notificacao);
+            exibirNotificacaoSistema(notificacao);
         }
     }
 
@@ -51,5 +59,26 @@ public class NotificacaoObserver {
 
         ArrayList<NotificacaoListener> listenersDoUsuario = listeners.get(usuario);
         return listenersDoUsuario;
+    }
+
+    private void exibirNotificacaoSistema(Notificacao notificacao) {
+        if (!SystemTray.isSupported()) {
+            System.out.println("SystemTray não é suportado!");
+            return;
+        }
+
+        SystemTray tray = SystemTray.getSystemTray();
+
+        Icon infoIcon = UIManager.getIcon("OptionPane.informationIcon");
+        Image image = Helpers.iconToImage(infoIcon);
+        TrayIcon trayIcon = new TrayIcon(image, "Info");
+        trayIcon.setImageAutoSize(true);
+
+        try {
+            tray.add(trayIcon);
+            trayIcon.displayMessage("Notificação para " + notificacao.getDestinatario().getNome(), notificacao.getMensagem(), TrayIcon.MessageType.INFO);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
     }
 }

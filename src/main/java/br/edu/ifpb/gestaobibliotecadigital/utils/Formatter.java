@@ -55,8 +55,12 @@ public class Formatter {
             return new SimpleDateFormat("dd/MM/yyyy").format(date);
         }
 
-        if (value instanceof Number n) {
-            return String.format("%.2f", n.doubleValue());
+        if (value instanceof Integer i) {
+            return String.valueOf(i);
+        }
+
+        if (value instanceof Double d) {
+            return String.format("%.2f", d);
         }
 
         if (value instanceof Boolean b) {

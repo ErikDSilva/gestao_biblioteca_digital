@@ -1,4 +1,4 @@
-package br.edu.ifpb.gestaobibliotecadigital.views.emprestimos;
+package br.edu.ifpb.gestaobibliotecadigital.views.usuarios;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 
@@ -14,7 +14,7 @@ public class DetalhesUsuario extends javax.swing.JPanel {
     /**
      * Atualiza o usuário selecionado
      */
-    void setUsuario(Usuario usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
 
         if (usuario == null) {

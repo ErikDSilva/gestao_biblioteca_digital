@@ -15,7 +15,7 @@ import br.edu.ifpb.gestaobibliotecadigital.repositories.EmprestimoRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.EmprestimoService;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
-import br.edu.ifpb.gestaobibliotecadigital.views.emprestimos.ListaEmprestimos;
+import br.edu.ifpb.gestaobibliotecadigital.views.Testes;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
@@ -31,7 +31,8 @@ public class MainEquipe3 {
         setup();
         Main.setupSwingLook();
 
-        new ListaEmprestimos().setVisible(true);
+        new Testes().setVisible(true);
+
 //        testarEmprestimos();
 //        testarReservas();
 //        testarRepositorio();

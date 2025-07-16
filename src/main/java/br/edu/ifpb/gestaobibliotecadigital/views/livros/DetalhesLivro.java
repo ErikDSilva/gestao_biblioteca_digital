@@ -1,4 +1,4 @@
-package br.edu.ifpb.gestaobibliotecadigital.views.emprestimos;
+package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
@@ -14,7 +14,7 @@ public class DetalhesLivro extends javax.swing.JPanel {
     /**
      * Atualiza o livro selecionado
      */
-    void setLivro(Livro livro) {
+    public void setLivro(Livro livro) {
         this.livro = livro;
 
         if (livro == null) {

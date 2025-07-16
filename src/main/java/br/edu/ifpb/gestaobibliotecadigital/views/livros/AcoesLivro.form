@@ -18,16 +18,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="atualizar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="adicionar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="remover" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
-              <Component id="devolver" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="renovar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="multaPaga" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -36,9 +31,6 @@
           <Group type="103" groupAlignment="3" attributes="0">
               <Component id="adicionar" alignment="3" min="-2" max="-2" attributes="0"/>
               <Component id="remover" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="renovar" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="multaPaga" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="devolver" alignment="3" min="-2" max="-2" attributes="0"/>
               <Component id="atualizar" alignment="3" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -57,9 +49,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Adicionar"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adicionarActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="remover">
       <Properties>
@@ -68,33 +57,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="devolver">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Devolver"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="devolverActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="renovar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Renovar"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="renovarActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="multaPaga">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Multa paga"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="multaPagaActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -4,6 +4,7 @@ import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Colecao;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.utils.CriarLivroSeed;
+import br.edu.ifpb.gestaobibliotecadigital.views.livros.ListaLivros;
 
 import java.util.List;
 
@@ -12,10 +13,7 @@ public class MainEquipe2 {
     private static final List<Livro> bancoDeLivros = CriarLivroSeed.getLivros();
 
     public static void main(String[] args) {
-        // Composite
-        mostrarColecaoEngenharia();
-        // Composite
-        mostrarTrilogiaTolkien();
+        new ListaLivros().setVisible(true);
     }
 
     // Compose: Criação coleções
