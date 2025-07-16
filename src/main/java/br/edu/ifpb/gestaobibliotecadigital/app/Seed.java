@@ -1,6 +1,7 @@
 package br.edu.ifpb.gestaobibliotecadigital.app;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
+import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.EmprestimoPadrao;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.EmprestimoPremium;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
@@ -417,6 +418,22 @@ public class Seed {
         emprestimoRepository.adicionar(emp3);
         emprestimoRepository.adicionar(emp4);
         emprestimoRepository.adicionar(emp5);
+
+        ////////////////////////////////////////////////////////////////////////
+        System.out.println("[SEED] Criando reservas...");
+        DataProvider.setDateTime("2025-01-02T00:00:00");
+        var res1 = new Reserva(leitorJuliana, padroeDeProjeto);
+        DataProvider.setDateTime("2025-01-03T00:00:00");
+        var res2 = new Reserva(leitorBianca, entendendoAlgoritmos);
+        DataProvider.setDateTime("2025-01-04T00:00:00");
+        var res3 = new Reserva(leitorBianca, diarioBanana7);
+        DataProvider.setDateTime("2025-07-16T00:00:00");
+        var res4 = new Reserva(leitorMariana, useCabecaJava);
+
+        reservaRepository.adicionar(res1);
+        reservaRepository.adicionar(res2);
+        reservaRepository.adicionar(res3);
+        reservaRepository.adicionar(res4);
 
         ////////////////////////////////////////////////////////////////////////
         DataProvider.resetClock();
