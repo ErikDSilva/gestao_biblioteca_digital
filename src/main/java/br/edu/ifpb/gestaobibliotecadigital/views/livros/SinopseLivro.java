@@ -1,26 +1,28 @@
-package br.edu.ifpb.gestaobibliotecadigital.views.emprestimos;
+package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
-public class DetalhesLivro extends javax.swing.JPanel {
+public class SinopseLivro extends javax.swing.JPanel {
 
     private Livro livro;
 
-    public DetalhesLivro() {
+    public SinopseLivro() {
         initComponents();
         setLivro(null);
     }
 
     /**
-     * Atualiza o livro selecionado
+     * Atualiza a sinopse do livro selecionado
      */
     void setLivro(Livro livro) {
+        
         this.livro = livro;
 
         if (livro == null) {
-            nomeLivro.setText(" ");
+            sinopseLivro.setText(" ");
         } else {
-            nomeLivro.setText(livro.getTitulo());
+            System.out.print(livro.getSinopse());
+            sinopseLivro.setText(livro.getSinopse());
         }
     }
 
@@ -33,27 +35,27 @@ public class DetalhesLivro extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        livroBorder = new javax.swing.JPanel();
-        nomeLivro = new javax.swing.JLabel();
+        sinopseBorder = new javax.swing.JPanel();
+        sinopseLivro = new javax.swing.JLabel();
 
-        livroBorder.setBorder(javax.swing.BorderFactory.createTitledBorder("Livro"));
+        sinopseBorder.setBorder(javax.swing.BorderFactory.createTitledBorder("Livro"));
 
-        nomeLivro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        nomeLivro.setText("Nome do Livro");
+        sinopseLivro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        sinopseLivro.setText("Sinpose");
 
-        javax.swing.GroupLayout livroBorderLayout = new javax.swing.GroupLayout(livroBorder);
-        livroBorder.setLayout(livroBorderLayout);
-        livroBorderLayout.setHorizontalGroup(
-            livroBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(livroBorderLayout.createSequentialGroup()
+        javax.swing.GroupLayout sinopseBorderLayout = new javax.swing.GroupLayout(sinopseBorder);
+        sinopseBorder.setLayout(sinopseBorderLayout);
+        sinopseBorderLayout.setHorizontalGroup(
+            sinopseBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sinopseBorderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nomeLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addComponent(sinopseLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        livroBorderLayout.setVerticalGroup(
-            livroBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(livroBorderLayout.createSequentialGroup()
-                .addComponent(nomeLivro)
+        sinopseBorderLayout.setVerticalGroup(
+            sinopseBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sinopseBorderLayout.createSequentialGroup()
+                .addComponent(sinopseLivro)
                 .addGap(0, 123, Short.MAX_VALUE))
         );
 
@@ -61,18 +63,18 @@ public class DetalhesLivro extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(livroBorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sinopseBorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(livroBorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sinopseBorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel livroBorder;
-    private javax.swing.JLabel nomeLivro;
+    private javax.swing.JPanel sinopseBorder;
+    private javax.swing.JLabel sinopseLivro;
     // End of variables declaration//GEN-END:variables
 
 }

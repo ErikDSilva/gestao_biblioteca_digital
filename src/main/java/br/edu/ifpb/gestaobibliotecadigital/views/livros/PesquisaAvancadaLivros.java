@@ -1,30 +1,39 @@
-package br.edu.ifpb.gestaobibliotecadigital.views.emprestimos;
+package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
 import br.edu.ifpb.gestaobibliotecadigital.filters.EmprestimoFiltro;
+import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
+import br.edu.ifpb.gestaobibliotecadigital.utils.Helpers;
 import br.edu.ifpb.gestaobibliotecadigital.views.components.UpdateObserver;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 
-public class PesquisaAvancadaEmprestimos extends javax.swing.JPanel {
+public class PesquisaAvancadaLivros extends javax.swing.JPanel {
 
     public final UpdateObserver events = new UpdateObserver();
-    private EmprestimoFiltro filtro = new EmprestimoFiltro();
+//    private EmprestimoFiltro filtro = new EmprestimoFiltro();
+    private LivroFiltro filtro = new LivroFiltro();
 
-    public PesquisaAvancadaEmprestimos() {
+    public PesquisaAvancadaLivros() {
         initComponents();
         initEnterPress();
+        categoriaComboBox.setModel(new DefaultComboBoxModel<>(Helpers.CATEGORIAS));
+        anoPublicacaoComboBox.setModel(new DefaultComboBoxModel<>(Helpers.getAnos()));
     }
 
     /**
      * Retorna o filtro atual
+     *
+     * @return
      */
-    public EmprestimoFiltro getFiltro() {
+    public LivroFiltro getFiltro() {
         return filtro;
     }
 
     /**
-     * Configura para quando pressionar enter em qualquer TextField, executar a pesquisa
+     * Configura para quando pressionar enter em qualquer TextField, executar a
+     * pesquisa
      */
     private void initEnterPress() {
         ActionListener enter = evt -> {
@@ -32,8 +41,8 @@ public class PesquisaAvancadaEmprestimos extends javax.swing.JPanel {
         };
 
         for (Component component : getComponents()) {
-            if (component instanceof JTextField) {
-                ((JTextField) component).addActionListener(enter);
+            if (component instanceof JTextField jTextField) {
+                jTextField.addActionListener(enter);
             }
         }
     }
@@ -48,19 +57,23 @@ public class PesquisaAvancadaEmprestimos extends javax.swing.JPanel {
     private void initComponents() {
 
         titulo = new javax.swing.JLabel();
-        tituloLivroLabel = new javax.swing.JLabel();
-        tituloLivro = new javax.swing.JTextField();
-        nomeLeitorLabel = new javax.swing.JLabel();
-        nomeLeitor = new javax.swing.JTextField();
+        nomeAutorLabel = new javax.swing.JLabel();
+        nomeAutor = new javax.swing.JTextField();
+        nomeEditoraLabel = new javax.swing.JLabel();
+        nomeEditora = new javax.swing.JTextField();
         pesquisar = new javax.swing.JButton();
         limpar = new javax.swing.JButton();
+        nomeCategoriaLabel = new javax.swing.JLabel();
+        categoriaComboBox = new javax.swing.JComboBox<>();
+        anoPublicacaoLabel = new javax.swing.JLabel();
+        anoPublicacaoComboBox = new javax.swing.JComboBox<>();
 
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         titulo.setText("Pesquisa Avançada");
 
-        tituloLivroLabel.setText("Título do Livro");
+        nomeAutorLabel.setText("Nome do Autor");
 
-        nomeLeitorLabel.setText("Nome do Leitor");
+        nomeEditoraLabel.setText("Nome da Editora");
 
         pesquisar.setText("Pesquisar");
         pesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +89,10 @@ public class PesquisaAvancadaEmprestimos extends javax.swing.JPanel {
             }
         });
 
+        nomeCategoriaLabel.setText("Categoria");
+
+        anoPublicacaoLabel.setText("Ano de publicação");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,16 +100,24 @@ public class PesquisaAvancadaEmprestimos extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tituloLivro)
-                    .addComponent(nomeLeitor)
-                    .addComponent(titulo)
-                    .addComponent(tituloLivroLabel)
-                    .addComponent(nomeLeitorLabel)
+                    .addComponent(nomeAutor)
+                    .addComponent(nomeEditora)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(limpar, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)))
-                .addGap(0, 0, 0))
+                        .addComponent(limpar, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeCategoriaLabel)
+                            .addComponent(titulo)
+                            .addComponent(nomeAutorLabel)
+                            .addComponent(nomeEditoraLabel))
+                        .addContainerGap(82, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(anoPublicacaoLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(anoPublicacaoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(categoriaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,14 +125,22 @@ public class PesquisaAvancadaEmprestimos extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tituloLivroLabel)
+                .addComponent(nomeAutorLabel)
                 .addGap(5, 5, 5)
-                .addComponent(tituloLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nomeAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(nomeLeitorLabel)
+                .addComponent(nomeEditoraLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nomeLeitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+                .addComponent(nomeEditora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nomeCategoriaLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(categoriaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(anoPublicacaoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(anoPublicacaoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -119,9 +152,9 @@ public class PesquisaAvancadaEmprestimos extends javax.swing.JPanel {
      * Limpa a pesquisa
      */
     private void limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparActionPerformed
-        tituloLivro.setText("");
-        nomeLeitor.setText("");
-        this.filtro = new EmprestimoFiltro();
+        nomeAutor.setText("");
+        nomeEditora.setText("");
+        this.filtro = new LivroFiltro();
         events.emit();
     }//GEN-LAST:event_limparActionPerformed
 
@@ -129,31 +162,49 @@ public class PesquisaAvancadaEmprestimos extends javax.swing.JPanel {
      * Executa a pesquisa
      */
     private void pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarActionPerformed
-        EmprestimoFiltro filtro = new EmprestimoFiltro();
+        LivroFiltro filtroParaPesquisar = new LivroFiltro();
 
-        String nomeLivroText = tituloLivro.getText().trim();
-        String nomeLeitorText = nomeLeitor.getText().trim();
+        String nomeAutorText = nomeAutor.getText().trim();
+        String nomeEditoraText = nomeEditora.getText().trim();
+        String categoriaSelecionada = categoriaComboBox.getSelectedItem().toString();
+        String categoria = (categoriaSelecionada.equalsIgnoreCase("Selecione...")) ? "" : categoriaSelecionada;
 
-        if (!nomeLivroText.equals("")) {
-            filtro.porNomeLivro(nomeLivroText);
+        String anoSelecionado = anoPublicacaoComboBox.getSelectedItem().toString();
+        int anoPublicaoLivro = (anoSelecionado.equalsIgnoreCase("Selecione um ano")) ? 0 : Integer.parseInt(anoSelecionado);
+
+        if (!nomeAutorText.equals("")) {
+            filtroParaPesquisar.porPalavra(nomeAutorText);
         }
 
-        if (!nomeLeitorText.equals("")) {
-            filtro.porNomeUsuario(nomeLeitorText);
+        if (!nomeEditoraText.equals("")) {
+            filtroParaPesquisar.porEditora(nomeEditoraText);
         }
 
-        this.filtro = filtro;
+        if (!categoria.equals("")) {
+            filtroParaPesquisar.porCategoria(categoria);
+        }
+
+        if (anoPublicaoLivro != 0) {
+            filtroParaPesquisar.porAno(anoPublicaoLivro);
+        }
+
+        // Filtro por ano
+        this.filtro = filtroParaPesquisar;
         events.emit();
     }//GEN-LAST:event_pesquisarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> anoPublicacaoComboBox;
+    private javax.swing.JLabel anoPublicacaoLabel;
+    private javax.swing.JComboBox<String> categoriaComboBox;
     private javax.swing.JButton limpar;
-    private javax.swing.JTextField nomeLeitor;
-    private javax.swing.JLabel nomeLeitorLabel;
+    private javax.swing.JTextField nomeAutor;
+    private javax.swing.JLabel nomeAutorLabel;
+    private javax.swing.JLabel nomeCategoriaLabel;
+    private javax.swing.JTextField nomeEditora;
+    private javax.swing.JLabel nomeEditoraLabel;
     private javax.swing.JButton pesquisar;
     private javax.swing.JLabel titulo;
-    private javax.swing.JTextField tituloLivro;
-    private javax.swing.JLabel tituloLivroLabel;
     // End of variables declaration//GEN-END:variables
 }

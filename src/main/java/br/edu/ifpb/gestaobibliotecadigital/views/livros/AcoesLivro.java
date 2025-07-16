@@ -1,32 +1,23 @@
-package br.edu.ifpb.gestaobibliotecadigital.views.emprestimos;
+package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
-import br.edu.ifpb.gestaobibliotecadigital.repositories.EmprestimoRepository;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.views.components.UpdateObserver;
 import javax.swing.JOptionPane;
 
-public class AcoesEmprestimo extends javax.swing.JPanel {
+public class AcoesLivro extends javax.swing.JPanel {
 
-    private Emprestimo emprestimo;
+    private Livro livro;
     public final UpdateObserver events = new UpdateObserver();
 
-    // TODO: mudar para controller
-    private final EmprestimoRepository emprestimoRepository = EmprestimoRepository.getInstance();
-
-    public AcoesEmprestimo() {
+    public AcoesLivro() {
         initComponents();
     }
 
     /**
-     * Atualiza o empréstimo selecionado
+     * Atualiza o livro selecionado
      */
-    public void setEmprestimo(Emprestimo emprestimo) {
-        this.emprestimo = emprestimo;
-
-        remover.setEnabled(emprestimo != null);
-        devolver.setEnabled(emprestimo != null && !emprestimo.foiDevolvido());
-        multaPaga.setEnabled(emprestimo != null && emprestimo.foiDevolvido() && emprestimo.temMultaPendente());
-        renovar.setEnabled(emprestimo != null && emprestimo.podeRenovar());
+    public void setLivro() {
+        remover.setEnabled(false);
     }
 
     /**
@@ -41,9 +32,6 @@ public class AcoesEmprestimo extends javax.swing.JPanel {
         atualizar = new javax.swing.JButton();
         adicionar = new javax.swing.JButton();
         remover = new javax.swing.JButton();
-        devolver = new javax.swing.JButton();
-        renovar = new javax.swing.JButton();
-        multaPaga = new javax.swing.JButton();
 
         atualizar.setText("Atualizar");
         atualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -62,15 +50,6 @@ public class AcoesEmprestimo extends javax.swing.JPanel {
             }
         });
 
-        devolver.setText("Devolver");
-        devolver.setEnabled(false);
-
-        renovar.setText("Renovar");
-        renovar.setEnabled(false);
-
-        multaPaga.setText("Multa paga");
-        multaPaga.setEnabled(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,21 +60,13 @@ public class AcoesEmprestimo extends javax.swing.JPanel {
                 .addComponent(adicionar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(remover)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(devolver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(renovar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(multaPaga))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(adicionar)
                 .addComponent(remover)
-                .addComponent(renovar)
-                .addComponent(multaPaga)
-                .addComponent(devolver)
                 .addComponent(atualizar))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -114,7 +85,6 @@ public class AcoesEmprestimo extends javax.swing.JPanel {
         );
 
         if (resposta == JOptionPane.YES_OPTION) {
-            emprestimoRepository.excluir(emprestimo);
             events.emit();
         }
     }//GEN-LAST:event_removerActionPerformed
@@ -123,9 +93,6 @@ public class AcoesEmprestimo extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
     private javax.swing.JButton atualizar;
-    private javax.swing.JButton devolver;
-    private javax.swing.JButton multaPaga;
     private javax.swing.JButton remover;
-    private javax.swing.JButton renovar;
     // End of variables declaration//GEN-END:variables
 }
