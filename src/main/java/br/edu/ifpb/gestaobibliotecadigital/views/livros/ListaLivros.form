@@ -112,6 +112,9 @@
     <Component class="br.edu.ifpb.gestaobibliotecadigital.views.livros.SinopseLivro" name="sinopseLivro2">
     </Component>
     <Component class="br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros" name="tabelaLivros">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros(){&#xa;    @Override&#xa;    protected void onItemDestacado(Livro item) {&#xa;        onItemDestacadoLivros(item);&#xa;    };&#xa;};"/>
+      </AuxValues>
     </Component>
     <Component class="br.edu.ifpb.gestaobibliotecadigital.views.livros.AcoesLivro" name="acoesLivro1">
     </Component>

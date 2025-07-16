@@ -47,6 +47,7 @@ public class ListaLivros extends javax.swing.JFrame {
     private void filtrar() {
         LivroFiltro filtroClone = (LivroFiltro) filtro.clone();
 
+        
         filtroClone.setItens(listaLivros);
 
         if (!pesquisa.trim().equals("")) {
@@ -85,6 +86,13 @@ public class ListaLivros extends javax.swing.JFrame {
 
         titulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         titulo.setText("Listagem de Livros");
+
+        tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros(){
+            @Override
+            protected void onItemDestacado(Livro item) {
+                onItemDestacadoLivros(item);
+            };
+        };
 
         qntLabel.setText("0 de 0");
 

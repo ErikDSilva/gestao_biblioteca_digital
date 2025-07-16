@@ -15,14 +15,16 @@ public class SinopseLivro extends javax.swing.JPanel {
      * Atualiza a sinopse do livro selecionado
      */
     void setLivro(Livro livro) {
-        
+
         this.livro = livro;
 
         if (livro == null) {
             sinopseLivro.setText(" ");
+            sinopseLivro.setEditable(false);
         } else {
             System.out.print(livro.getSinopse());
             sinopseLivro.setText(livro.getSinopse());
+            sinopseLivro.setEditable(false);
         }
     }
 
@@ -36,12 +38,14 @@ public class SinopseLivro extends javax.swing.JPanel {
     private void initComponents() {
 
         sinopseBorder = new javax.swing.JPanel();
-        sinopseLivro = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        sinopseLivro = new javax.swing.JTextArea();
 
         sinopseBorder.setBorder(javax.swing.BorderFactory.createTitledBorder("Livro"));
 
-        sinopseLivro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        sinopseLivro.setText("Sinpose");
+        sinopseLivro.setColumns(20);
+        sinopseLivro.setRows(5);
+        jScrollPane1.setViewportView(sinopseLivro);
 
         javax.swing.GroupLayout sinopseBorderLayout = new javax.swing.GroupLayout(sinopseBorder);
         sinopseBorder.setLayout(sinopseBorderLayout);
@@ -49,14 +53,15 @@ public class SinopseLivro extends javax.swing.JPanel {
             sinopseBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sinopseBorderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(sinopseLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                 .addContainerGap())
         );
         sinopseBorderLayout.setVerticalGroup(
             sinopseBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sinopseBorderLayout.createSequentialGroup()
-                .addComponent(sinopseLivro)
-                .addGap(0, 123, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -73,8 +78,9 @@ public class SinopseLivro extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel sinopseBorder;
-    private javax.swing.JLabel sinopseLivro;
+    private javax.swing.JTextArea sinopseLivro;
     // End of variables declaration//GEN-END:variables
 
 }
