@@ -11,7 +11,7 @@ public class ReservaFiltro extends Filtro<Reserva> {
     }
 
     public ReservaFiltro porLivro(Livro livro) {
-        filtros.add(reserva -> reserva.getLivro()/*.getId()*/ == livro/*.getId()*/);
+        filtros.add(reserva -> reserva.getLivro().getId() == livro.getId());
         return this;
     }
 

@@ -11,7 +11,7 @@ public class EmprestimoFiltro extends Filtro<Emprestimo> {
     }
 
     public EmprestimoFiltro porLivro(Livro livro) {
-        filtros.add(emprestimo -> emprestimo.getLivro()/*.getId()*/ == livro/*.getId()*/);
+        filtros.add(emprestimo -> emprestimo.getLivro().getId() == livro.getId());
         return this;
     }
 

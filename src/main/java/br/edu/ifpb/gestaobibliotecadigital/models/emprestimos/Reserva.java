@@ -146,7 +146,7 @@ public class Reserva implements Serializable {
 
         return ""
                 + "\n[Reserva \"" + id + "\"]"
-                + "\n* USUÁRIO: " + usuario/*.getNome()*/
+                + "\n* USUÁRIO: " + usuario.getNome()
                 + "\n* LIVRO: " + livro.getTitulo()
                 + "\n* DATA DE RESERVA: " + dataReservaStr
                 + "\n* DATA DE EXPIRAÇÃO: " + dataExpiracaoStr + " " + expiracaoStatus
