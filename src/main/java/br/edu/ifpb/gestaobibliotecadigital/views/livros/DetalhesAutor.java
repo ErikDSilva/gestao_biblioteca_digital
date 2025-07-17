@@ -2,25 +2,26 @@ package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
-public class DetalhesLivro extends javax.swing.JPanel {
+public class DetalhesAutor extends javax.swing.JPanel {
 
     private Livro livro;
 
-    public DetalhesLivro() {
+    public DetalhesAutor() {
         initComponents();
         setLivro(null);
     }
 
     /**
      * Atualiza o livro selecionado
+     * @param livro
      */
     public void setLivro(Livro livro) {
         this.livro = livro;
 
         if (livro == null) {
-            nomeLivro.setText(" ");
+            nomeAutor.setText(" ");
         } else {
-            nomeLivro.setText(livro.getTitulo());
+            nomeAutor.setText(livro.getAutor());
         }
     }
 
@@ -34,12 +35,13 @@ public class DetalhesLivro extends javax.swing.JPanel {
     private void initComponents() {
 
         livroBorder = new javax.swing.JPanel();
-        nomeLivro = new javax.swing.JLabel();
+        nomeAutor = new javax.swing.JLabel();
 
         livroBorder.setBorder(javax.swing.BorderFactory.createTitledBorder("Livro"));
+        livroBorder.setBorder(javax.swing.BorderFactory.createTitledBorder("Autor"));
 
-        nomeLivro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        nomeLivro.setText("Nome do Livro");
+        nomeAutor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nomeAutor.setText("Nome do Autor");
 
         javax.swing.GroupLayout livroBorderLayout = new javax.swing.GroupLayout(livroBorder);
         livroBorder.setLayout(livroBorderLayout);
@@ -47,13 +49,13 @@ public class DetalhesLivro extends javax.swing.JPanel {
             livroBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(livroBorderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nomeLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addComponent(nomeAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                 .addContainerGap())
         );
         livroBorderLayout.setVerticalGroup(
             livroBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(livroBorderLayout.createSequentialGroup()
-                .addComponent(nomeLivro)
+                .addComponent(nomeAutor)
                 .addGap(0, 123, Short.MAX_VALUE))
         );
 
@@ -67,12 +69,14 @@ public class DetalhesLivro extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(livroBorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        livroBorder.getAccessibleContext().setAccessibleName("");
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel livroBorder;
-    private javax.swing.JLabel nomeLivro;
+    private javax.swing.JLabel nomeAutor;
     // End of variables declaration//GEN-END:variables
 
 }

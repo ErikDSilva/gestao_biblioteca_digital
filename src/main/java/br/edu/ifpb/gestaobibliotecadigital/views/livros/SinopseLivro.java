@@ -22,9 +22,10 @@ public class SinopseLivro extends javax.swing.JPanel {
             sinopseLivro.setText(" ");
             sinopseLivro.setEditable(false);
         } else {
-            System.out.print(livro.getSinopse());
-            sinopseLivro.setText(livro.getSinopse());
             sinopseLivro.setEditable(false);
+            sinopseLivro.setLineWrap(true);
+            sinopseLivro.setWrapStyleWord(true);
+            sinopseLivro.setText(livro.getSinopse());
         }
     }
 
@@ -42,6 +43,8 @@ public class SinopseLivro extends javax.swing.JPanel {
         sinopseLivro = new javax.swing.JTextArea();
 
         sinopseBorder.setBorder(javax.swing.BorderFactory.createTitledBorder("Livro"));
+        sinopseBorder.setBorder(javax.swing.BorderFactory.createTitledBorder("Sinopse"));
+        sinopseBorder.setToolTipText("Sinopse");
 
         sinopseLivro.setColumns(20);
         sinopseLivro.setRows(5);
@@ -74,6 +77,8 @@ public class SinopseLivro extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(sinopseBorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        sinopseBorder.getAccessibleContext().setAccessibleName("");
     }// </editor-fold>//GEN-END:initComponents
 
 
