@@ -18,6 +18,9 @@ import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.ReservaRepository;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EmprestimoService {
 
@@ -94,7 +97,7 @@ public class EmprestimoService {
 
     public void reservarLivro(Usuario usuario, Livro livro) {
         Emprestimo emprestimo = emprestimoRepository.emprestimoLivro(livro);
-        
+
         // Usuário não pode reservar o livro enquanto estiver com ele
         if (emprestimo != null && emprestimo.getUsuario().getId().equals(usuario.getId())) {
             throw new IllegalStateException("Você não pode reservar o livro, pois você está com ele");
@@ -163,4 +166,25 @@ public class EmprestimoService {
         return !livroEstaReservado(livro);
     }
 
+    public int contagemEmprestimosLivro(Livro livro) {
+        return emprestimoRepository.emprestimosLivro(livro).size();
+    }
+
+    public List<Map.Entry<Livro, Long>> ranking() {
+        Map<Livro, Long> ranking = emprestimoRepository.listar().stream()
+                .collect(Collectors.groupingBy(
+                        Emprestimo::getLivro,
+                        Collectors.counting()
+                ));
+
+        List<Map.Entry<Livro, Long>> livrosMaisEmprestados = ranking.entrySet().stream()
+                .sorted(Map.Entry.<Livro, Long>comparingByValue().reversed())
+                .collect(Collectors.toList());
+
+//        livrosMaisEmprestados.forEach(entry -> {
+//            System.out.println("Livro: " + entry.getKey().getTitulo() + " - Empréstimos: " + entry.getValue());
+//        });
+
+        return livrosMaisEmprestados;
+    }
 }
