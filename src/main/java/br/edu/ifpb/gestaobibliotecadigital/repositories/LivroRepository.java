@@ -1,11 +1,11 @@
 package br.edu.ifpb.gestaobibliotecadigital.repositories;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 
 /**
  * Repository: Abstração da persistência de dados dos livros.
  */
-public class LivroRepository extends Repositorio<Livro> {
+public class LivroRepository extends Repositorio<LivroBase> {
 
     private static LivroRepository instance;
 
@@ -21,8 +21,13 @@ public class LivroRepository extends Repositorio<Livro> {
     }
 
     @Override
-    protected String getId(Livro item) {
-        return item.getId().toString();
+    protected String getId(LivroBase item) {
+        return item.getISBN();
+    }
+
+    @Override
+    protected String getNome() {
+        return "Livros";
     }
 
 }
