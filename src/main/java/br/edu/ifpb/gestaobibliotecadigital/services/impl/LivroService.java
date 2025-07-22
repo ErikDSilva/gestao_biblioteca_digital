@@ -1,7 +1,7 @@
 package br.edu.ifpb.gestaobibliotecadigital.services.impl;
 
 import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import java.util.HashMap;
 
@@ -16,66 +16,48 @@ public class LivroService {
     private static final Map<String, Integer> registroDeCategorias = new HashMap<>();
     private final LivroRepository livroRepository = LivroRepository.getInstance();
 
-    public void criarLivro(Livro livro) {
-        List<Livro> resultados = listarPorLivro(livro.getISBN());
+    public List<LivroBase> listarPorLivro(String ISBN) {
+        logger.log(Level.INFO, "Buscando livro por ISBN: {0}", ISBN);
+        LivroFiltro filtro = new LivroFiltro(livroRepository.listar());
+        List<LivroBase> resultados = filtro.porLivro(ISBN).filtrar();
+        return resultados;
+    }
+
+    public List<LivroBase> listar() {
+        logger.info("Listando todos os livros");
+        return livroRepository.listar();
+    }
+
+    public void criarLivro(LivroBase livro) {
+        List<LivroBase> resultados = listarPorLivro(livro.getISBN());
         if (!resultados.isEmpty()) {
-            logger.log(Level.INFO, "Livro já registrado no sistema");
-            return;
+            throw new IllegalStateException("Este ISBN já está cadastrado no sistema.");
         }
         logger.log(Level.INFO, "Criando livro: {0}", livro);
         livroRepository.adicionar(livro);
     }
 
-    public List<Livro> listar() {
-        logger.info("Listando todos os livros");
-        return livroRepository.listar();
+    public void atualizar(LivroBase novoAtualizar) {
+        livroRepository.atualizar(novoAtualizar);
+        logger.log(Level.INFO, "Livro atualizado com sucesso: {0}", novoAtualizar);
     }
 
-    public List<Livro> listarPorLivro(String ISBN) {
-        logger.log(Level.INFO, "Buscando livro por ISBN: {0}", ISBN);
-        LivroFiltro filtro = new LivroFiltro(livroRepository.listar());
-        List<Livro> resultados = filtro.porLivro(ISBN).filtrar();
-        System.out.println(resultados);
-        logger.log(Level.INFO, "Livros encontrados: {0}", resultados.size());
-        return resultados;
-    }
-
-    public boolean atualizar(String ISBN, Livro novoLivro) {
-        logger.log(Level.INFO, "Atualizando livro com ISBN: {0}", ISBN);
-        List<Livro> resultados = listarPorLivro(ISBN);
-        if (!resultados.isEmpty()) {
-            livroRepository.atualizar(novoLivro);
-            logger.log(Level.INFO, "Livro atualizado com sucesso: {0}", novoLivro);
-            return true;
-        }
-        logger.log(Level.WARNING, "Livro nao encontrado para atualizar: {0}", ISBN);
-        return false;
-    }
-
-    public boolean deletar(String ISBN) {
-        logger.log(Level.INFO, "Deletando livro com ISBN: {0}", ISBN);
-        List<Livro> resultados = listarPorLivro(ISBN);
-
-        if (!resultados.isEmpty()) {
-            livroRepository.excluir(resultados.get(0));
-            logger.info("Livro deletado com sucesso");
-            return true;
-        }
-        logger.log(Level.WARNING, "Livro nao encontrado para deletar: {0}", ISBN);
-        return false;
+    public void deletar(LivroBase novoDeletar) {
+        logger.log(Level.INFO, "Deletando livro: {0}", novoDeletar.getTitulo());
+        livroRepository.excluir(novoDeletar);
+        logger.info("Livro deletado com sucesso");
     }
 
     // Salvar as categorias que os usuários estão buscando
     public void registrarBuscaPorCategoria(String categoria) {
-        // Vai salvar todas as categorias, execeto o placeholder
         registroDeCategorias.put(categoria, registroDeCategorias.getOrDefault(categoria, 0) + 1);
     }
 
-    // Retorna o top 10 de categorias
+    // Retorna o top 5 de categorias
     public List<Map.Entry<String, Integer>> getCategoriasmaisbuscadas() {
         return registroDeCategorias.entrySet().stream()
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-                .limit(10) // até 10
+                .limit(5)
                 .toList();
     }
 

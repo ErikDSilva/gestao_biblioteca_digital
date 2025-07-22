@@ -8,6 +8,7 @@ import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.Estrat
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.historico.HistoricoAcao;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.historico.TipoAcao;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.LeitorPremium;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.observers.Notificacao;
@@ -30,7 +31,7 @@ public class EmprestimoService {
     private final HistoricoRepository historicoRepository = HistoricoRepository.getInstance();
     private final NotificacaoObserver notificacao = NotificacaoObserver.getInstance();
 
-    public Emprestimo solicitarEmprestimo(Usuario usuario, Livro livro) {
+    public Emprestimo solicitarEmprestimo(Usuario usuario, LivroBase livro) {
         if (livroEstaEmprestado(livro)) {
             throw new IllegalStateException("O livro já está emprestado para alguém");
         }
@@ -45,7 +46,7 @@ public class EmprestimoService {
 
         EstrategiaEmprestimo estrategia = usuario instanceof LeitorPremium ? new EmprestimoPremium() : new EmprestimoPadrao();
         Emprestimo emprestimo = new Emprestimo(usuario, livro, estrategia);
-        livro.definirEmprestado();
+//        livro.definirEmprestado();
         emprestimoRepository.adicionar(emprestimo);
         livroRepository.atualizar(livro);
 
@@ -78,7 +79,7 @@ public class EmprestimoService {
         }
 
         emprestimo.setDataDevolvido(DataProvider.agora());
-        emprestimo.getLivro().definirDisponivel();
+//        emprestimo.getLivro().definirDisponivel();
         emprestimoRepository.atualizar(emprestimo);
         livroRepository.atualizar(emprestimo.getLivro());
 
@@ -88,14 +89,14 @@ public class EmprestimoService {
 
         if (reserva != null) {
             Usuario usuario = reserva.getUsuario();
-            Livro livro = reserva.getLivro();
+            LivroBase livro = reserva.getLivro();
             String dataExpiracao = reserva.getDataExpiracao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             String mensagem = "Olá " + usuario.getNome() + "! O livro \"" + livro.getTitulo() + "\" que você reservou está disponível na biblioteca e reservado para você até " + dataExpiracao;
             notificacao.notificar(new Notificacao(mensagem, usuario));
         }
     }
 
-    public void reservarLivro(Usuario usuario, Livro livro) {
+    public void reservarLivro(Usuario usuario, LivroBase livro) {
         Emprestimo emprestimo = emprestimoRepository.emprestimoLivro(livro);
 
         // Usuário não pode reservar o livro enquanto estiver com ele
@@ -109,7 +110,7 @@ public class EmprestimoService {
         }
 
         Reserva reserva = new Reserva(usuario, livro);
-        livro.definirReservado();
+//        livro.definirReservado();
         reservaRepository.adicionar(reserva);
         livroRepository.atualizar(livro);
 
@@ -150,35 +151,35 @@ public class EmprestimoService {
         reservaRepository.excluir(reserva);
     }
 
-    public boolean livroEstaEmprestado(Livro livro) {
+    public boolean livroEstaEmprestado(LivroBase livro) {
         return emprestimoRepository.emprestimoLivro(livro) != null;
     }
 
-    public boolean livroEstaReservado(Livro livro) {
+    public boolean livroEstaReservado(LivroBase livro) {
         return reservaRepository.reservaLivro(livro) != null;
     }
 
-    public boolean livroDisponivelParaEmprestimo(Livro livro) {
+    public boolean livroDisponivelParaEmprestimo(LivroBase livro) {
         return !livroEstaEmprestado(livro) && !livroEstaReservado(livro);
     }
 
-    public boolean livroDisponivelParaReserva(Livro livro) {
+    public boolean livroDisponivelParaReserva(LivroBase livro) {
         return !livroEstaReservado(livro);
     }
 
-    public int contagemEmprestimosLivro(Livro livro) {
+    public int contagemEmprestimosLivro(LivroBase livro) {
         return emprestimoRepository.emprestimosLivro(livro).size();
     }
 
-    public List<Map.Entry<Livro, Long>> ranking() {
-        Map<Livro, Long> ranking = emprestimoRepository.listar().stream()
+    public List<Map.Entry<LivroBase, Long>> ranking() {
+        Map<LivroBase, Long> ranking = emprestimoRepository.listar().stream()
                 .collect(Collectors.groupingBy(
                         Emprestimo::getLivro,
                         Collectors.counting()
                 ));
 
-        List<Map.Entry<Livro, Long>> livrosMaisEmprestados = ranking.entrySet().stream()
-                .sorted(Map.Entry.<Livro, Long>comparingByValue().reversed())
+        List<Map.Entry<LivroBase, Long>> livrosMaisEmprestados = ranking.entrySet().stream()
+                .sorted(Map.Entry.<LivroBase, Long>comparingByValue().reversed())
                 .collect(Collectors.toList());
 
 //        livrosMaisEmprestados.forEach(entry -> {
