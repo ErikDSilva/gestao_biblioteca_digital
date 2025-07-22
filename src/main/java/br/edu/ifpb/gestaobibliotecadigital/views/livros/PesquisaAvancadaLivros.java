@@ -3,7 +3,6 @@ package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.LivroService;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Helpers;
-import br.edu.ifpb.gestaobibliotecadigital.utils.Paginacao;
 import br.edu.ifpb.gestaobibliotecadigital.views.components.UpdateObserver;
 import java.awt.Component;
 import java.awt.event.ActionListener;
@@ -19,8 +18,6 @@ public class PesquisaAvancadaLivros extends javax.swing.JPanel {
     public PesquisaAvancadaLivros() {
         initComponents();
         initEnterPress();
-        categoriaComboBox.setModel(new DefaultComboBoxModel<>(Helpers.CATEGORIAS));
-        anoPublicacaoComboBox.setModel(new DefaultComboBoxModel<>(Helpers.getAnos()));
     }
 
     /**
@@ -92,7 +89,11 @@ public class PesquisaAvancadaLivros extends javax.swing.JPanel {
 
         nomeCategoriaLabel.setText("Categoria");
 
+        categoriaComboBox.setModel(new DefaultComboBoxModel<>(Helpers.getCategorias(true)));
+
         anoPublicacaoLabel.setText("Ano de publicação");
+
+        anoPublicacaoComboBox.setModel(new DefaultComboBoxModel<>(Helpers.getAnos(true)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

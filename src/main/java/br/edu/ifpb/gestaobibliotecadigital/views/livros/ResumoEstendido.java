@@ -1,31 +1,34 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators.LivroComResumoEstendido;
 
-public class SinopseLivro extends javax.swing.JPanel {
+public class ResumoEstendido extends javax.swing.JPanel {
 
-    private Livro livro;
+    private LivroBase livro;
 
-    public SinopseLivro() {
+    public ResumoEstendido() {
         initComponents();
         setLivro(null);
+        resumoEstendido.setEditable(false);
+        resumoEstendido.setLineWrap(true);
+        resumoEstendido.setWrapStyleWord(true);
     }
 
     /**
      * Atualiza a sinopse do livro selecionado
      */
-    void setLivro(Livro livro) {
+    void setLivro(LivroBase livro) {
 
         this.livro = livro;
 
         if (livro == null) {
-            sinopseLivro.setText(" ");
-            sinopseLivro.setEditable(false);
+            resumoEstendido.setText(" ");
         } else {
-            sinopseLivro.setEditable(false);
-            sinopseLivro.setLineWrap(true);
-            sinopseLivro.setWrapStyleWord(true);
-            sinopseLivro.setText(livro.getSinopse());
+            if (livro instanceof LivroComResumoEstendido resumoEstendidoLivro) {
+                resumoEstendido.setText(resumoEstendidoLivro.getResumoEstendido());
+            }
         }
     }
 
@@ -40,15 +43,15 @@ public class SinopseLivro extends javax.swing.JPanel {
 
         sinopseBorder = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        sinopseLivro = new javax.swing.JTextArea();
+        resumoEstendido = new javax.swing.JTextArea();
 
         sinopseBorder.setBorder(javax.swing.BorderFactory.createTitledBorder("Livro"));
-        sinopseBorder.setBorder(javax.swing.BorderFactory.createTitledBorder("Sinopse"));
-        sinopseBorder.setToolTipText("Sinopse");
+        sinopseBorder.setBorder(javax.swing.BorderFactory.createTitledBorder("Resumo"));
+        sinopseBorder.setToolTipText("Resumo Estendido");
 
-        sinopseLivro.setColumns(20);
-        sinopseLivro.setRows(5);
-        jScrollPane1.setViewportView(sinopseLivro);
+        resumoEstendido.setColumns(20);
+        resumoEstendido.setRows(5);
+        jScrollPane1.setViewportView(resumoEstendido);
 
         javax.swing.GroupLayout sinopseBorderLayout = new javax.swing.GroupLayout(sinopseBorder);
         sinopseBorder.setLayout(sinopseBorderLayout);
@@ -84,8 +87,8 @@ public class SinopseLivro extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea resumoEstendido;
     private javax.swing.JPanel sinopseBorder;
-    private javax.swing.JTextArea sinopseLivro;
     // End of variables declaration//GEN-END:variables
 
 }

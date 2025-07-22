@@ -1,17 +1,18 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.views.components.TabelaItensPanel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabelaLivros extends TabelaItensPanel<Livro> {
+public class TabelaLivros extends TabelaItensPanel<LivroBase> {
 
     public TabelaLivros() {
-        super(new ArrayList<Livro>());
+        super(new ArrayList<LivroBase>());
     }
 
-    public TabelaLivros(List<Livro> livros) {
+    public TabelaLivros(List<LivroBase> livros) {
         super(livros);
     }
 
@@ -22,7 +23,7 @@ public class TabelaLivros extends TabelaItensPanel<Livro> {
     }
 
     @Override
-    protected Object getValueAt(Livro item, int coluna) {
+    protected Object getValueAt(LivroBase item, int coluna) {
         return switch (coluna) {
             case 0 ->
                 item.getISBN();

@@ -1,10 +1,11 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 
 public class SinopseLivro extends javax.swing.JPanel {
 
-    private Livro livro;
+    private LivroBase livro;
 
     public SinopseLivro() {
         initComponents();
@@ -14,7 +15,7 @@ public class SinopseLivro extends javax.swing.JPanel {
     /**
      * Atualiza a sinopse do livro selecionado
      */
-    void setLivro(Livro livro) {
+    void setLivro(LivroBase livro) {
 
         this.livro = livro;
 
