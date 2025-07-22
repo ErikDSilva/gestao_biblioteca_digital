@@ -1,22 +1,22 @@
 package br.edu.ifpb.gestaobibliotecadigital.filters;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Helpers;
 import java.util.List;
 
-public class LivroFiltro extends Filtro<Livro> {
+public class LivroFiltro extends Filtro<LivroBase> {
 
     public LivroFiltro() {
         super();
     }
 
-    public LivroFiltro(List<Livro> livros) {
+    public LivroFiltro(List<LivroBase> livros) {
         super(livros);
     }
 
     // Por Livro
     public LivroFiltro porLivro(String ISBN) {
-        filtros.add((Livro livro) -> {
+        filtros.add((LivroBase livro) -> {
             return livro.getISBN().equals(ISBN);
         });
         return this;
@@ -42,7 +42,7 @@ public class LivroFiltro extends Filtro<Livro> {
     public LivroFiltro porAutor(String nomeAutor) {
         String nomeAutorNormalizado = Helpers.normalizarTexto(nomeAutor);
 
-        filtros.add((Livro livro) -> {
+        filtros.add((LivroBase livro) -> {
             String autorDoLivroNormalizado = Helpers.normalizarTexto(livro.getAutor());
             return autorDoLivroNormalizado.contains(nomeAutorNormalizado);
         });
@@ -54,7 +54,7 @@ public class LivroFiltro extends Filtro<Livro> {
     public LivroFiltro porEditora(String nomeEditora) {
         String nomeEditoraNormalizado = Helpers.normalizarTexto(nomeEditora);
 
-        filtros.add((Livro livro) -> {
+        filtros.add((LivroBase livro) -> {
             String editoraDoLivroNormalizado = Helpers.normalizarTexto(livro.getEditora());
             return editoraDoLivroNormalizado.contains(nomeEditoraNormalizado);
         });
@@ -66,7 +66,7 @@ public class LivroFiltro extends Filtro<Livro> {
     public LivroFiltro porPalavra(String palavraChave) {
         String palavraChaveNormalizado = Helpers.normalizarTexto(palavraChave);
 
-        filtros.add((Livro livro) -> {
+        filtros.add((LivroBase livro) -> {
             String palavraChaveDoLivroNormalizado = Helpers.normalizarTexto(livro.getTitulo());
             return palavraChaveDoLivroNormalizado.contains(palavraChaveNormalizado);
         });
@@ -76,7 +76,7 @@ public class LivroFiltro extends Filtro<Livro> {
     // Por categoria
     public LivroFiltro porCategoria(String livroCategoria) {
         String categoriaNormalizado = Helpers.normalizarTexto(livroCategoria);
-        filtros.add((Livro livro) -> {
+        filtros.add((LivroBase livro) -> {
             String categoriaDoLivroNormalizado = Helpers.normalizarTexto(livro.getCategoria());
             return categoriaDoLivroNormalizado.contains(categoriaNormalizado);
         });
