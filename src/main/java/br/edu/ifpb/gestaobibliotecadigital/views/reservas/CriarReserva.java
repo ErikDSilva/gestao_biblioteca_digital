@@ -5,6 +5,7 @@ import br.edu.ifpb.gestaobibliotecadigital.controllers.EmprestimoController;
 import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.filters.UsuarioFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.UsuarioRepository;
@@ -16,10 +17,10 @@ public class CriarReserva extends javax.swing.JDialog {
     private final LivroRepository livroRepository = LivroRepository.getInstance();
     private final UsuarioRepository usuarioRepository = UsuarioRepository.getInstance();
     private final EmprestimoController emprestimoController = new EmprestimoController();
-    private List<Livro> listaLivros = livroRepository.listar();
+    private List<LivroBase> listaLivros = livroRepository.listar();
     private List<Usuario> listaUsuarios = usuarioRepository.listar();
 
-    private Livro livro;
+    private LivroBase livro;
     private Usuario usuario;
 
     public CriarReserva(java.awt.Frame parent, boolean modal) {
@@ -84,7 +85,7 @@ public class CriarReserva extends javax.swing.JDialog {
      *
      * @param livro Livro destacado
      */
-    public void aoDestacarLivro(Livro livro) {
+    public void aoDestacarLivro(LivroBase livro) {
         this.livro = livro;
         detalhesLivro.setLivro(livro);
         aoAlterar();
@@ -135,7 +136,7 @@ public class CriarReserva extends javax.swing.JDialog {
         pesquisarLivros = new br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel();
         tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros() {
             @Override
-            protected void onItemDestacado(Livro item) {
+            protected void onItemDestacado(LivroBase item) {
                 aoDestacarLivro(item);
             }
         };
