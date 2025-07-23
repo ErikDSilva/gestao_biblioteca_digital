@@ -1,13 +1,13 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import java.util.List;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class LivroComTag extends LivroDecorator {
 
     private final List<String> tags;
 
-    public LivroComTag(LivroBase livro, List<String> tags) {
+    public LivroComTag(Livro livro, List<String> tags) {
         super(livro);
         this.tags = tags;
     }
@@ -28,6 +28,6 @@ public class LivroComTag extends LivroDecorator {
      */
     @Override
     public String getDescricao() {
-        return super.getDescricao() + String.format("\nTags: %s", String.join(", ", tags));
+        return livroDecorado.getDescricao() + String.format("\nTags: %s", String.join(", ", tags));
     }
 }

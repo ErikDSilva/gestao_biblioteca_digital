@@ -1,12 +1,12 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class LivroComResumoEstendido extends LivroDecorator {
 
     private String resumo;
 
-    public LivroComResumoEstendido(LivroBase livro, String resumo) {
+    public LivroComResumoEstendido(Livro livro, String resumo) {
         super(livro);
         this.resumo = resumo;
     }
@@ -27,6 +27,6 @@ public class LivroComResumoEstendido extends LivroDecorator {
      */
     @Override
     public String getDescricao() {
-        return super.getDescricao() + String.format("\nResumo Estendido: %s", resumo);
+        return livroDecorado.getDescricao() + String.format("\nResumo Estendido: %s", resumo);
     }
 }
