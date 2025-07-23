@@ -1,19 +1,19 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBuilder;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators.LivroComCapaAlternativa;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators.LivroComResumoEstendido;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.LivroService;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Helpers;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroSimples;
 
 public class CriarLivros extends javax.swing.JDialog {
 
     private final LivroService livroService = new LivroService();
 
-    private LivroBase livroParaEditar;
+    private Livro livroParaEditar;
 
     public CriarLivros(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -21,7 +21,7 @@ public class CriarLivros extends javax.swing.JDialog {
         editar.setEnabled(false);
     }
 
-    public CriarLivros(java.awt.Frame parent, boolean modal, LivroBase livro) {
+    public CriarLivros(java.awt.Frame parent, boolean modal, Livro livro) {
         super(parent, modal);
         initComponents();
         ok.setEnabled(false);
@@ -265,7 +265,7 @@ public class CriarLivros extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_cancelarActionPerformed
 
-    private LivroBase formData() {
+    private Livro formData() {
         String tituloLivro = nomeLivro.getText();
         String autor = nomeAutor.getText();
         String editora = nomeEditora.getText();
@@ -276,15 +276,14 @@ public class CriarLivros extends javax.swing.JDialog {
         String resumo = resumoLivro.getText();
         String urlCapa = capaAlternativa.getText();
 
-        LivroBase livro = new LivroBuilder()
+        Livro livro = new LivroSimples.Builder(isbn)
                 .setTitulo(tituloLivro)
                 .setAutor(autor)
                 .setAno(Integer.parseInt(anoSelecionado))
                 .setEditora(editora)
-                .setISBN(isbn)
                 .setCategoria(categoria)
                 .setSinopse(sinopse)
-                .builder();
+                .build();
 
         if (!resumo.isBlank()) {
             livro = new LivroComResumoEstendido(livro, resumo);
@@ -299,7 +298,7 @@ public class CriarLivros extends javax.swing.JDialog {
 
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
         try {
-            LivroBase livro = formData();
+            Livro livro = formData();
             livroService.criarLivro(livro);
             dispose();
         } catch (Exception ex) {
@@ -314,7 +313,7 @@ public class CriarLivros extends javax.swing.JDialog {
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
         try {
-            LivroBase livroAtulizar = formData();
+            Livro livroAtulizar = formData();
             livroService.atualizar(livroAtulizar);
             dispose();
         } catch (Exception ex) {

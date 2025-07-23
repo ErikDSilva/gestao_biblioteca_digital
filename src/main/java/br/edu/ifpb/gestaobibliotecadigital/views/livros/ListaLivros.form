@@ -139,7 +139,7 @@
     </Component>
     <Component class="br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros" name="tabelaLivros">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros(){&#xa;    @Override&#xa;    protected void onItemDestacado(LivroBase item) {&#xa;        onItemDestacadoLivros(item);&#xa;    };&#xa;};"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros(){&#xa;    @Override&#xa;    protected void onItemDestacado(br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro item) {&#xa;        onItemDestacadoLivros(item);&#xa;    };&#xa;};"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="qntLabel">

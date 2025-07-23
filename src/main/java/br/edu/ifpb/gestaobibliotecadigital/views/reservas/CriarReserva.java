@@ -4,23 +4,23 @@ import br.edu.ifpb.gestaobibliotecadigital.views.reservas.*;
 import br.edu.ifpb.gestaobibliotecadigital.controllers.EmprestimoController;
 import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.filters.UsuarioFiltro;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroSimples;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.UsuarioRepository;
 import java.util.List;
 import javax.swing.JOptionPane;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class CriarReserva extends javax.swing.JDialog {
 
     private final LivroRepository livroRepository = LivroRepository.getInstance();
     private final UsuarioRepository usuarioRepository = UsuarioRepository.getInstance();
     private final EmprestimoController emprestimoController = new EmprestimoController();
-    private List<LivroBase> listaLivros = livroRepository.listar();
+    private List<Livro> listaLivros = livroRepository.listar();
     private List<Usuario> listaUsuarios = usuarioRepository.listar();
 
-    private LivroBase livro;
+    private Livro livro;
     private Usuario usuario;
 
     public CriarReserva(java.awt.Frame parent, boolean modal) {
@@ -58,9 +58,9 @@ public class CriarReserva extends javax.swing.JDialog {
      * Altera o livro selecionado para que possa abrir esta janela com algum
      * livro selecionado por padrão
      *
-     * @param livro Livro selecionado
+     * @param livro LivroSimples selecionado
      */
-    public void setLivro(Livro livro) {
+    public void setLivro(LivroSimples livro) {
         this.livro = livro;
         detalhesLivro.setLivro(livro);
         tabelaLivros.destacarItem(livro);
@@ -83,9 +83,9 @@ public class CriarReserva extends javax.swing.JDialog {
     /**
      * Função que será executada quando clicar em algum livro
      *
-     * @param livro Livro destacado
+     * @param livro LivroSimples destacado
      */
-    public void aoDestacarLivro(LivroBase livro) {
+    public void aoDestacarLivro(Livro livro) {
         this.livro = livro;
         detalhesLivro.setLivro(livro);
         aoAlterar();
@@ -136,7 +136,7 @@ public class CriarReserva extends javax.swing.JDialog {
         pesquisarLivros = new br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel();
         tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros() {
             @Override
-            protected void onItemDestacado(LivroBase item) {
+            protected void onItemDestacado(Livro item) {
                 aoDestacarLivro(item);
             }
         };

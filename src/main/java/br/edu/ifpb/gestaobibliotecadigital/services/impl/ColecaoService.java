@@ -2,12 +2,12 @@ package br.edu.ifpb.gestaobibliotecadigital.services.impl;
 
 import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Colecao;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.ColecaoRepository;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class ColecaoService {
 
@@ -24,21 +24,21 @@ public class ColecaoService {
     }
 
     // Conveter os livros dentro de uma coleção
-    public List<LivroBase> listarLivrosDeColecao(Colecao colecao) {
+    public List<Livro> listarLivrosDeColecao(Colecao colecao) {
         return colecao == null ? Collections.emptyList()
                 : colecao.getItens().stream()
-                        .filter(LivroBase.class::isInstance)
-                        .map(LivroBase.class::cast)
+                        .filter(Livro.class::isInstance)
+                        .map(Livro.class::cast)
                         .toList();
     }
 
-    public void adicionarLivroAColecao(Colecao colecao, LivroBase livro) {
+    public void adicionarLivroAColecao(Colecao colecao, Livro livro) {
         if (livro == null) {
             throw new IllegalArgumentException("Livro não pode ser nulo.");
         }
 
         LivroFiltro livroFiltro = new LivroFiltro(listarLivrosDeColecao(colecao));
-        List<LivroBase> resultados = livroFiltro.porLivro(livro.getISBN()).filtrar();
+        List<Livro> resultados = livroFiltro.porLivro(livro.getISBN()).filtrar();
 
         if (!resultados.isEmpty()) {
             throw new IllegalStateException("Este livro já está cadastrado nessa coleção.");
@@ -53,7 +53,7 @@ public class ColecaoService {
         colecaoRepository.excluir(colecao);
     }
 
-    public void removerDaColecao(Colecao colecao, LivroBase livro) {
+    public void removerDaColecao(Colecao colecao, Livro livro) {
         colecao.remover(livro);
         colecaoRepository.atualizar(colecao);
     }

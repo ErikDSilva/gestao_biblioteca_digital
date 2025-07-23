@@ -1,10 +1,10 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.colecoes;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Colecao;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.ColecaoService;
 import br.edu.ifpb.gestaobibliotecadigital.views.components.UpdateObserver;
 import javax.swing.JOptionPane;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class AcoesColecao extends javax.swing.JPanel {
 
@@ -12,13 +12,13 @@ public class AcoesColecao extends javax.swing.JPanel {
     private final ColecaoService colecaoService = new ColecaoService();
 
     private Colecao colecao;
-    private LivroBase livro;
+    private Livro livro;
 
     public AcoesColecao() {
         initComponents();
     }
 
-    public void setColecao(Colecao colecao, LivroBase livro) {
+    public void setColecao(Colecao colecao, Livro livro) {
         this.colecao = colecao;
         this.livro = livro;
     }

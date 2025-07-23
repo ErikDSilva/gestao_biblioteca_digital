@@ -2,7 +2,6 @@ package br.edu.ifpb.gestaobibliotecadigital.views.colecoes;
 
 import br.edu.ifpb.gestaobibliotecadigital.filters.ColecaoFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Colecao;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.ColecaoRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
@@ -10,6 +9,7 @@ import br.edu.ifpb.gestaobibliotecadigital.services.impl.ColecaoService;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Paginacao;
 import java.util.List;
 import javax.swing.JOptionPane;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class CriarColecao extends javax.swing.JDialog {
 
@@ -17,13 +17,13 @@ public class CriarColecao extends javax.swing.JDialog {
     private final LivroRepository livroRepository = LivroRepository.getInstance();
     private final ColecaoRepository colecaoRepository = ColecaoRepository.getInstance();
 
-    private List<LivroBase> listaLivros = livroRepository.listar();
+    private List<Livro> listaLivros = livroRepository.listar();
     private List<Colecao> listaColecaos = colecaoRepository.listar();
 
-    private Paginacao<LivroBase> paginacaoParaLivros;
+    private Paginacao<Livro> paginacaoParaLivros;
     private Paginacao<Colecao> paginacaoParaColecao;
 
-    private LivroBase livro;
+    private Livro livro;
     private Colecao colecao;
 
     public CriarColecao(java.awt.Frame parent, boolean modal) {
@@ -69,7 +69,7 @@ public class CriarColecao extends javax.swing.JDialog {
         aoAlterar();
     }
 
-    public void aoDestacarLivro(LivroBase livro) {
+    public void aoDestacarLivro(Livro livro) {
         this.livro = livro;
         aoAlterar();
     }
@@ -127,7 +127,7 @@ public class CriarColecao extends javax.swing.JDialog {
 
         tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros(){
             @Override
-            protected void onItemDestacado(LivroBase item) {
+            protected void onItemDestacado(Livro item) {
                 aoDestacarLivro(item);
             }
         };

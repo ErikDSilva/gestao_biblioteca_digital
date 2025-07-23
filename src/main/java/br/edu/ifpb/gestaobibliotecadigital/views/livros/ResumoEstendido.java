@@ -1,12 +1,11 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators.LivroComResumoEstendido;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class ResumoEstendido extends javax.swing.JPanel {
 
-    private LivroBase livro;
+    private Livro livro;
 
     public ResumoEstendido() {
         initComponents();
@@ -19,7 +18,7 @@ public class ResumoEstendido extends javax.swing.JPanel {
     /**
      * Atualiza a sinopse do livro selecionado
      */
-    void setLivro(LivroBase livro) {
+    void setLivro(Livro livro) {
 
         this.livro = livro;
 

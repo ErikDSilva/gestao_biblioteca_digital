@@ -1,15 +1,15 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.colecoes;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Colecao;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.ColecaoService;
 import javax.swing.JOptionPane;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class ListaColecoes extends javax.swing.JFrame {
 
     private final ColecaoService service = new ColecaoService();
     private Colecao colecao;
-    private LivroBase livro;
+    private Livro livro;
 
     public ListaColecoes() {
         initComponents();
@@ -59,7 +59,7 @@ public class ListaColecoes extends javax.swing.JFrame {
 
         tabelaSelecionadaColecao1 = new br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaSelecionadaColecao(){
             @Override
-            protected void onItemDestacado(LivroBase item) {
+            protected void onItemDestacado(Livro item) {
                 onItemDestacadoLivro(item);
             };
         };
@@ -122,7 +122,7 @@ public class ListaColecoes extends javax.swing.JFrame {
 
     }
 
-    public void onItemDestacadoLivro(LivroBase livro) {
+    public void onItemDestacadoLivro(Livro livro) {
         this.livro = livro;
     }
 

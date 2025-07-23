@@ -1,11 +1,10 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 
 public class DetalhesAutor extends javax.swing.JPanel {
 
-    private LivroBase livro;
+    private Livro livro;
 
     public DetalhesAutor() {
         initComponents();
@@ -16,7 +15,7 @@ public class DetalhesAutor extends javax.swing.JPanel {
      * Atualiza o livro selecionado
      * @param livro
      */
-    public void setLivro(LivroBase livro) {
+    public void setLivro(Livro livro) {
         this.livro = livro;
 
         if (livro == null) {

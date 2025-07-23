@@ -2,9 +2,8 @@ package br.edu.ifpb.gestaobibliotecadigital.repositories;
 
 import br.edu.ifpb.gestaobibliotecadigital.filters.ReservaFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import java.util.List;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class ReservaRepository extends Repositorio<Reserva> {
 
@@ -26,7 +25,7 @@ public class ReservaRepository extends Repositorio<Reserva> {
         return instance;
     }
 
-    public Reserva reservaLivro(LivroBase livro) {
+    public Reserva reservaLivro(Livro livro) {
         // Procura se há reservas válidas com este livro
         List<Reserva> reservas = new ReservaFiltro(itens)
                 .porLivro(livro).ativas().filtrar();

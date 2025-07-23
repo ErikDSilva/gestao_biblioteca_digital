@@ -2,7 +2,7 @@ package br.edu.ifpb.gestaobibliotecadigital.services.interfaces;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Colecao;
 import java.util.List;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public interface IColecaoService {
 
@@ -21,7 +21,7 @@ public interface IColecaoService {
      * @param item O item a ser adicionado.
      * @return A coleção atualizada.
      */
-    Colecao adicionarItemAColecao(Colecao colecao, LivroBase item);
+    Colecao adicionarItemAColecao(Colecao colecao, Livro item);
     
     /**
      * Busca uma coleção pelo seu nome.

@@ -1,18 +1,19 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
 import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.LivroService;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Paginacao;
 import java.util.List;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class ListaLivros extends javax.swing.JFrame {
 
     private final LivroService livroService = new LivroService();
-    private List<LivroBase> listaLivros = livroService.listar();
+    private List<Livro> listaLivros = livroService.listar();
     private String pesquisa = "";
     private LivroFiltro filtro = new LivroFiltro();
-    private Paginacao<LivroBase> paginacao;
+    private Paginacao<Livro> paginacao;
+    private int TAMANHO_PAGINA = 10;
 
     public ListaLivros() {
         initComponents();
@@ -20,7 +21,7 @@ public class ListaLivros extends javax.swing.JFrame {
         proximoButton.setEnabled(false);
         voltarButton.setEnabled(false);
 
-        paginacao = new Paginacao<>(listaLivros, 5);
+        paginacao = new Paginacao<>(listaLivros, TAMANHO_PAGINA);
         tabelaLivros.setDados(paginacao.getPaginaAtual());
 
         atualizarControlesDePaginacao();
@@ -54,10 +55,10 @@ public class ListaLivros extends javax.swing.JFrame {
         }
 
         // Aplica o filtro e obtém a lista filtrada
-        List<LivroBase> filtrados = filtroClone.filtrar();
+        List<Livro> filtrados = filtroClone.filtrar();
 
         // Cria nova paginação com os itens filtrados
-        this.paginacao = new Paginacao<>(filtrados, 5);
+        this.paginacao = new Paginacao<>(filtrados, TAMANHO_PAGINA);
 
         atualizarControlesDePaginacao();
 
@@ -71,7 +72,7 @@ public class ListaLivros extends javax.swing.JFrame {
     /**
      * Ao destacar um item da tabela
      */
-    private void onItemDestacadoLivros(LivroBase item) {
+    private void onItemDestacadoLivros(Livro item) {
         sinopseLivro.setLivro(item == null ? null : item);
         detalhesAutor1.setLivro(item == null ? null : item);
         resumoEstendido.setLivro(item == null ? null : item);
@@ -107,7 +108,7 @@ public class ListaLivros extends javax.swing.JFrame {
 
         tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros(){
             @Override
-            protected void onItemDestacado(LivroBase item) {
+            protected void onItemDestacado(Livro item) {
                 onItemDestacadoLivros(item);
             };
         };

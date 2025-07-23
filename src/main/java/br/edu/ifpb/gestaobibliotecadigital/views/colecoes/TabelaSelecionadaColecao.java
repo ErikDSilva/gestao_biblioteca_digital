@@ -1,17 +1,17 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.colecoes;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.views.components.TabelaItensPanel;
 import java.util.ArrayList;
 import java.util.List;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
-public class TabelaSelecionadaColecao extends TabelaItensPanel<LivroBase> {
+public class TabelaSelecionadaColecao extends TabelaItensPanel<Livro> {
 
     public TabelaSelecionadaColecao() {
         super(new ArrayList<>());
     }
 
-    public TabelaSelecionadaColecao(List<LivroBase> colecoes) {
+    public TabelaSelecionadaColecao(List<Livro> colecoes) {
         super(colecoes);
     }
 
@@ -22,7 +22,7 @@ public class TabelaSelecionadaColecao extends TabelaItensPanel<LivroBase> {
     }
 
     @Override
-    protected Object getValueAt(LivroBase item, int coluna) {
+    protected Object getValueAt(Livro item, int coluna) {
         return switch (coluna) {
             case 0 ->
                 item.getISBN();

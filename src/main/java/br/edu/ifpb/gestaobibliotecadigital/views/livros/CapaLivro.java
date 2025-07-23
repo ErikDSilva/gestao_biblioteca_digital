@@ -1,16 +1,16 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators.LivroComCapaAlternativa;
 import java.awt.Image;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class CapaLivro extends javax.swing.JPanel {
 
-    private LivroBase livro;
+    private Livro livro;
 
     public CapaLivro() {
         initComponents();
@@ -22,7 +22,7 @@ public class CapaLivro extends javax.swing.JPanel {
      *
      * @param livro
      */
-    public void setLivro(LivroBase livro) {
+    public void setLivro(Livro livro) {
         this.livro = livro;
 
         // Limpa sempre ao começar

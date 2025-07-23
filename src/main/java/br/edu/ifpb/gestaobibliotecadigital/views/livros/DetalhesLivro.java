@@ -1,12 +1,12 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Formatter;
 import java.awt.Dimension;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class DetalhesLivro extends javax.swing.JPanel {
 
-    private LivroBase livro;
+    private Livro livro;
 
     public DetalhesLivro() {
         initComponents();
@@ -18,7 +18,7 @@ public class DetalhesLivro extends javax.swing.JPanel {
      *
      * @param livro
      */
-    public void setLivro(LivroBase livro) {
+    public void setLivro(Livro livro) {
         this.livro = livro;
 
         if (livro == null) {

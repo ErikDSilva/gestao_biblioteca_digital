@@ -2,18 +2,18 @@ package br.edu.ifpb.gestaobibliotecadigital.controllers;
 
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Reserva;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.observers.Notificacao;
 import br.edu.ifpb.gestaobibliotecadigital.observers.NotificacaoObserver;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.EmprestimoService;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class EmprestimoController extends Controller {
 
     private final EmprestimoService emprestimoService = new EmprestimoService();
     private final NotificacaoObserver notificacao = NotificacaoObserver.getInstance();
 
-    public void realizarEmprestimo(Usuario usuario, LivroBase livro) {
+    public void realizarEmprestimo(Usuario usuario, Livro livro) {
         verificaUsuarioLogado();
         verificaAdministrador();
         emprestimoService.solicitarEmprestimo(usuario, livro);
@@ -40,7 +40,7 @@ public class EmprestimoController extends Controller {
         notificacao.notificar(new Notificacao("Livro devolvido: " + emprestimo.getLivro().getTitulo(), usuarioLogado));
     }
 
-    public void reservarLivro(LivroBase livro) {
+    public void reservarLivro(Livro livro) {
         verificaUsuarioLogado();
 
         // Caso o usuário seja um administrador, ele deveria utilizar o outro método
@@ -52,7 +52,7 @@ public class EmprestimoController extends Controller {
         notificacao.notificar(new Notificacao("Livro reservado: " + livro.getTitulo(), usuarioLogado));
     }
 
-    public void reservarLivro(Usuario usuario, LivroBase livro) {
+    public void reservarLivro(Usuario usuario, Livro livro) {
         verificaUsuarioLogado();
         verificaAdministrador();
         emprestimoService.reservarLivro(usuario, livro);

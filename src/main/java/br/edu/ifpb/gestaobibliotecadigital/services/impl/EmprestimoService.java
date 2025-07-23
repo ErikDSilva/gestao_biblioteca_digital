@@ -7,8 +7,6 @@ import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.Empres
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.estrategias.EstrategiaEmprestimo;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.historico.HistoricoAcao;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.historico.TipoAcao;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.LeitorPremium;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.observers.Notificacao;
@@ -22,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class EmprestimoService {
 
@@ -31,7 +30,7 @@ public class EmprestimoService {
     private final HistoricoRepository historicoRepository = HistoricoRepository.getInstance();
     private final NotificacaoObserver notificacao = NotificacaoObserver.getInstance();
 
-    public Emprestimo solicitarEmprestimo(Usuario usuario, LivroBase livro) {
+    public Emprestimo solicitarEmprestimo(Usuario usuario, Livro livro) {
         if (livroEstaEmprestado(livro)) {
             throw new IllegalStateException("O livro já está emprestado para alguém");
         }
@@ -89,14 +88,14 @@ public class EmprestimoService {
 
         if (reserva != null) {
             Usuario usuario = reserva.getUsuario();
-            LivroBase livro = reserva.getLivro();
+            Livro livro = reserva.getLivro();
             String dataExpiracao = reserva.getDataExpiracao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             String mensagem = "Olá " + usuario.getNome() + "! O livro \"" + livro.getTitulo() + "\" que você reservou está disponível na biblioteca e reservado para você até " + dataExpiracao;
             notificacao.notificar(new Notificacao(mensagem, usuario));
         }
     }
 
-    public void reservarLivro(Usuario usuario, LivroBase livro) {
+    public void reservarLivro(Usuario usuario, Livro livro) {
         Emprestimo emprestimo = emprestimoRepository.emprestimoLivro(livro);
 
         // Usuário não pode reservar o livro enquanto estiver com ele
@@ -151,39 +150,39 @@ public class EmprestimoService {
         reservaRepository.excluir(reserva);
     }
 
-    public boolean livroEstaEmprestado(LivroBase livro) {
+    public boolean livroEstaEmprestado(Livro livro) {
         return emprestimoRepository.emprestimoLivro(livro) != null;
     }
 
-    public boolean livroEstaReservado(LivroBase livro) {
+    public boolean livroEstaReservado(Livro livro) {
         return reservaRepository.reservaLivro(livro) != null;
     }
 
-    public boolean livroDisponivelParaEmprestimo(LivroBase livro) {
+    public boolean livroDisponivelParaEmprestimo(Livro livro) {
         return !livroEstaEmprestado(livro) && !livroEstaReservado(livro);
     }
 
-    public boolean livroDisponivelParaReserva(LivroBase livro) {
+    public boolean livroDisponivelParaReserva(Livro livro) {
         return !livroEstaReservado(livro);
     }
 
-    public int contagemEmprestimosLivro(LivroBase livro) {
+    public int contagemEmprestimosLivro(Livro livro) {
         return emprestimoRepository.emprestimosLivro(livro).size();
     }
 
-    public List<Map.Entry<LivroBase, Long>> ranking() {
-        Map<LivroBase, Long> ranking = emprestimoRepository.listar().stream()
+    public List<Map.Entry<Livro, Long>> ranking() {
+        Map<Livro, Long> ranking = emprestimoRepository.listar().stream()
                 .collect(Collectors.groupingBy(
                         Emprestimo::getLivro,
                         Collectors.counting()
                 ));
 
-        List<Map.Entry<LivroBase, Long>> livrosMaisEmprestados = ranking.entrySet().stream()
-                .sorted(Map.Entry.<LivroBase, Long>comparingByValue().reversed())
+        List<Map.Entry<Livro, Long>> livrosMaisEmprestados = ranking.entrySet().stream()
+                .sorted(Map.Entry.<Livro, Long>comparingByValue().reversed())
                 .collect(Collectors.toList());
 
 //        livrosMaisEmprestados.forEach(entry -> {
-//            System.out.println("Livro: " + entry.getKey().getTitulo() + " - Empréstimos: " + entry.getValue());
+//            System.out.println("LivroSimples: " + entry.getKey().getTitulo() + " - Empréstimos: " + entry.getValue());
 //        });
 
         return livrosMaisEmprestados;

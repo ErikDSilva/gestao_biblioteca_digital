@@ -1,13 +1,13 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroBase;
 import br.edu.ifpb.gestaobibliotecadigital.services.impl.LivroService;
 import br.edu.ifpb.gestaobibliotecadigital.views.components.UpdateObserver;
 import javax.swing.JOptionPane;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class AcoesLivro extends javax.swing.JPanel {
 
-    private LivroBase livro;
+    private Livro livro;
     private final LivroService livroService = new LivroService();
     public final UpdateObserver events = new UpdateObserver();
 
@@ -20,7 +20,7 @@ public class AcoesLivro extends javax.swing.JPanel {
      *
      * @param livro
      */
-    public void setLivro(LivroBase livro) {
+    public void setLivro(Livro livro) {
         this.livro = livro;
 
         remover.setEnabled(livro != null);

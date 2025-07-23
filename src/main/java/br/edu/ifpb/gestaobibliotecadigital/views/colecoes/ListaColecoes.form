@@ -106,7 +106,7 @@
     </Component>
     <Component class="br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaSelecionadaColecao" name="tabelaSelecionadaColecao1">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabelaSelecionadaColecao1 = new br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaSelecionadaColecao(){&#xa;@Override&#xa;    protected void onItemDestacado(LivroBase item) {&#xa;        onItemDestacadoLivro(item);&#xa;    };&#xa;};"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabelaSelecionadaColecao1 = new br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaSelecionadaColecao(){&#xa;@Override&#xa;    protected void onItemDestacado(br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro item) {&#xa;        onItemDestacadoLivro(item);&#xa;    };&#xa;};"/>
       </AuxValues>
     </Component>
     <Component class="br.edu.ifpb.gestaobibliotecadigital.views.colecoes.AcoesColecao" name="acoesColecao1">
