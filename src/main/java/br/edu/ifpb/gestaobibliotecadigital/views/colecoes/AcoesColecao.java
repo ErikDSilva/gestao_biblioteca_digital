@@ -39,6 +39,7 @@ public class AcoesColecao extends javax.swing.JPanel {
         });
 
         adicionar.setText("Adicionar");
+        adicionar.setEnabled(false);
         adicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adicionarActionPerformed(evt);

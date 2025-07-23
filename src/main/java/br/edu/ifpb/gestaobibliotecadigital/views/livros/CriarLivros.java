@@ -1,8 +1,8 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
+import br.edu.ifpb.gestaobibliotecadigital.controllers.LivroController;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators.LivroComCapaAlternativa;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators.LivroComResumoEstendido;
-import br.edu.ifpb.gestaobibliotecadigital.services.impl.LivroService;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Helpers;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -11,9 +11,7 @@ import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroSimples;
 
 public class CriarLivros extends javax.swing.JDialog {
 
-    private final LivroService livroService = new LivroService();
-
-    private Livro livroParaEditar;
+    private final LivroController livroService = new LivroController();
 
     public CriarLivros(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -26,7 +24,6 @@ public class CriarLivros extends javax.swing.JDialog {
         initComponents();
         ok.setEnabled(false);
 
-        this.livroParaEditar = livro;
         nomeLivro.setText(livro.getTitulo());
         nomeAutor.setText(livro.getAutor());
         nomeEditora.setText(livro.getEditora());
@@ -299,7 +296,7 @@ public class CriarLivros extends javax.swing.JDialog {
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
         try {
             Livro livro = formData();
-            livroService.criarLivro(livro);
+            livroService.criar(livro);
             dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(

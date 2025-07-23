@@ -1,19 +1,19 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
 import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
-import br.edu.ifpb.gestaobibliotecadigital.services.impl.LivroService;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Paginacao;
 import java.util.List;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 
 public class ListaLivros extends javax.swing.JFrame {
-
-    private final LivroService livroService = new LivroService();
-    private List<Livro> listaLivros = livroService.listar();
+   
+    private final LivroRepository livroRepository = LivroRepository.getInstance();
+    private List<Livro> listaLivros = livroRepository.listar();
     private String pesquisa = "";
     private LivroFiltro filtro = new LivroFiltro();
     private Paginacao<Livro> paginacao;
-    private int TAMANHO_PAGINA = 10;
+    private final int TAMANHO_PAGINA = 10;
 
     public ListaLivros() {
         initComponents();
@@ -27,7 +27,7 @@ public class ListaLivros extends javax.swing.JFrame {
         atualizarControlesDePaginacao();
 
         acoesLivro.events.onUpdate(() -> {
-            listaLivros = livroService.listar();
+            listaLivros = livroRepository.listar();
             filtrar();
         });
 
@@ -98,7 +98,7 @@ public class ListaLivros extends javax.swing.JFrame {
         resumoEstendido = new br.edu.ifpb.gestaobibliotecadigital.views.livros.ResumoEstendido();
         acoesLivro = new br.edu.ifpb.gestaobibliotecadigital.views.livros.AcoesLivro();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista de Livros");
         setMinimumSize(new java.awt.Dimension(844, 585));
         setResizable(false);
@@ -108,7 +108,7 @@ public class ListaLivros extends javax.swing.JFrame {
 
         tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros(){
             @Override
-            protected void onItemDestacado(Livro item) {
+            protected void onItemDestacado(br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro item) {
                 onItemDestacadoLivros(item);
             };
         };
@@ -152,12 +152,14 @@ public class ListaLivros extends javax.swing.JFrame {
                                 .addComponent(tabelaLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(sinopseLivro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(acoesLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(sinopseLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(acoesLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(resumoEstendido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(resumoEstendido, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                                         .addGap(12, 12, 12))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(143, 143, 143)
@@ -199,7 +201,7 @@ public class ListaLivros extends javax.swing.JFrame {
                             .addComponent(sinopseLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                             .addComponent(resumoEstendido, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(9, 9, 9))
-                    .addComponent(pesquisaAvancadaLivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pesquisaAvancadaLivros, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
                 .addContainerGap())
         );
 

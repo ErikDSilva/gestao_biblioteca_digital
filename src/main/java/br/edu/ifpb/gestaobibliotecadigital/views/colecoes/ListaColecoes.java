@@ -43,7 +43,7 @@ public class ListaColecoes extends javax.swing.JFrame {
         titulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         titulo.setText("Nova Coleção");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista de coleções");
         setMinimumSize(new java.awt.Dimension(800, 720));
 
@@ -59,7 +59,7 @@ public class ListaColecoes extends javax.swing.JFrame {
 
         tabelaSelecionadaColecao1 = new br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaSelecionadaColecao(){
             @Override
-            protected void onItemDestacado(Livro item) {
+            protected void onItemDestacado(br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro item) {
                 onItemDestacadoLivro(item);
             };
         };

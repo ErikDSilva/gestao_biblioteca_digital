@@ -1,14 +1,19 @@
 package br.edu.ifpb.gestaobibliotecadigital.views.livros;
 
-import br.edu.ifpb.gestaobibliotecadigital.services.impl.LivroService;
+import br.edu.ifpb.gestaobibliotecadigital.controllers.LivroController;
 import br.edu.ifpb.gestaobibliotecadigital.views.components.UpdateObserver;
 import javax.swing.JOptionPane;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
+import br.edu.ifpb.gestaobibliotecadigital.session.PermissaoProxy;
+import br.edu.ifpb.gestaobibliotecadigital.session.UserSessionManager;
 
 public class AcoesLivro extends javax.swing.JPanel {
 
     private Livro livro;
-    private final LivroService livroService = new LivroService();
+    private Usuario usuarioLogado = UserSessionManager.getInstance().getUsuarioLogado();
+
+    private final LivroController livroController = new LivroController();
     public final UpdateObserver events = new UpdateObserver();
 
     public AcoesLivro() {
@@ -35,6 +40,7 @@ public class AcoesLivro extends javax.swing.JPanel {
         adicionar = new javax.swing.JButton();
         remover = new javax.swing.JButton();
         editar = new javax.swing.JButton();
+        comentar = new javax.swing.JButton();
 
         atualizar.setText("Atualizar");
         atualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -44,6 +50,7 @@ public class AcoesLivro extends javax.swing.JPanel {
         });
 
         adicionar.setText("Adicionar");
+        adicionar.setVisible(PermissaoProxy.podeAdicionarLivro());
         adicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adicionarActionPerformed(evt);
@@ -52,6 +59,7 @@ public class AcoesLivro extends javax.swing.JPanel {
 
         remover.setText("Remover");
         remover.setEnabled(false);
+        remover.setVisible(PermissaoProxy.podeExcluirLivro());
         remover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removerActionPerformed(evt);
@@ -59,10 +67,18 @@ public class AcoesLivro extends javax.swing.JPanel {
         });
 
         editar.setText("Editar");
-        editar.setEnabled(false);
+        editar.setEnabled(PermissaoProxy.podeEditarLivro());
         editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editarActionPerformed(evt);
+            }
+        });
+
+        comentar.setText("Comentar");
+        comentar.setVisible(!PermissaoProxy.podeAdicionarLivro());
+        comentar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comentarActionPerformed(evt);
             }
         });
 
@@ -73,12 +89,14 @@ public class AcoesLivro extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(atualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comentar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(adicionar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(remover)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,7 +105,8 @@ public class AcoesLivro extends javax.swing.JPanel {
                     .addComponent(adicionar)
                     .addComponent(remover)
                     .addComponent(atualizar)
-                    .addComponent(editar))
+                    .addComponent(editar)
+                    .addComponent(comentar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -107,7 +126,7 @@ public class AcoesLivro extends javax.swing.JPanel {
 
         if (resposta == JOptionPane.YES_OPTION) {
             try {
-                livroService.deletar(livro);
+                livroController.deletar(livro);
                 events.emit();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(
@@ -131,10 +150,17 @@ public class AcoesLivro extends javax.swing.JPanel {
         editarDialog.setVisible(true);
     }//GEN-LAST:event_editarActionPerformed
 
+    private void comentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarActionPerformed
+        // TODO add your handling code here:
+        System.out.println(usuarioLogado.getNome());
+        ///
+    }//GEN-LAST:event_comentarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
     private javax.swing.JButton atualizar;
+    private javax.swing.JButton comentar;
     private javax.swing.JButton editar;
     private javax.swing.JButton remover;
     // End of variables declaration//GEN-END:variables
