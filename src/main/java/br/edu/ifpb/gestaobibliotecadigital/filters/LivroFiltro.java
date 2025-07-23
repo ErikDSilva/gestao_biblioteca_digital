@@ -1,8 +1,8 @@
 package br.edu.ifpb.gestaobibliotecadigital.filters;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Helpers;
 import java.util.List;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class LivroFiltro extends Filtro<Livro> {
 
