@@ -4,7 +4,6 @@ import br.edu.ifpb.gestaobibliotecadigital.views.reservas.*;
 import br.edu.ifpb.gestaobibliotecadigital.controllers.EmprestimoController;
 import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.filters.UsuarioFiltro;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroSimples;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
 import br.edu.ifpb.gestaobibliotecadigital.repositories.UsuarioRepository;
@@ -60,7 +59,7 @@ public class CriarReserva extends javax.swing.JDialog {
      *
      * @param livro LivroSimples selecionado
      */
-    public void setLivro(LivroSimples livro) {
+    public void setLivro(Livro livro) {
         this.livro = livro;
         detalhesLivro.setLivro(livro);
         tabelaLivros.destacarItem(livro);

@@ -17,9 +17,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="removerColecao" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="atualizar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="adicionar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="comentar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="remover" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -33,6 +38,8 @@
                   <Component id="adicionar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="remover" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="atualizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comentar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="removerColecao" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -50,23 +57,45 @@
     </Component>
     <Component class="javax.swing.JButton" name="adicionar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Adicionar"/>
+        <Property name="text" type="java.lang.String" value="Adicionar Livro"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adicionarActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="adicionar.setEnabled(false);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="adicionar.setVisible(PermissaoProxy.podeAdicionarLivro());"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="remover">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Remover"/>
+        <Property name="text" type="java.lang.String" value="Remover Livro"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="remover.setVisible(PermissaoProxy.podeExcluirLivro());"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="comentar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Comentar"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="comentar.setVisible(!PermissaoProxy.podeAdicionarLivro());"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="removerColecao">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Remover Cole&#xe7;&#xe3;o"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerColecaoActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="removerColecao.setVisible(PermissaoProxy.podeExcluirLivro());&#xa;removerColecao.setEnabled(false);"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
