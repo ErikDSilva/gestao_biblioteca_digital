@@ -1,133 +1,110 @@
-package br.edu.ifpb.gestaobibliotecadigital.views.livros;
+package br.edu.ifpb.gestaobibliotecadigital.views.colecoes;
 
-import br.edu.ifpb.gestaobibliotecadigital.filters.LivroFiltro;
-import br.edu.ifpb.gestaobibliotecadigital.utils.Paginacao;
+import br.edu.ifpb.gestaobibliotecadigital.filters.ColecaoFiltro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Colecao;
 import java.util.List;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
-import br.edu.ifpb.gestaobibliotecadigital.repositories.LivroRepository;
+import br.edu.ifpb.gestaobibliotecadigital.repositories.ColecaoRepository;
+import br.edu.ifpb.gestaobibliotecadigital.services.impl.ColecaoService;
+import java.util.ArrayList;
 
-public class ListaLivros extends javax.swing.JFrame {
-   
-    private final LivroRepository livroRepository = LivroRepository.getInstance();
-    private List<Livro> listaLivros = livroRepository.listar();
-    private String pesquisa = "";
-    private LivroFiltro filtro = new LivroFiltro();
-    private Paginacao<Livro> paginacao;
-    private final int TAMANHO_PAGINA = 10;
+public class ListaColecao extends javax.swing.JFrame {
 
-    public ListaLivros() {
+    private final ColecaoRepository colecaoRepository = ColecaoRepository.getInstance();
+    private final ColecaoService service = new ColecaoService();
+    private List<Colecao> listarColecoes = colecaoRepository.listar();
+    private Colecao colecao;
+    private Livro livro;
+
+    public ListaColecao() {
         initComponents();
 
-        proximoButton.setEnabled(false);
-        voltarButton.setEnabled(false);
+        tabelaColecao1.setDados(listarColecoes);
+        acoesColecao.events.onUpdate(() -> {
+            listarColecoes = colecaoRepository.listar();
+            tabelaColecao1.setDados(listarColecoes);
 
-        paginacao = new Paginacao<>(listaLivros, TAMANHO_PAGINA);
-        tabelaLivros.setDados(paginacao.getPaginaAtual());
+            // Limpa seleção
+            this.colecao = null;
+            this.livro = null;
 
-        atualizarControlesDePaginacao();
+            tabelaSelecionadaColecao1.setDados(service.listarLivrosDeColecao(null));
 
-        acoesLivro.events.onUpdate(() -> {
-            listaLivros = livroRepository.listar();
-            filtrar();
+            // Limpa ações
+            acoesColecao.setColecao(null);
+            acoesColecao.setLivro(null);
         });
 
-        pesquisarLivrosPanel.events.onUpdate(() -> {
-            pesquisa = pesquisarLivrosPanel.getText();
-            filtrar();
+        pesquisarPanel1.events.onUpdate(() -> {
+            String textoPesquisaColecao = pesquisarPanel1.getText();
+            ColecaoFiltro filtro = new ColecaoFiltro(listarColecoes);
+
+            if (!textoPesquisaColecao.trim().equals("")) {
+                filtro.pesquisar(textoPesquisaColecao);
+            }
+
+            tabelaColecao1.setDados(filtro.filtrar());
+
+            // Limpa tudo ao pesquisar
+            this.colecao = null;
+            this.livro = null;
+
+            tabelaSelecionadaColecao1.setDados(service.listarLivrosDeColecao(null));
+
+            acoesColecao.setColecao(null);
+            acoesColecao.setLivro(null);
         });
 
-        pesquisaAvancadaLivros.events.onUpdate(() -> {
-            filtro = pesquisaAvancadaLivros.getFiltro();
-            filtrar();
-        });
-
-    }
-
-    /**
-     * Filtra a lista de livro com base na pesquisa e aplica paginação
-     */
-    private void filtrar() {
-        LivroFiltro filtroClone = (LivroFiltro) filtro.clone();
-        filtroClone.setItens(listaLivros);
-
-        if (!pesquisa.trim().isEmpty()) {
-            filtroClone.pesquisar(pesquisa);
-        }
-
-        // Aplica o filtro e obtém a lista filtrada
-        List<Livro> filtrados = filtroClone.filtrar();
-
-        // Cria nova paginação com os itens filtrados
-        this.paginacao = new Paginacao<>(filtrados, TAMANHO_PAGINA);
-
-        atualizarControlesDePaginacao();
-
-        // Atualiza a tabela com os itens da página atual
-        this.tabelaLivros.setDados(paginacao.getPaginaAtual());
-
-        // Reseta item selecionado
-        onItemDestacadoLivros(null);
     }
 
     /**
      * Ao destacar um item da tabela
      */
-    private void onItemDestacadoLivros(Livro item) {
-        sinopseLivro.setLivro(item == null ? null : item);
-        detalhesAutor1.setLivro(item == null ? null : item);
-        resumoEstendido.setLivro(item == null ? null : item);
-        capaLivro1.setLivro(item == null ? null : item);
-        acoesLivro.setLivro(item);
+    private void onItemDestacadoColcoes(Colecao item) {
+        this.colecao = item;
+        tabelaSelecionadaColecao1.setDados(service.listarLivrosDeColecao(item));
+        acoesColecao.setColecao(colecao);
+    }
+
+    private void onItemDestacadoLivros(Livro livroItem) {
+        this.livro = livroItem;
+        acoesColecao.setLivro(livro);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pesquisarLivrosPanel = new br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel();
         titulo = new javax.swing.JLabel();
         usuarioPanel1 = new br.edu.ifpb.gestaobibliotecadigital.views.components.UsuarioPanel();
-        pesquisaAvancadaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.PesquisaAvancadaLivros();
-        sinopseLivro = new br.edu.ifpb.gestaobibliotecadigital.views.livros.SinopseLivro();
-        tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros();
-        qntLabel = new javax.swing.JLabel();
-        proximoButton = new javax.swing.JButton();
-        voltarButton = new javax.swing.JButton();
-        detalhesAutor1 = new br.edu.ifpb.gestaobibliotecadigital.views.livros.DetalhesAutor();
-        capaLivro1 = new br.edu.ifpb.gestaobibliotecadigital.views.livros.CapaLivro();
-        resumoEstendido = new br.edu.ifpb.gestaobibliotecadigital.views.livros.ResumoEstendido();
-        acoesLivro = new br.edu.ifpb.gestaobibliotecadigital.views.livros.AcoesLivro();
+        tabelaColecao1 = new br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaColecao();
+        tabelaSelecionadaColecao1 = new br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaSelecionadaColecao();
+        acoesColecao = new br.edu.ifpb.gestaobibliotecadigital.views.colecoes.AcoesColecao();
+        pesquisarPanel1 = new br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Lista de Livros");
+        setTitle("Lista de Coleção");
+        setMaximumSize(new java.awt.Dimension(844, 585));
         setMinimumSize(new java.awt.Dimension(844, 585));
+        setPreferredSize(new java.awt.Dimension(844, 585));
         setResizable(false);
 
         titulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        titulo.setText("Listagem de Livros");
+        titulo.setText("Lista de Coleção");
 
-        tabelaLivros = new br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros(){
+        tabelaColecao1 = new br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaColecao(){
             @Override
-            protected void onItemDestacado(br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro item) {
-                onItemDestacadoLivros(item);
-            };
+            protected void onItemDestacado(Colecao item) {
+                onItemDestacadoColcoes(item);
+            }
         };
 
-        qntLabel.setText("0 de 0");
-
-        proximoButton.setText("Proximo");
-        proximoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                proximoButtonActionPerformed(evt);
+        tabelaSelecionadaColecao1 = new br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaSelecionadaColecao(){
+            @Override
+            protected void onItemDestacado(Livro item) {
+                onItemDestacadoLivros(item);
             }
-        });
-
-        voltarButton.setText("Voltar");
-        voltarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                voltarButtonActionPerformed(evt);
-            }
-        });
+        };
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,94 +114,43 @@ public class ListaLivros extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(tabelaColecao1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tabelaSelecionadaColecao1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(titulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(usuarioPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pesquisarLivrosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(pesquisaAvancadaLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(detalhesAutor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(capaLivro1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tabelaLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(sinopseLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(acoesLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(resumoEstendido, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                                        .addGap(12, 12, 12))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(143, 143, 143)
-                                        .addComponent(qntLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(voltarButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(proximoButton)))))))
-                .addGap(6, 6, 6))
+                        .addComponent(usuarioPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(306, 306, 306)
+                .addComponent(acoesColecao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(330, 330, 330))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pesquisarPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(titulo)
-                    .addComponent(usuarioPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pesquisarLivrosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usuarioPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(titulo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(pesquisarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(detalhesAutor1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tabelaLivros, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                            .addComponent(capaLivro1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(proximoButton)
-                                .addComponent(voltarButton)
-                                .addComponent(qntLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(acoesLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(sinopseLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                            .addComponent(resumoEstendido, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(9, 9, 9))
-                    .addComponent(pesquisaAvancadaLivros, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(tabelaSelecionadaColecao1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tabelaColecao1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(acoesColecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void proximoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoButtonActionPerformed
-        paginacao.proximaPagina();
-        tabelaLivros.setDados(paginacao.getPaginaAtual());
-        atualizarControlesDePaginacao();
-    }//GEN-LAST:event_proximoButtonActionPerformed
-
-    private void voltarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarButtonActionPerformed
-        paginacao.paginaAnterior();
-        tabelaLivros.setDados(paginacao.getPaginaAtual());
-        atualizarControlesDePaginacao();
-    }//GEN-LAST:event_voltarButtonActionPerformed
-
-    private void atualizarControlesDePaginacao() {
-        qntLabel.setText(paginacao.getNumeroPaginaAtual() + " de " + paginacao.getTotalPaginas());
-        proximoButton.setEnabled(paginacao.temProxima());
-        voltarButton.setEnabled(paginacao.temAnterior());
-    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -240,35 +166,29 @@ public class ListaLivros extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaColecao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaColecao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaColecao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaColecao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new ListaLivros().setVisible(true);
+            new ListaColecao().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private br.edu.ifpb.gestaobibliotecadigital.views.livros.AcoesLivro acoesLivro;
-    private br.edu.ifpb.gestaobibliotecadigital.views.livros.CapaLivro capaLivro1;
-    private br.edu.ifpb.gestaobibliotecadigital.views.livros.DetalhesAutor detalhesAutor1;
-    private br.edu.ifpb.gestaobibliotecadigital.views.livros.PesquisaAvancadaLivros pesquisaAvancadaLivros;
-    private br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel pesquisarLivrosPanel;
-    private javax.swing.JButton proximoButton;
-    private javax.swing.JLabel qntLabel;
-    private br.edu.ifpb.gestaobibliotecadigital.views.livros.ResumoEstendido resumoEstendido;
-    private br.edu.ifpb.gestaobibliotecadigital.views.livros.SinopseLivro sinopseLivro;
-    private br.edu.ifpb.gestaobibliotecadigital.views.livros.TabelaLivros tabelaLivros;
+    private br.edu.ifpb.gestaobibliotecadigital.views.colecoes.AcoesColecao acoesColecao;
+    private br.edu.ifpb.gestaobibliotecadigital.views.components.PesquisarPanel pesquisarPanel1;
+    private br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaColecao tabelaColecao1;
+    private br.edu.ifpb.gestaobibliotecadigital.views.colecoes.TabelaSelecionadaColecao tabelaSelecionadaColecao1;
     private javax.swing.JLabel titulo;
     private br.edu.ifpb.gestaobibliotecadigital.views.components.UsuarioPanel usuarioPanel1;
-    private javax.swing.JButton voltarButton;
     // End of variables declaration//GEN-END:variables
 }

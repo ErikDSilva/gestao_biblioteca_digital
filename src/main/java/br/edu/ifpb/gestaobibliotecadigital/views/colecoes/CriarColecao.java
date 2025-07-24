@@ -280,7 +280,10 @@ public class CriarColecao extends javax.swing.JDialog {
 
     private void salvarNomeColecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarNomeColecaoActionPerformed
         String nome = JOptionPane.showInputDialog(this, "Nome da colção:");
-        if (nome == null || nome.trim().isEmpty()) {
+        if (nome == null) {
+            return;
+        }
+        if (nome.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nome inválido ou cancelado.");
             return;
         }
@@ -289,7 +292,7 @@ public class CriarColecao extends javax.swing.JDialog {
             colecaoService.criarColecao(new Colecao(nome));
             JOptionPane.showMessageDialog(
                     this,
-                    "Livro adicionado com sucesso à coleção!",
+                    "Coleção salva com sucesso!",
                     "Coleção",
                     JOptionPane.INFORMATION_MESSAGE
             );
