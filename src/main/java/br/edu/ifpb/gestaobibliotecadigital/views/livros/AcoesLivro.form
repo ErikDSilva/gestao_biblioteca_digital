@@ -85,7 +85,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="editar.setEnabled(PermissaoProxy.podeEditarLivro());"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="editar.setEnabled(PermissaoProxy.podeEditarLivro());&#xa;editar.setEnabled(false);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="comentar">

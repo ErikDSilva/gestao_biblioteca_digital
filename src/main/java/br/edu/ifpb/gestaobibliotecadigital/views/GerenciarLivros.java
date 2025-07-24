@@ -3,7 +3,7 @@ package br.edu.ifpb.gestaobibliotecadigital.views;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Administrador;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.LeitorPremium;
 import br.edu.ifpb.gestaobibliotecadigital.session.UserSessionManager;
-import br.edu.ifpb.gestaobibliotecadigital.views.colecoes.ListaColecoes;
+import br.edu.ifpb.gestaobibliotecadigital.views.colecoes.ListaColecao;
 import br.edu.ifpb.gestaobibliotecadigital.views.livros.ListaLivros;
 
 public class GerenciarLivros extends javax.swing.JFrame {
@@ -122,10 +122,6 @@ public class GerenciarLivros extends javax.swing.JFrame {
         new ListaLivros().setVisible(true);
     }//GEN-LAST:event_visualizarLivrosActionPerformed
 
-    private void visualizarColecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarColecaoActionPerformed
-        new ListaColecoes().setVisible(true);
-    }//GEN-LAST:event_visualizarColecaoActionPerformed
-
     private void logarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logarAdminActionPerformed
         Administrador user = new Administrador("João", "00000000000000000000000000");
         UserSessionManager.getInstance().login(user);
@@ -142,6 +138,10 @@ public class GerenciarLivros extends javax.swing.JFrame {
         UserSessionManager.getInstance().login(user);
         usuarioPanel1.refresh();
     }//GEN-LAST:event_logarLeitorActionPerformed
+
+    private void visualizarColecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarColecaoActionPerformed
+        new ListaColecao().setVisible(true);
+    }//GEN-LAST:event_visualizarColecaoActionPerformed
 
     /**
      * @param args the command line arguments
