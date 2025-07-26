@@ -8,8 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import br.edu.ifpb.gestaobibliotecadigital.utils.Helpers;
-import java.util.concurrent.ExecutionException;
-import javax.swing.SwingWorker;
 
 public class CapaLivro extends javax.swing.JPanel {
 
@@ -37,10 +35,10 @@ public class CapaLivro extends javax.swing.JPanel {
         try {
             URL url = new URL(urlString);
             ImageIcon original = new ImageIcon(url);
-            Image capa = original.getImage().getScaledInstance(186, 200, Image.SCALE_SMOOTH);
+            Image capa = original.getImage().getScaledInstance(199, 231, Image.SCALE_SMOOTH);
             capaDoLivro.setIcon(new ImageIcon(capa));
             capaDoLivro.setText(null);
-            capaDoLivro.setToolTipText(urlString);
+            capaDoLivro.setToolTipText(livro.getTitulo());
         } catch (MalformedURLException e) {
             setCapaIndisponivel();
         }

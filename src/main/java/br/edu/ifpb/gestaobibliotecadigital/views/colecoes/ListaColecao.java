@@ -28,7 +28,7 @@ public class ListaColecao extends javax.swing.JFrame {
             this.colecao = null;
             this.livro = null;
 
-            tabelaSelecionadaColecao1.setDados(service.listarLivrosDeColecao(null));
+            tabelaSelecionadaColecao1.setDados(service.obterLivrosDaColecao(null));
 
             // Limpa ações
             acoesColecao.setColecao(null);
@@ -49,7 +49,7 @@ public class ListaColecao extends javax.swing.JFrame {
             this.colecao = null;
             this.livro = null;
 
-            tabelaSelecionadaColecao1.setDados(service.listarLivrosDeColecao(null));
+            tabelaSelecionadaColecao1.setDados(service.obterLivrosDaColecao(null));
 
             acoesColecao.setColecao(null);
             acoesColecao.setLivro(null);
@@ -62,7 +62,7 @@ public class ListaColecao extends javax.swing.JFrame {
      */
     private void onItemDestacadoColcoes(Colecao item) {
         this.colecao = item;
-        tabelaSelecionadaColecao1.setDados(service.listarLivrosDeColecao(item));
+        tabelaSelecionadaColecao1.setDados(service.obterLivrosDaColecao(item));
         acoesColecao.setColecao(colecao);
     }
 

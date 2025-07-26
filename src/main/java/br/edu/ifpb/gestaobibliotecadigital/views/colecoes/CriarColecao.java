@@ -267,7 +267,7 @@ public class CriarColecao extends javax.swing.JDialog {
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
 
         try {
-            colecaoService.adicionarLivroAColecao(colecao, livro);
+            colecaoService.adicionarLivroNaColecao(colecao, livro);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(
                     this,
@@ -289,7 +289,7 @@ public class CriarColecao extends javax.swing.JDialog {
         }
 
         try {
-            colecaoService.criarColecao(new Colecao(nome));
+            colecaoService.registrarNovaColecao(new Colecao(nome));
             JOptionPane.showMessageDialog(
                     this,
                     "Coleção salva com sucesso!",
