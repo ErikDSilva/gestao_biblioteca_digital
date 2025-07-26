@@ -30,17 +30,19 @@ public class CriarLivros extends javax.swing.JDialog {
         inputISBN.setText(livro.getISBN());
         inputISBN.setEditable(false);
         sinopseLivro.setText(livro.getSinopse());
-
-        if (livro instanceof LivroComResumoEstendido liroComResumo) {
-            resumoLivro.setText(liroComResumo.getResumoEstendido());
-        }
-
-        if (livro instanceof LivroComCapaAlternativa decoradoCapa) {
-            capaAlternativa.setText(decoradoCapa.getUrlCapa());
-        }
-
         anoPublicacaoComboBox.setSelectedItem(String.valueOf(livro.getAno()));
         categoriaComboBox.setSelectedItem(livro.getCategoria());
+
+        LivroComCapaAlternativa livroComCapa = Helpers.getLivroComDecorador(livro, LivroComCapaAlternativa.class);
+        LivroComResumoEstendido resumoEstendidoLivro = Helpers.getLivroComDecorador(livro, LivroComResumoEstendido.class);
+
+        capaAlternativa.setText(
+                livroComCapa != null ? livroComCapa.getUrlCapa() : " "
+        );
+        resumoLivro.setText(
+                resumoEstendidoLivro != null ? resumoEstendidoLivro.getResumoEstendido() : " "
+        );
+
     }
 
     @SuppressWarnings("unchecked")
