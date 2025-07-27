@@ -123,7 +123,7 @@ public class GerenciarLivros extends javax.swing.JFrame {
     }//GEN-LAST:event_visualizarLivrosActionPerformed
 
     private void logarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logarAdminActionPerformed
-        Administrador user = new Administrador("João", "00000000000000000000000000");
+        Administrador user = new Administrador("João", "00000000000000000000000000", "joaoAdm", "123");
         UserSessionManager.getInstance().login(user);
         usuarioPanel1.refresh();
     }//GEN-LAST:event_logarAdminActionPerformed
@@ -134,7 +134,7 @@ public class GerenciarLivros extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void logarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logarLeitorActionPerformed
-        LeitorPremium user = new LeitorPremium("João", "00000000000000000000000000");
+        LeitorPremium user = new LeitorPremium("João", "00000000000000000000000000", "joaoLP", "123");
         UserSessionManager.getInstance().login(user);
         usuarioPanel1.refresh();
     }//GEN-LAST:event_logarLeitorActionPerformed
