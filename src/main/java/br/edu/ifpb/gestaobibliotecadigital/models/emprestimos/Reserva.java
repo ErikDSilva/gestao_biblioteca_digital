@@ -1,18 +1,17 @@
 package br.edu.ifpb.gestaobibliotecadigital.models.emprestimos;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.Modelo;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.LivroSimples;
 import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
 import br.edu.ifpb.gestaobibliotecadigital.utils.DataProvider;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.UUID;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
-public class Reserva implements Serializable {
+public class Reserva extends Modelo {
 
-    private final UUID id;
     private final Usuario usuario;
     private final Livro livro;
     private final LocalDateTime dataReserva;
@@ -23,7 +22,7 @@ public class Reserva implements Serializable {
     private static int DIAS_EXPIRACAO = 30;
 
     public Reserva(Usuario usuario, Livro livro) {
-        this.id = UUID.randomUUID();
+        super();
         this.usuario = usuario;
         this.livro = livro;
         this.dataReserva = DataProvider.agora();
@@ -33,10 +32,6 @@ public class Reserva implements Serializable {
     }
 
     // Getters
-    public UUID getId() {
-        return id;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -146,7 +141,7 @@ public class Reserva implements Serializable {
 
         return ""
                 + "\n[Reserva \"" + id + "\"]"
-                + "\n* USUÁRIO: " + usuario/*.getNome()*/
+                + "\n* USUÁRIO: " + usuario.getNome()
                 + "\n* LIVRO: " + livro.getTitulo()
                 + "\n* DATA DE RESERVA: " + dataReservaStr
                 + "\n* DATA DE EXPIRAÇÃO: " + dataExpiracaoStr + " " + expiracaoStatus

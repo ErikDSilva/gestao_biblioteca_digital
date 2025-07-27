@@ -2,8 +2,8 @@ package br.edu.ifpb.gestaobibliotecadigital.repositories;
 
 import br.edu.ifpb.gestaobibliotecadigital.filters.EmprestimoFiltro;
 import br.edu.ifpb.gestaobibliotecadigital.models.emprestimos.Emprestimo;
-import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 import java.util.List;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
 
 public class EmprestimoRepository extends Repositorio<Emprestimo> {
 
@@ -24,7 +24,7 @@ public class EmprestimoRepository extends Repositorio<Emprestimo> {
         }
         return instance;
     }
-    
+
     public Emprestimo emprestimoLivro(Livro livro) {
         // Procura se há empréstimos com este livro que não foram devolvidos
         List<Emprestimo> emprestimoNaoDevolvido = new EmprestimoFiltro(itens)
@@ -37,5 +37,15 @@ public class EmprestimoRepository extends Repositorio<Emprestimo> {
 
         // Retorna o primeiro empréstimo, pois só pode haver um
         return emprestimoNaoDevolvido.get(0);
+    }
+
+    public List<Emprestimo> emprestimosLivro(Livro livro) {
+        // Procura os empréstimos com este livro
+        return new EmprestimoFiltro(itens).porLivro(livro).filtrar();
+    }
+
+    @Override
+    protected String getNome() {
+        return "Empréstimos";
     }
 }
