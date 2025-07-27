@@ -11,19 +11,19 @@ public class ColecaoController extends Controller {
     public void criar(Colecao colecao) {
         verificaUsuarioLogado();
         verificaAdministrador();
-        service.criarColecao(colecao);
+        service.registrarNovaColecao(colecao);
     }
 
     public void removerColecao(Colecao colecao) {
         verificaUsuarioLogado();
         verificaAdministrador();
-        service.remover(colecao);
+        service.excluirColecao(colecao);
     }
     
     public void removerLivroDaColecao(Colecao colecao, Livro livro){
         verificaUsuarioLogado();
         verificaAdministrador();
-        service.removerDaColecao(colecao, livro);
+        service.removerLivroDaColecao(colecao, livro);
     }
     
 }
