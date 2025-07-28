@@ -68,7 +68,7 @@ public class AcoesLivro extends javax.swing.JPanel {
         });
 
         editar.setText("Editar");
-        editar.setEnabled(PermissaoProxy.podeEditarLivro());
+        editar.setVisible(PermissaoProxy.podeEditarLivro());
         editar.setEnabled(false);
         editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
