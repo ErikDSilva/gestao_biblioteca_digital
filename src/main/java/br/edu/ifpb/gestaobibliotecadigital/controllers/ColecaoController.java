@@ -13,6 +13,12 @@ public class ColecaoController extends Controller {
         verificaAdministrador();
         service.registrarNovaColecao(colecao);
     }
+    
+    public void adicionarLivroNaColecao(Colecao colecao, Livro livro){
+        verificaUsuarioLogado();
+        verificaAdministrador();
+        service.adicionarLivroNaColecao(colecao, livro);
+    }
 
     public void removerColecao(Colecao colecao) {
         verificaUsuarioLogado();
