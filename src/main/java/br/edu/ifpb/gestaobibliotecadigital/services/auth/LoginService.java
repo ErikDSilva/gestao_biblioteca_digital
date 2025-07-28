@@ -1,12 +1,12 @@
 package br.edu.ifpb.gestaobibliotecadigital.services.auth;
 
-import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
-import br.edu.ifpb.gestaobibliotecadigital.repositories.UsuarioRepository;
-
 import java.util.List;
 
+import br.edu.ifpb.gestaobibliotecadigital.models.usuarios.Usuario;
+import br.edu.ifpb.gestaobibliotecadigital.repositories.UsuarioRepository;
+import br.edu.ifpb.gestaobibliotecadigital.session.UserSessionManager;
+
 public class LoginService {
-    private static Usuario usuarioLogado = null;
 
     public static boolean login(String username, String senha) {
         UsuarioRepository repo = UsuarioRepository.getInstance();
@@ -14,7 +14,7 @@ public class LoginService {
 
         for (Usuario u : usuarios) {
             if (u.getUsername().equals(username) && u.getSenha().equals(senha)) {
-                usuarioLogado = u;
+                UserSessionManager.getInstance().login(u); 
                 return true;
             }
         }
@@ -22,14 +22,16 @@ public class LoginService {
     }
 
     public static void logout() {
-        usuarioLogado = null;
+        UserSessionManager.getInstance().logout();
     }
 
     public static Usuario getUsuarioLogado() {
-        return usuarioLogado;
+        return UserSessionManager.getInstance().getUsuarioLogado();
     }
 
     public static boolean isAdministrador() {
-        return usuarioLogado != null && usuarioLogado.getTipo().equalsIgnoreCase("Administrador");
+        Usuario u = UserSessionManager.getInstance().getUsuarioLogado();
+        return u != null && u.getTipo().equalsIgnoreCase("Administrador");
     }
 }
+
