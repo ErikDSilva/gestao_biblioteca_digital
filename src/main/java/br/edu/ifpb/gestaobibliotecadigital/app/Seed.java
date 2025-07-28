@@ -756,18 +756,18 @@ public class Seed {
         ////////////////////////////////////////////////////////////////////////
         System.out.println("[SEED] Criando usuários...");
 
-        Administrador adminCarlos = new Administrador("Carlos Silva", UUID.randomUUID().toString());
-        Administrador adminFernanda = new Administrador("Fernanda Souza", UUID.randomUUID().toString());
+        Administrador adminCarlos = new Administrador("Carlos Silva", UUID.randomUUID().toString(), "carlosS", "123");
+        Administrador adminFernanda = new Administrador("Fernanda Souza", UUID.randomUUID().toString(), "fernandaS", "123");
 
-        LeitorComum leitorJoao = new LeitorComum("João Pereira", UUID.randomUUID().toString());
-        LeitorComum leitorMariana = new LeitorComum("Mariana Lima", UUID.randomUUID().toString());
-        LeitorComum leitorLucas = new LeitorComum("Lucas Oliveira", UUID.randomUUID().toString());
-        LeitorComum leitorBianca = new LeitorComum("Bianca Martins", UUID.randomUUID().toString());
-        LeitorComum leitorFelipe = new LeitorComum("Felipe Andrade", UUID.randomUUID().toString());
+        LeitorComum leitorJoao = new LeitorComum("João Pereira", UUID.randomUUID().toString(), "joaoP", "123");
+        LeitorComum leitorMariana = new LeitorComum("Mariana Lima", UUID.randomUUID().toString(), "marianaL", "123");
+        LeitorComum leitorLucas = new LeitorComum("Lucas Oliveira", UUID.randomUUID().toString(), "lucasO", "123");
+        LeitorComum leitorBianca = new LeitorComum("Bianca Martins", UUID.randomUUID().toString(), "biancaM", "123");
+        LeitorComum leitorFelipe = new LeitorComum("Felipe Andrade", UUID.randomUUID().toString(), "felipeA", "123");
 
-        LeitorPremium leitorAna = new LeitorPremium("Ana Costa", UUID.randomUUID().toString());
-        LeitorPremium leitorRafael = new LeitorPremium("Rafael Mendes", UUID.randomUUID().toString());
-        LeitorPremium leitorJuliana = new LeitorPremium("Juliana Rocha", UUID.randomUUID().toString());
+        LeitorPremium leitorAna = new LeitorPremium("Ana Costa", UUID.randomUUID().toString(), "anaC", "123");
+        LeitorPremium leitorRafael = new LeitorPremium("Rafael Mendes", UUID.randomUUID().toString(), "rafaelM", "123");
+        LeitorPremium leitorJuliana = new LeitorPremium("Juliana Rocha", UUID.randomUUID().toString(), "julianaR", "123");
 
         usuarioRepository.adicionar(adminCarlos);
         usuarioRepository.adicionar(adminFernanda);

@@ -43,7 +43,7 @@ public class MainEquipe3 {
     }
 
     private static void testarEmprestimos() {
-        Usuario usuario = new Administrador("José", "00000000000000000000000000");
+        Usuario usuario = new Administrador("José", "00000000000000000000000000", "joseAdm", "123");
         Livro livro = new LivroSimples.Builder("978-8576832768")
                 .setTitulo("Diário de um Banana 5: A verdade nua e crua")
                 .setAutor("Jeff Kinney")
@@ -104,7 +104,7 @@ public class MainEquipe3 {
     }
 
     private static void testarReservas() {
-        Usuario usuario = new Administrador("José", "00000000000000000000000000");
+        Usuario usuario = new Administrador("José", "00000000000000000000000000", "joseAdm", "123");
         Livro livro = new LivroSimples.Builder("978-8595084759")
                 .setTitulo("O Senhor dos Anéis: A Sociedade do Anel")
                 .setAutor("J.R.R. Tolkien")
@@ -129,7 +129,7 @@ public class MainEquipe3 {
         EmprestimoRepository repo = EmprestimoRepository.getInstance();
         System.out.println(repo.listar());
 
-        Usuario usuario = new Administrador("José", "00000000000000000000000000");
+        Usuario usuario = new Administrador("José", "00000000000000000000000000", "joseAdm", "123");
         Livro viagemCentroTerra = new LivroSimples.Builder("978-8595201736")
                 .setTitulo("Viagem ao Centro da Terra")
                 .setAutor("Júlio Verne")
@@ -147,7 +147,7 @@ public class MainEquipe3 {
     }
 
     private static void testarFiltros() {
-        Usuario usuario = new Administrador("José", "00000000000000000000000000");
+        Usuario usuario = new Administrador("José", "00000000000000000000000000", "joseAdm", "123");
         Livro viagemCentroTerra = new LivroSimples.Builder("978-8595201736")
                 .setTitulo("Viagem ao Centro da Terra")
                 .setAutor("Júlio Verne")
@@ -186,7 +186,7 @@ public class MainEquipe3 {
     }
 
     private static void testarService() {
-        Usuario usuario = new Administrador("José", "00000000000000000000000000");
+        Usuario usuario = new Administrador("José", "00000000000000000000000000", "joseAdm", "123");
         Livro viagemCentroTerra = new LivroSimples.Builder("978-8595201736")
                 .setTitulo("Viagem ao Centro da Terra")
                 .setAutor("Júlio Verne")
@@ -229,8 +229,8 @@ public class MainEquipe3 {
     }
 
     private static void testarNotificacao() {
-        Usuario jose = new LeitorComum("José", "00000000000000000000000000");
-        Usuario ana = new LeitorPremium("Ana", "00000000000000000000000001");
+        Usuario jose = new LeitorComum("José", "00000000000000000000000000", "joseLC", "123");
+        Usuario ana = new LeitorPremium("Ana", "00000000000000000000000001", "anaLP", "123");
         Livro viagemCentroTerra = new LivroSimples.Builder("978-8595201736")
                 .setTitulo("Viagem ao Centro da Terra")
                 .setAutor("Júlio Verne")

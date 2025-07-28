@@ -160,7 +160,7 @@ public class Testes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Administrador user = new Administrador("José", "00000000000000000000000000");
+        Administrador user = new Administrador("José", "00000000000000000000000000", "joseAdm", "123");
         UserSessionManager.getInstance().login(user);
         usuarioPanel1.refresh();
     }//GEN-LAST:event_jButton3ActionPerformed
