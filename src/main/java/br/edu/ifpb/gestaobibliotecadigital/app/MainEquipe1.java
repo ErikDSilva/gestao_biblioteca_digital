@@ -2,10 +2,20 @@ package br.edu.ifpb.gestaobibliotecadigital.app;
 
 import br.edu.ifpb.gestaobibliotecadigital.services.auth.CadastroService;
 import br.edu.ifpb.gestaobibliotecadigital.services.auth.LoginService;
+import br.edu.ifpb.gestaobibliotecadigital.views.usuarios.LoginView;
 import java.util.Scanner;
 
 public class MainEquipe1 {
     public static void main(String[] args) {
+        
+        LoginView login = new LoginView();
+        login.setVisible(true);
+        
+        
+//        chamarTeste();
+    }
+    
+    private static void chamarTeste() {
         Scanner scanner = new Scanner(System.in);
         boolean executando = true;
 
