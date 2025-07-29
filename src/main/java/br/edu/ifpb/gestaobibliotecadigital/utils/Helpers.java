@@ -1,5 +1,7 @@
 package br.edu.ifpb.gestaobibliotecadigital.utils;
 
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.Livro;
+import br.edu.ifpb.gestaobibliotecadigital.models.livros.decorators.LivroDecorator;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -28,7 +30,6 @@ public class Helpers {
      * Array constante com categorias de livro utilizadas para classificação.
      */
     public static final String[] CATEGORIAS = {
-        "Selecione...",
         "Romance",
         "Ficção Científica",
         "Fantasia",
@@ -44,15 +45,45 @@ public class Helpers {
         "Ciência",};
 
     /**
+     * Retorna as categorias com ou sem o placeholder.
+     *
+     * @param incluirPlaceholder se true, inclui "Selecione uma categoria" no
+     * início
+     * @return array de categorias
+     */
+    public static String[] getCategorias(boolean incluirPlaceholder) {
+        if (incluirPlaceholder) {
+            String[] resultado = new String[CATEGORIAS.length + 1];
+            resultado[0] = "Selecione uma categoria";
+            System.arraycopy(CATEGORIAS, 0, resultado, 1, CATEGORIAS.length);
+            return resultado;
+        }
+        return CATEGORIAS.clone();
+    }
+
+    public static <T extends Livro> T getLivroComDecorador(Livro livro, Class<T> tipo) {
+        while (livro instanceof LivroDecorator decorator) {
+            if (tipo.isInstance(livro)) {
+                return tipo.cast(livro);
+            }
+            livro = decorator.getLivro();
+        }
+        return null;
+    }
+
+    /**
      * Gera uma lista de anos, iniciando em 1980 até o ano atual.
      *
+     * @param incluirPlaceholder
      * @return Um array de Strings contendo os anos disponíveis.
      */
-    public static String[] getAnos() {
-        int anoAtual = Year.now().getValue();
+    public static String[] getAnos(boolean incluirPlaceholder) {
         List<String> anos = new ArrayList<>();
-        anos.add("Selecione um ano");
-        for (int i = 1980; i <= anoAtual; i++) {
+        int anoAtual = Year.now().getValue();
+        if (incluirPlaceholder) {
+            anos.add("Selecione um ano");
+        }
+        for (int i = anoAtual; i >= 1900; i--) {
             anos.add(String.valueOf(i));
         }
         return anos.toArray(String[]::new);
