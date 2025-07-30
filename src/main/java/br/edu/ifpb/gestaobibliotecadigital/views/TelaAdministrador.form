@@ -28,21 +28,24 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton2" alignment="0" pref="192" max="32767" attributes="0"/>
+                          <Component id="jButton2" alignment="0" pref="195" max="32767" attributes="0"/>
                           <Component id="visualizarLivros" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="visualizarColecao" pref="193" max="32767" attributes="0"/>
+                          <Component id="visualizarColecao" pref="196" max="32767" attributes="0"/>
                           <Component id="jButton5" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="relatoriosText" pref="199" max="32767" attributes="0"/>
+                          <Component id="jButton7" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="relatoriosText" pref="196" max="32767" attributes="0"/>
+                          <Component id="jButton1" pref="218" max="32767" attributes="0"/>
                           <Component id="jButton6" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" pref="215" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -80,6 +83,7 @@
                   <Component id="jButton2" alignment="3" min="-2" pref="105" max="-2" attributes="0"/>
                   <Component id="jButton5" alignment="3" min="-2" pref="105" max="-2" attributes="0"/>
                   <Component id="jButton6" alignment="3" min="-2" pref="105" max="-2" attributes="0"/>
+                  <Component id="jButton7" alignment="3" min="-2" pref="105" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="85" max="32767" attributes="0"/>
           </Group>
@@ -145,7 +149,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Adicionar Reserva"/>
+        <Property name="text" type="java.lang.String" value="Listar Usuarios"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
@@ -160,6 +164,14 @@
       </Events>
     </Component>
     <Component class="br.edu.ifpb.gestaobibliotecadigital.views.components.UsuarioPanel" name="usuarioPanel1">
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Adicionar Reserva"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
